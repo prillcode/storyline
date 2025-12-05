@@ -32,35 +32,60 @@ Each step produces structured markdown files that feed into the next stage, crea
 
 ## Installation
 
-### Quick Install
+### Option 1: One-Line Remote Install (Recommended)
 
 ```bash
-git clone https://github.com/prillcode/storyline.git
+curl -fsSL https://raw.githubusercontent.com/prillcode/storyline/main/remote-install.sh | bash
+```
+
+This will:
+1. Clone Storyline with all dependencies (using git submodules)
+2. Install everything to `~/.local/share/storyline`
+3. Copy skills and commands to `~/.claude/`
+
+### Option 2: Clone and Install
+
+```bash
+git clone --recurse-submodules https://github.com/prillcode/storyline.git
 cd storyline
 chmod +x install.sh
 ./install.sh
 ```
 
-The installer will:
-1. Check for dependencies (taches-cc-resources)
-2. Offer to install dependencies if missing
-3. Copy skills and commands to `~/.claude/`
+The `--recurse-submodules` flag automatically includes the cc-resources dependency.
 
-### Manual Install
+If you forget the flag, the installer will offer to initialize submodules for you.
+
+### Option 3: Manual Install
 
 ```bash
-# Install skills and commands from prillcode/cc-resources first (required dependency)
-git clone https://github.com/prillcode/cc-resources.git
-cd cc-resources
-cp -r skills/* ~/.claude/skills/
-cp -r commands/* ~/.claude/commands/
-cd ..
-
-# Install storyline
-git clone https://github.com/prillcode/storyline.git
+# Clone with dependencies
+git clone --recurse-submodules https://github.com/prillcode/storyline.git
 cd storyline
+
+# Manually copy files
+cp -r dependencies/cc-resources/skills/* ~/.claude/skills/
+cp -r dependencies/cc-resources/commands/* ~/.claude/commands/
+cp -r dependencies/cc-resources/agents/* ~/.claude/agents/
 cp -r skills/* ~/.claude/skills/
 cp -r commands/* ~/.claude/commands/
+```
+
+### Updating Storyline
+
+To update to the latest version:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/prillcode/storyline/main/remote-install.sh | bash
+```
+
+Or if you cloned manually:
+
+```bash
+cd storyline
+git pull origin main
+git submodule update --init --recursive
+./install.sh
 ```
 
 ### Verify Installation

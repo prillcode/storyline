@@ -34,9 +34,14 @@ git remote add origin https://github.com/YOUR_USERNAME/storyline.git
 # Rename branch to main (if you prefer main over master)
 git branch -M main
 
-# Push to GitHub
+# Push to GitHub (including submodules)
 git push -u origin main
+
+# Push submodule references
+git submodule update --init --recursive
 ```
+
+**Note:** The git submodule (dependencies/cc-resources) is tracked via `.gitmodules` and will be automatically cloned when users use `git clone --recurse-submodules`.
 
 ## Step 3: Verify on GitHub
 
@@ -84,16 +89,26 @@ Then on GitHub:
 
 ## Step 5: Test Installation (Optional)
 
-Test that users can install your CLI:
+Test that users can install your CLI using the different installation methods:
 
+### Test Method 1: Remote Install
+```bash
+curl -fsSL https://raw.githubusercontent.com/YOUR_USERNAME/storyline/main/remote-install.sh | bash
+```
+
+### Test Method 2: Clone and Install
 ```bash
 # In a different directory
 cd /tmp
-git clone https://github.com/YOUR_USERNAME/storyline.git
+git clone --recurse-submodules https://github.com/YOUR_USERNAME/storyline.git
 cd storyline
 ./install.sh
+```
 
+### Verify Installation
+```bash
 # Start new Claude Code session and test
+/epic-creator --help
 /epic-creator examples/sample-workflow/PRD.md
 ```
 

@@ -11,53 +11,70 @@ echo ""
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 RED='\033[0;31m'
+BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
 # Create .claude directories if they don't exist
 mkdir -p ~/.claude/skills
 mkdir -p ~/.claude/commands
+mkdir -p ~/.claude/agents
 
-# Check for cc-resources dependency
-echo "Checking dependencies..."
-if [ ! -d "$HOME/.claude/skills/create-plans" ]; then
-  echo -e "${YELLOW}⚠️  Storyline requires prillcode/cc-resources${NC}"
+# Determine installation source
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+DEPENDENCY_DIR="$SCRIPT_DIR/dependencies/cc-resources"
+
+# Check if we have the dependency available locally (submodule)
+if [ -d "$DEPENDENCY_DIR/skills" ]; then
+  echo -e "${BLUE}📦 Installing from local repository with submodules...${NC}"
+
+  # Install cc-resources from submodule
+  echo "Installing cc-resources dependencies..."
+  cp -r "$DEPENDENCY_DIR/skills"/* ~/.claude/skills/ 2>/dev/null || true
+  cp -r "$DEPENDENCY_DIR/commands"/* ~/.claude/commands/ 2>/dev/null || true
+  cp -r "$DEPENDENCY_DIR/agents"/* ~/.claude/agents/ 2>/dev/null || true
+
+  echo -e "${GREEN}✅ cc-resources installed${NC}"
+else
+  echo -e "${YELLOW}⚠️  Dependency submodule not found${NC}"
   echo ""
-  echo "Storyline builds on the cc-resources framework."
-  echo "Would you like to install it now? (y/n)"
+  echo "It looks like the cc-resources submodule wasn't initialized."
+  echo "This usually happens when you clone without --recurse-submodules."
+  echo ""
+  echo "Would you like to initialize it now? (y/n)"
   read -r response
 
   if [[ "$response" =~ ^([yY][eE][sS]|[yY])$ ]]; then
-    echo "Installing prillcode/cc-resources..."
+    echo "Initializing submodules..."
+    cd "$SCRIPT_DIR"
+    git submodule update --init --recursive
 
-    # Clone to temp directory
-    TEMP_DIR=$(mktemp -d)
-    git clone https://github.com/prillcode/cc-resources.git "$TEMP_DIR" 2>/dev/null || {
-      echo -e "${RED}Failed to clone cc-resources${NC}"
+    if [ -d "$DEPENDENCY_DIR/skills" ]; then
+      echo "Installing cc-resources dependencies..."
+      cp -r "$DEPENDENCY_DIR/skills"/* ~/.claude/skills/ 2>/dev/null || true
+      cp -r "$DEPENDENCY_DIR/commands"/* ~/.claude/commands/ 2>/dev/null || true
+      cp -r "$DEPENDENCY_DIR/agents"/* ~/.claude/agents/ 2>/dev/null || true
+      echo -e "${GREEN}✅ cc-resources installed${NC}"
+    else
+      echo -e "${RED}Failed to initialize submodules${NC}"
       exit 1
-    }
-
-    # Install cc-resources skills and commands
-    cp -r "$TEMP_DIR/skills"/* ~/.claude/skills/ 2>/dev/null || true
-    cp -r "$TEMP_DIR/commands"/* ~/.claude/commands/ 2>/dev/null || true
-    cp -r "$TEMP_DIR/agents" ~/.claude/ 2>/dev/null || true
-
-    # Cleanup
-    rm -rf "$TEMP_DIR"
-
-    echo -e "${GREEN}✅ prillcode/cc-resources installed${NC}"
+    fi
   else
-    echo -e "${RED}Installation cancelled. Install prillcode/cc-resources repo first.${NC}"
+    echo -e "${RED}Installation cancelled.${NC}"
+    echo ""
+    echo "To install manually, run:"
+    echo "  git submodule update --init --recursive"
+    echo "  ./install.sh"
     exit 1
   fi
 fi
 
 # Install storyline skills
 echo "Installing Storyline skills..."
-cp -r skills/* ~/.claude/skills/
+cp -r "$SCRIPT_DIR/skills"/* ~/.claude/skills/
 
 # Install storyline commands
 echo "Installing Storyline commands..."
-cp -r commands/* ~/.claude/commands/
+cp -r "$SCRIPT_DIR/commands"/* ~/.claude/commands/
 
 echo ""
 echo -e "${GREEN}✅ Storyline installed successfully!${NC}"
