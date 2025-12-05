@@ -69,4 +69,4 @@ Target: Ship v1.0 in 2-3 weeks
 
 ---
 
-**Next step:** Run `/epic-creator examples/sample-workflow/PRD.md`
+**Next step:** Run `/sl-epic-creator examples/sample-workflow/PRD.md`

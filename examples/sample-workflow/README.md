@@ -8,22 +8,22 @@ This directory contains a complete example of the Storyline workflow, demonstrat
 The original product requirements document describing a simple task management application.
 
 ### 2. epics/epic-001-authentication.md
-An epic generated from the PRD using `/epic-creator PRD.md`
+An epic generated from the PRD using `/sl-epic-creator PRD.md`
 
 Shows how PRD features are broken into epic-level themes.
 
 ### 3. stories/story-001-user-signup.md
-A user story generated from the epic using `/story-creator epics/epic-001-authentication.md`
+A user story generated from the epic using `/sl-story-creator epics/epic-001-authentication.md`
 
 Demonstrates INVEST criteria and acceptance criteria format.
 
 ### 4. specs/spec-001-user-signup.md
-A technical specification generated from the story using `/spec-story stories/story-001-user-signup.md`
+A technical specification generated from the story using `/sl-spec-story stories/story-001-user-signup.md`
 
 Shows detailed implementation plan ready for execution.
 
 ### 5. Next Step: Implementation
-Run `/dev-story specs/spec-001-user-signup.md` to:
+Run `/sl-dev-story specs/spec-001-user-signup.md` to:
 - Convert spec to PLAN.md
 - Execute implementation using create-plans
 - Generate working code
@@ -33,13 +33,13 @@ Run `/dev-story specs/spec-001-user-signup.md` to:
 
 ```
 PRD.md
-  ↓ /epic-creator
+  ↓ /sl-epic-creator
 epics/epic-001-authentication.md
-  ↓ /story-creator
+  ↓ /sl-story-creator
 stories/story-001-user-signup.md
-  ↓ /spec-story
+  ↓ /sl-spec-story
 specs/spec-001-user-signup.md
-  ↓ /dev-story
+  ↓ /sl-dev-story
 .planning/story-001/PLAN.md → Code → SUMMARY.md
 ```
 

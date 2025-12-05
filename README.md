@@ -1,6 +1,6 @@
 # Storyline
 
-**Story-driven development workflow for Claude Code**
+**The sl-commands for story-led development**
 
 Transform PRDs and technical specs into working code through a structured pipeline: **Epic → Story → Spec → Implementation**
 
@@ -92,7 +92,7 @@ git submodule update --init --recursive
 
 Start a new Claude Code session and try:
 ```
-/epic-creator --help
+/sl-epic-creator --help
 ```
 
 ## Quick Start
@@ -115,7 +115,7 @@ Build a simple task management application...
 ### 2. Generate Epics
 
 ```bash
-/epic-creator docs/PRD.md
+/sl-epic-creator docs/PRD.md
 ```
 
 Creates:
@@ -129,7 +129,7 @@ Creates:
 ### 3. Create Stories from Epic
 
 ```bash
-/story-creator .workflow/epics/epic-001-authentication.md
+/sl-story-creator .workflow/epics/epic-001-authentication.md
 ```
 
 Creates:
@@ -143,7 +143,7 @@ Creates:
 ### 4. Generate Technical Spec
 
 ```bash
-/spec-story .workflow/stories/story-001-user-signup.md
+/sl-spec-story .workflow/stories/story-001-user-signup.md
 ```
 
 Creates:
@@ -154,7 +154,7 @@ Creates:
 ### 5. Implement the Code
 
 ```bash
-/dev-story .workflow/specs/spec-001-user-signup.md
+/sl-dev-story .workflow/specs/spec-001-user-signup.md
 ```
 
 This uses the underlying `create-plans` skill to:
@@ -193,7 +193,7 @@ my-project/
 
 ## Commands Reference
 
-### `/epic-creator <prd-file>`
+### `/sl-epic-creator <prd-file>`
 
 Parse a PRD or technical spec into one or more epics.
 
@@ -204,7 +204,7 @@ Parse a PRD or technical spec into one or more epics.
 - Single epic mode (small features)
 - Multi-epic mode (large projects)
 
-### `/story-creator <epic-file>`
+### `/sl-story-creator <epic-file>`
 
 Generate user stories from an epic.
 
@@ -216,7 +216,7 @@ Generate user stories from an epic.
 - Ensures INVEST criteria
 - Links back to parent epic
 
-### `/spec-story <story-file>`
+### `/sl-spec-story <story-file>`
 
 Create technical specification from a user story.
 
@@ -229,7 +229,7 @@ Create technical specification from a user story.
 - Testing requirements
 - Acceptance criteria
 
-### `/dev-story <spec-file>`
+### `/sl-dev-story <spec-file>`
 
 Execute the technical spec and implement the code.
 

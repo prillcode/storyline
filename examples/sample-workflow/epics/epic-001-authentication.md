@@ -120,4 +120,4 @@ This epic handles user identity only. Task access control (ensuring users only s
 
 ---
 
-**Next step:** Run `/story-creator examples/sample-workflow/epics/epic-001-authentication.md`
+**Next step:** Run `/sl-story-creator examples/sample-workflow/epics/epic-001-authentication.md`

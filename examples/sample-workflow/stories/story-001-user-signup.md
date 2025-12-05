@@ -116,4 +116,4 @@ Consider adding rate limiting to prevent signup spam in future iteration.
 
 ---
 
-**Next step:** Run `/spec-story examples/sample-workflow/stories/story-001-user-signup.md`
+**Next step:** Run `/sl-spec-story examples/sample-workflow/stories/story-001-user-signup.md`

@@ -369,4 +369,4 @@ After implementation, verify:
 
 ---
 
-**Next step:** Run `/dev-story examples/sample-workflow/specs/spec-001-user-signup.md`
+**Next step:** Run `/sl-dev-story examples/sample-workflow/specs/spec-001-user-signup.md`

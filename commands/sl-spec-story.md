@@ -1,7 +1,7 @@
 ---
 description: Create technical specification from user story
-allowed-tools: Skill(spec-story)
+allowed-tools: Skill(storyline-spec-story)
 argument-hint: <path-to-story.md>
 ---
 
-Invoke the spec-story skill for: $ARGUMENTS
+Invoke the storyline-spec-story skill for: $ARGUMENTS

@@ -1,7 +1,7 @@
 ---
 description: Parse PRDs and technical specs into manageable epics
-allowed-tools: Skill(epic-creator)
+allowed-tools: Skill(storyline-epic-creator)
 argument-hint: <path-to-PRD.md>
 ---
 
-Invoke the epic-creator skill for: $ARGUMENTS
+Invoke the storyline-epic-creator skill for: $ARGUMENTS

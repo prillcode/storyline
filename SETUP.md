@@ -108,8 +108,8 @@ cd storyline
 ### Verify Installation
 ```bash
 # Start new Claude Code session and test
-/epic-creator --help
-/epic-creator examples/sample-workflow/PRD.md
+/sl-epic-creator --help
+/sl-epic-creator examples/sample-workflow/PRD.md
 ```
 
 ## Step 6: Share Your Project
