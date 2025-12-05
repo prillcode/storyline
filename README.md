@@ -49,9 +49,9 @@ The installer will:
 ### Manual Install
 
 ```bash
-# Install taches-cc-resources first (required dependency)
-git clone https://github.com/glittercowboy/taches-cc-resources.git
-cd taches-cc-resources
+# Install skills and commands from prillcode/cc-resources first (required dependency)
+git clone https://github.com/prillcode/cc-resources.git
+cd cc-resources
 cp -r skills/* ~/.claude/skills/
 cp -r commands/* ~/.claude/commands/
 cd ..
@@ -230,7 +230,7 @@ See `examples/sample-workflow/` for a complete example with:
 
 ## Dependencies
 
-Storyline is built on top of [taches-cc-resources](https://github.com/glittercowboy/taches-cc-resources) by glittercowboy.
+Storyline is built on top of claude skills and commands available in the [prillcode/cc-resources repo](https://github.com/prillcode/cc-resources) - a fork of [taches-cc-resources](https://github.com/glittercowboy/taches-cc-resources) by glittercowboy.
 
 **Required skills from taches:**
 - `create-plans` - Hierarchical project planning and execution

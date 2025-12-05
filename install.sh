@@ -17,26 +17,26 @@ NC='\033[0m' # No Color
 mkdir -p ~/.claude/skills
 mkdir -p ~/.claude/commands
 
-# Check for taches-cc-resources dependency
+# Check for cc-resources dependency
 echo "Checking dependencies..."
 if [ ! -d "$HOME/.claude/skills/create-plans" ]; then
-  echo -e "${YELLOW}⚠️  Storyline requires taches-cc-resources${NC}"
+  echo -e "${YELLOW}⚠️  Storyline requires prillcode/cc-resources${NC}"
   echo ""
-  echo "Storyline builds on the taches-cc-resources framework."
+  echo "Storyline builds on the cc-resources framework."
   echo "Would you like to install it now? (y/n)"
   read -r response
 
   if [[ "$response" =~ ^([yY][eE][sS]|[yY])$ ]]; then
-    echo "Installing taches-cc-resources..."
+    echo "Installing prillcode/cc-resources..."
 
     # Clone to temp directory
     TEMP_DIR=$(mktemp -d)
-    git clone https://github.com/glittercowboy/taches-cc-resources.git "$TEMP_DIR" 2>/dev/null || {
-      echo -e "${RED}Failed to clone taches-cc-resources${NC}"
+    git clone https://github.com/prillcode/cc-resources.git "$TEMP_DIR" 2>/dev/null || {
+      echo -e "${RED}Failed to clone cc-resources${NC}"
       exit 1
     }
 
-    # Install taches skills and commands
+    # Install cc-resources skills and commands
     cp -r "$TEMP_DIR/skills"/* ~/.claude/skills/ 2>/dev/null || true
     cp -r "$TEMP_DIR/commands"/* ~/.claude/commands/ 2>/dev/null || true
     cp -r "$TEMP_DIR/agents" ~/.claude/ 2>/dev/null || true
@@ -44,9 +44,9 @@ if [ ! -d "$HOME/.claude/skills/create-plans" ]; then
     # Cleanup
     rm -rf "$TEMP_DIR"
 
-    echo -e "${GREEN}✅ taches-cc-resources installed${NC}"
+    echo -e "${GREEN}✅ prillcode/cc-resources installed${NC}"
   else
-    echo -e "${RED}Installation cancelled. Install taches-cc-resources first.${NC}"
+    echo -e "${RED}Installation cancelled. Install prillcode/cc-resources repo first.${NC}"
     exit 1
   fi
 fi
