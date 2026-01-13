@@ -15,8 +15,12 @@ Storyline is a CLI toolkit for Claude Code that implements a complete story-driv
 ```
 PRD/Tech Spec → Epics → User Stories → Technical Specs → Implementation
      ↓            ↓         ↓              ↓                ↓
-[epic-creator] [story] [spec-story]  [develop]      [create-plans]
+[epic-creator] [story] [spec-story]  [develop] → [create-plans] → Code
+                                                      ↓
+                                              Plan → Execute*
 ```
+
+_*Development happens automatically (edit mode: auto) or with approval (edit mode: manual)_
 
 Each step produces structured markdown files that feed into the next stage, creating full traceability from original requirements to shipped code.
 
@@ -27,8 +31,19 @@ Each step produces structured markdown files that feed into the next stage, crea
 - **🔧 Spec Creation** - Transform stories into technical specifications
 - **⚡ Auto Implementation** - Execute specs using Claude's autonomous planning system
 - **🔗 Full Traceability** - Track from requirement → epic → story → spec → code
-- **📦 Git Integration** - Automatic commits with proper attribution
+- **📦 Git Integration** - Conventional commits with semantic versioning (auto-created, never auto-pushed)
 - **🎯 Quality Control** - Built-in validation at each stage
+
+## What's New in v2.1.2
+
+**🔧 Enhanced Commit Management:**
+
+- **📝 New `/sl-commit` Command** - Intelligent git commit message generation using conventional commit standards
+- **🎯 Semantic Commit Format** - Automatic prefix selection (feat:/fix:/chore:) based on change analysis
+- **📊 Better Commit Quality** - 50-char summaries, detailed descriptions, consistent formatting
+- **🔒 Safe Workflow** - Commits created automatically but **never auto-pushed** - you control when to push
+- **🛠️ Standalone Usage** - Use `/sl-commit` for any repository changes, not just Storyline work
+- **🤖 Auto-Integration** - `/sl-develop` automatically creates commits using the new system
 
 ## What's New in v2.1
 
@@ -325,8 +340,31 @@ Execute the technical spec and implement the code.
 2. Invokes `create-plans` for execution
 3. Breaks work into atomic tasks (2-3 per plan)
 4. Executes with quality controls
-5. Creates git commits
+5. Creates git commits automatically using `/sl-commit`
 6. Generates summary linking back to story
+
+### `/sl-commit [message]`
+
+Create a git commit with conventional commit message format.
+
+**New in v2.1.2:** Intelligent commit message generation following conventional commit standards.
+
+**Features:**
+- Analyzes git diff to understand changes
+- Generates semantic commit messages (feat:/fix:/chore:)
+- 50-character summary limit
+- Detailed bulleted descriptions
+- Maintains project commit style consistency
+- **Never auto-pushes** - only notifies when commits are ready to push
+
+**Usage:**
+- `/sl-commit` - Analyzes changes and creates commit automatically
+- `/sl-commit "Custom message"` - Create commit with custom message
+- Can be used for any repository changes, not just Storyline work
+
+**Automatic Integration:**
+- Invoked automatically by `/sl-develop` after implementation
+- Can also be used standalone for manual commits
 
 ## Example Workflow
 
