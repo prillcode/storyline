@@ -123,7 +123,7 @@ This will:
 2. Install everything to `~/.local/share/storyline`
 3. Copy skills and commands to `~/.claude/`
 
-### Manual Installation
+### Manual Installation (Linux/macOS/WSL)
 
 If you prefer to clone and install manually:
 
@@ -135,6 +135,38 @@ chmod +x install.sh
 ```
 
 The `--recurse-submodules` flag automatically includes the cc-resources dependency. If you forget the flag, the installer will offer to initialize submodules for you.
+
+### Advanced: Windows Native (Manual File Copy)
+
+While WSL is strongly recommended, advanced users can manually install on native Windows by copying files:
+
+**Step 1: Clone the repository with submodules**
+```powershell
+git clone --recurse-submodules https://github.com/prillcode/storyline.git
+cd storyline
+```
+
+**Step 2: Create Claude directories (if they don't exist)**
+```powershell
+New-Item -ItemType Directory -Force -Path "$HOME\.claude\skills"
+New-Item -ItemType Directory -Force -Path "$HOME\.claude\commands"
+New-Item -ItemType Directory -Force -Path "$HOME\.claude\agents"
+```
+
+**Step 3: Copy dependency files**
+```powershell
+Copy-Item -Path ".\dependencies\cc-resources\skills\*" -Destination "$HOME\.claude\skills\" -Recurse -Force
+Copy-Item -Path ".\dependencies\cc-resources\commands\*" -Destination "$HOME\.claude\commands\" -Recurse -Force
+Copy-Item -Path ".\dependencies\cc-resources\agents\*" -Destination "$HOME\.claude\agents\" -Recurse -Force
+```
+
+**Step 4: Copy Storyline files**
+```powershell
+Copy-Item -Path ".\skills\*" -Destination "$HOME\.claude\skills\" -Recurse -Force
+Copy-Item -Path ".\commands\*" -Destination "$HOME\.claude\commands\" -Recurse -Force
+```
+
+**Note:** This approach bypasses installation scripts and directly copies skill/command files. No compilation or line-ending issues involved - just file copying.
 
 ### Updating Storyline
 
