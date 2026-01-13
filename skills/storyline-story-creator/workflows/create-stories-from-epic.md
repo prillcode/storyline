@@ -60,12 +60,12 @@ If story fails INVEST, split or refine it.
 **Create directory for this epic's stories:**
 
 ```bash
-mkdir -p .workflow/stories/epic-{epic_id}/
+mkdir -p .storyline/stories/epic-{epic_id}/
 ```
 
 Examples:
-- With identifier: `.workflow/stories/epic-mco-1234-01/`
-- Without identifier: `.workflow/stories/epic-001/`
+- With identifier: `.storyline/stories/epic-mco-1234-01/`
+- Without identifier: `.storyline/stories/epic-001/`
 
 ## Step 6: Write Story Files
 
@@ -78,7 +78,7 @@ For each story:
 2. **Create filename in epic subdirectory**
    - Format: `story-{nn}.md`
    - Example: `story-01.md`, `story-02.md`, `story-03.md`
-   - Full path: `.workflow/stories/epic-{epic_id}/story-{nn}.md`
+   - Full path: `.storyline/stories/epic-{epic_id}/story-{nn}.md`
 
 3. **Use template** from templates/story.md
 
@@ -93,11 +93,11 @@ For each story:
    - Dependencies (if any)
    - Link to parent epic (relative path: `../../epics/epic-{epic_id}-{slug}.md`)
 
-5. **Write file** to `.workflow/stories/epic-{epic_id}/`
+5. **Write file** to `.storyline/stories/epic-{epic_id}/`
 
 ## Step 7: Create Story Index
 
-Create `.workflow/stories/epic-{epic_id}/INDEX.md`:
+Create `.storyline/stories/epic-{epic_id}/INDEX.md`:
 
 ```markdown
 # Stories for Epic {epic_id}: {Epic Title}
@@ -135,10 +135,10 @@ graph TD
 
 ## Next Steps
 
-Run `/sl-spec-story .workflow/stories/epic-{epic_id}/story-01.md` to create technical spec.
+Run `/sl-spec-story .storyline/stories/epic-{epic_id}/story-01.md` to create technical spec.
 ```
 
-**Index location:** `.workflow/stories/epic-{epic_id}/INDEX.md` (inside epic directory)
+**Index location:** `.storyline/stories/epic-{epic_id}/INDEX.md` (inside epic directory)
 
 ## Step 6: Validate Stories
 
@@ -157,18 +157,18 @@ If validation fails, refine the story.
 <output_specification>
 Creates:
 **With identifier:**
-- .workflow/stories/epic-{identifier}-{nn}/ (directory)
-- .workflow/stories/epic-{identifier}-{nn}/story-01.md
-- .workflow/stories/epic-{identifier}-{nn}/story-02.md
-- .workflow/stories/epic-{identifier}-{nn}/story-0N.md
-- .workflow/stories/epic-{identifier}-{nn}/INDEX.md
+- .storyline/stories/epic-{identifier}-{nn}/ (directory)
+- .storyline/stories/epic-{identifier}-{nn}/story-01.md
+- .storyline/stories/epic-{identifier}-{nn}/story-02.md
+- .storyline/stories/epic-{identifier}-{nn}/story-0N.md
+- .storyline/stories/epic-{identifier}-{nn}/INDEX.md
 
 **Without identifier:**
-- .workflow/stories/epic-{nnn}/ (directory)
-- .workflow/stories/epic-{nnn}/story-01.md
-- .workflow/stories/epic-{nnn}/story-02.md
-- .workflow/stories/epic-{nnn}/story-0N.md
-- .workflow/stories/epic-{nnn}/INDEX.md
+- .storyline/stories/epic-{nnn}/ (directory)
+- .storyline/stories/epic-{nnn}/story-01.md
+- .storyline/stories/epic-{nnn}/story-02.md
+- .storyline/stories/epic-{nnn}/story-0N.md
+- .storyline/stories/epic-{nnn}/INDEX.md
 
 Each story file contains:
 - YAML frontmatter (story_id, epic_id, identifier (if present), title, status)
@@ -183,7 +183,7 @@ Each story file contains:
 
 <success_criteria>
 Complete when:
-1. All story files written to .workflow/stories/
+1. All story files written to .storyline/stories/
 2. Story index created
 3. INVEST validation passes for all stories
 4. User informed of next step (/sl-spec-story)

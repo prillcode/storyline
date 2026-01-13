@@ -1,6 +1,6 @@
 {
   "name": "@prillcode/storyline",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "Story-driven development workflow for Claude Code with multi-initiative support and flexible organization. Transform PRDs into working code through Epic → Story → Spec → Implementation pipeline.",
   "repository": {
     "type": "git",

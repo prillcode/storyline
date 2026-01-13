@@ -38,8 +38,8 @@ Chain: Epic → Story → Spec → Plan → Code → Summary
 Provide the path to your technical spec file.
 
 Example:
-- `.workflow/specs/epic-mco-1234-01/spec-01.md`
-- `.workflow/specs/epic-001/spec-02.md`
+- `.storyline/specs/epic-mco-1234-01/spec-01.md`
+- `.storyline/specs/epic-001/spec-02.md`
 
 **Wait for file path before proceeding.**
 </intake>
@@ -47,12 +47,26 @@ Example:
 <routing>
 After receiving spec file path:
 
+**First, detect project directory** (checks .storyline/ first, falls back to .workflow/):
+```bash
+if [ -d ".storyline" ]; then
+  ROOT_DIR=".storyline"
+elif [ -d ".workflow" ]; then
+  ROOT_DIR=".workflow"
+else
+  echo "No Storyline project found. Run /sl-setup init first."
+  exit 1
+fi
+```
+
+Use `$ROOT_DIR` in all file paths throughout the workflow.
+
 1. **Read the spec**: Load the technical spec
 2. **Extract identifier and epic_id**: From spec frontmatter for traceability
 3. **Read parent story**: For acceptance criteria
 4. **Read references**: Load references/spec-to-plan-conversion.md
 5. **Execute workflow**: workflows/execute-spec.md
-   - Pass identifier for planning directory naming
+   - Pass identifier AND ROOT_DIR for planning directory naming
 
 **Single workflow path.**
 </routing>
@@ -60,7 +74,7 @@ After receiving spec file path:
 <process_overview>
 1. Read spec and extract implementation requirements
 2. Convert spec into PLAN.md format (create-plans structure)
-3. Write PLAN.md to .workflow/.planning/
+3. Write PLAN.md to $ROOT_DIR/.planning/ (supports both .storyline/ and .workflow/)
 4. Invoke create-plans skill to execute the plan
 5. Verify SUMMARY.md links back to story
 </process_overview>

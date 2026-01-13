@@ -2,7 +2,9 @@
 
 ## Overview
 
-The `.workflow/` directory contains all Storyline artifacts. It keeps your project organized and provides clear traceability from PRD to code.
+The `.storyline/` directory contains all Storyline artifacts. It keeps your project organized and provides clear traceability from PRD to code.
+
+**Note:** Storyline v2.1+ uses `.storyline/` as the primary directory. Projects using `.workflow/` (v2.0) are still fully supported for backward compatibility. All documentation examples use `.storyline/` but can be replaced with `.workflow/` for legacy projects.
 
 ## Complete Structure
 
@@ -41,7 +43,7 @@ project-root/
 
 ## Directory Breakdown
 
-### `.workflow/` (Root)
+### `.storyline/` (Root)
 
 **Purpose:** Contains all Storyline work artifacts separate from code.
 
@@ -274,7 +276,15 @@ PRD-mco-1234.md
                └─ .planning/mco-1234-01-spec-01/SUMMARY.md
 ```
 
-## Backward Compatibility (v1 → v2)
+## Version History & Compatibility
+
+### v2.1 Change: `.workflow/` → `.storyline/`
+
+Storyline v2.1 renamed the root directory from `.workflow/` to `.storyline/` for better branding. All skills now check `.storyline/` first, then fall back to `.workflow/` for backward compatibility.
+
+**Migration is optional but recommended.** Run `/sl-setup` for interactive migration (takes seconds, preserves all work).
+
+### v1 → v2 Changes
 
 **v1.x structure (flat):**
 ```

@@ -92,4 +92,4 @@ PRD-{identifier}.md
 
 ---
 
-**Next step:** Run `/sl-spec-story .workflow/stories/epic-{EPIC_ID}/story-{NN}.md`
+**Next step:** Run `/sl-spec-story .storyline/stories/epic-{EPIC_ID}/story-{NN}.md`

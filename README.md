@@ -30,6 +30,18 @@ Each step produces structured markdown files that feed into the next stage, crea
 - **📦 Git Integration** - Automatic commits with proper attribution
 - **🎯 Quality Control** - Built-in validation at each stage
 
+## What's New in v2.1
+
+**📦 Better Branding & Backward Compatibility:**
+
+- **🎨 New Directory Name** - `.storyline/` replaces `.workflow/` for better branding and clarity
+- **🔄 Seamless Migration** - Run `/sl-setup` to migrate existing v2.0 projects (takes seconds, preserves all work)
+- **✅ Full Backward Compatibility** - All skills support both `.storyline/` (v2.1+) and `.workflow/` (v2.0 legacy)
+- **🔍 Smart Detection** - Skills automatically detect which directory structure you're using
+
+**Migrating from v2.0:**
+If you have an existing project with `.workflow/`, simply run `/sl-setup` and choose to migrate. Or keep using `.workflow/` - everything still works!
+
 ## What's New in v2.0
 
 **✨ Major enhancements for production projects:**
@@ -41,9 +53,9 @@ Each step produces structured markdown files that feed into the next stage, crea
 - **📊 Multi-Initiative Support** - Multiple PRDs with different identifiers can coexist in one project
 - **🧭 Guided PRD Creation** - Run `/sl-epic-creator` without arguments for interactive PRD creation
 
-**New directory structure:**
+**Directory structure (v2.1+):**
 ```
-.workflow/
+.storyline/
 ├── PRD-{identifier}.md        # Multiple PRDs supported
 ├── epics/
 │   ├── epic-{id}-01-auth.md   # Identifiers in filenames
@@ -137,7 +149,7 @@ This verifies all Storyline components are installed correctly.
 /sl-setup init
 ```
 
-This creates the `.workflow/` directory structure.
+This creates the `.storyline/` directory structure.
 
 ### 2. Create Your First Epic
 
@@ -155,7 +167,7 @@ Answer a few questions to generate your PRD and epics interactively.
 
 Creates:
 ```
-.workflow/
+.storyline/
 ├── PRD-jira-123.md           # If identifier provided
 └── epics/
     ├── epic-jira-123-01-authentication.md
@@ -166,12 +178,12 @@ Creates:
 ### 3. Create Stories from Epic
 
 ```bash
-/sl-story-creator .workflow/epics/epic-jira-123-01-authentication.md
+/sl-story-creator .storyline/epics/epic-jira-123-01-authentication.md
 ```
 
 Creates:
 ```
-.workflow/stories/epic-jira-123-01/
+.storyline/stories/epic-jira-123-01/
 ├── story-01.md          # User signup
 ├── story-02.md          # User login
 └── story-03.md          # Password reset
@@ -180,7 +192,7 @@ Creates:
 ### 4. Generate Technical Spec
 
 ```bash
-/sl-spec-story .workflow/stories/epic-jira-123-01/story-01.md
+/sl-spec-story .storyline/stories/epic-jira-123-01/story-01.md
 ```
 
 You'll choose a spec strategy:
@@ -190,13 +202,13 @@ You'll choose a spec strategy:
 
 Creates:
 ```
-.workflow/specs/epic-jira-123-01/spec-01.md
+.storyline/specs/epic-jira-123-01/spec-01.md
 ```
 
 ### 5. Implement the Code
 
 ```bash
-/sl-develop .workflow/specs/epic-jira-123-01/spec-01.md
+/sl-develop .storyline/specs/epic-jira-123-01/spec-01.md
 ```
 
 This uses the underlying `create-plans` skill to:
@@ -220,7 +232,7 @@ When using Storyline v2.0, your project follows this structure:
 
 ```
 my-project/
-├── .workflow/
+├── .storyline/
 │   ├── README.md                      # Quick reference guide
 │   ├── PRD-jira-123.md                # Product requirements (with identifier)
 │   ├── PRD-feature-789.md             # Multiple PRDs supported
@@ -258,7 +270,7 @@ Initialize, manage, and check Storyline projects.
 
 **Usage:**
 - `/sl-setup` - Interactive setup and onboarding
-- `/sl-setup init` - Initialize `.workflow/` directory structure
+- `/sl-setup init` - Initialize `.storyline/` directory structure
 - `/sl-setup status` - Show project state and suggest next steps
 - `/sl-setup guide` - Display full tutorial
 - `/sl-setup check` - Verify installation
@@ -270,7 +282,7 @@ Parse a PRD or technical spec into one or more epics.
 **New in v2.0:** Run without arguments for guided PRD creation with optional identifier.
 
 **Input:** PRD markdown file
-**Output:** Epic files in `.workflow/epics/`
+**Output:** Epic files in `.storyline/epics/`
 
 **Options:**
 - Single epic mode (small features)
@@ -281,7 +293,7 @@ Parse a PRD or technical spec into one or more epics.
 Generate user stories from an epic.
 
 **Input:** Epic markdown file
-**Output:** Story files in `.workflow/stories/`
+**Output:** Story files in `.storyline/stories/`
 
 **Features:**
 - Validates story format
@@ -293,7 +305,7 @@ Generate user stories from an epic.
 Create technical specification from a user story.
 
 **Input:** Story markdown file
-**Output:** Technical spec in `.workflow/specs/`
+**Output:** Technical spec in `.storyline/specs/`
 
 **Includes:**
 - Architecture decisions

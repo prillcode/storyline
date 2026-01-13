@@ -23,6 +23,6 @@ package-lock.json
 yarn.lock
 
 # Test outputs
-.workflow/
+.storyline/
 .planning/
 test-output/

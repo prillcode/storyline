@@ -24,12 +24,12 @@
    - [ ] Create new test directory: `mkdir test-case-1 && cd test-case-1`
    - [ ] Run `/sl-setup init`
    - [ ] Verify directories created:
-     - [ ] `.workflow/` exists
-     - [ ] `.workflow/epics/` exists
-     - [ ] `.workflow/stories/` exists
-     - [ ] `.workflow/specs/` exists
-     - [ ] `.workflow/.planning/` exists
-     - [ ] `.workflow/README.md` exists
+     - [ ] `.storyline/` exists
+     - [ ] `.storyline/epics/` exists
+     - [ ] `.storyline/stories/` exists
+     - [ ] `.storyline/specs/` exists
+     - [ ] `.storyline/.planning/` exists
+     - [ ] `.storyline/README.md` exists
 
 2. **Guided PRD Creation**
    - [ ] Run `/sl-epic-creator` (no arguments)
@@ -40,9 +40,9 @@
      - Features: "Task creation, assignment, status tracking"
      - Constraints: "Must work offline-first"
      - Success: "Users can manage tasks without internet"
-   - [ ] Verify PRD created: `ls .workflow/PRD-test-123.md`
+   - [ ] Verify PRD created: `ls .storyline/PRD-test-123.md`
    - [ ] Verify PRD content includes your answers
-   - [ ] Verify epics created: `ls .workflow/epics/epic-test-123-*`
+   - [ ] Verify epics created: `ls .storyline/epics/epic-test-123-*`
 
 3. **Epic Verification**
    - [ ] Open first epic file
@@ -53,9 +53,9 @@
    - [ ] Verify epic content describes work appropriately
 
 4. **Story Creation**
-   - [ ] Run `/sl-story-creator .workflow/epics/epic-test-123-01-*.md`
-   - [ ] Verify stories directory created: `ls .workflow/stories/epic-test-123-01/`
-   - [ ] Verify stories exist: `ls .workflow/stories/epic-test-123-01/story-*.md`
+   - [ ] Run `/sl-story-creator .storyline/epics/epic-test-123-01-*.md`
+   - [ ] Verify stories directory created: `ls .storyline/stories/epic-test-123-01/`
+   - [ ] Verify stories exist: `ls .storyline/stories/epic-test-123-01/story-*.md`
    - [ ] Open first story file
    - [ ] Verify frontmatter contains:
      - [ ] `story_id: 01`
@@ -64,10 +64,10 @@
      - [ ] `parent_epic: ../../epics/epic-test-123-01-*.md`
 
 5. **Spec Creation (Simple Strategy)**
-   - [ ] Run `/sl-spec-story .workflow/stories/epic-test-123-01/story-01.md`
+   - [ ] Run `/sl-spec-story .storyline/stories/epic-test-123-01/story-01.md`
    - [ ] When prompted, choose "Simple" strategy
-   - [ ] Verify specs directory created: `ls .workflow/specs/epic-test-123-01/`
-   - [ ] Verify spec exists: `ls .workflow/specs/epic-test-123-01/spec-01.md`
+   - [ ] Verify specs directory created: `ls .storyline/specs/epic-test-123-01/`
+   - [ ] Verify spec exists: `ls .storyline/specs/epic-test-123-01/spec-01.md`
    - [ ] Open spec file
    - [ ] Verify frontmatter contains:
      - [ ] `spec_id: 01`
@@ -78,7 +78,7 @@
      - [ ] `complexity: simple`
 
 6. **Development** (Optional - can be time-consuming)
-   - [ ] Run `/sl-develop .workflow/specs/epic-test-123-01/spec-01.md`
+   - [ ] Run `/sl-develop .storyline/specs/epic-test-123-01/spec-01.md`
    - [ ] Verify planning directory created
    - [ ] Verify identifier included in context
 
@@ -107,8 +107,8 @@
    - [ ] Run `/sl-epic-creator`
    - [ ] When prompted for identifier, press **Enter** to skip
    - [ ] Answer guided questions (simple answers)
-   - [ ] Verify PRD created: `ls .workflow/PRD-001.md`
-   - [ ] Verify epics created: `ls .workflow/epics/epic-001-*.md`
+   - [ ] Verify PRD created: `ls .storyline/PRD-001.md`
+   - [ ] Verify epics created: `ls .storyline/epics/epic-001-*.md`
 
 3. **Epic Verification**
    - [ ] Open first epic
@@ -117,15 +117,15 @@
      - [ ] No `identifier` field (or empty)
 
 4. **Story Creation**
-   - [ ] Run `/sl-story-creator .workflow/epics/epic-001-01-*.md`
-   - [ ] Verify directory: `ls .workflow/stories/epic-001-01/`
+   - [ ] Run `/sl-story-creator .storyline/epics/epic-001-01-*.md`
+   - [ ] Verify directory: `ls .storyline/stories/epic-001-01/`
    - [ ] Verify stories created
    - [ ] Check frontmatter has numeric IDs only
 
 5. **Spec Creation**
-   - [ ] Run `/sl-spec-story .workflow/stories/epic-001-01/story-01.md`
+   - [ ] Run `/sl-spec-story .storyline/stories/epic-001-01/story-01.md`
    - [ ] Choose "Simple" strategy
-   - [ ] Verify spec created: `ls .workflow/specs/epic-001-01/spec-01.md`
+   - [ ] Verify spec created: `ls .storyline/specs/epic-001-01/spec-01.md`
    - [ ] Check frontmatter uses numeric IDs
 
 ### Expected Results
@@ -147,31 +147,31 @@
    - [ ] Run `/sl-epic-creator`
    - [ ] Provide identifier: `PROJ-A`
    - [ ] Answer questions (simple answers)
-   - [ ] Verify: `ls .workflow/PRD-proj-a.md`
-   - [ ] Verify: `ls .workflow/epics/epic-proj-a-*`
+   - [ ] Verify: `ls .storyline/PRD-proj-a.md`
+   - [ ] Verify: `ls .storyline/epics/epic-proj-a-*`
 
 3. **Create Stories for PROJ-A**
    - [ ] Run `/sl-story-creator` on PROJ-A epic
-   - [ ] Verify: `ls .workflow/stories/epic-proj-a-01/`
+   - [ ] Verify: `ls .storyline/stories/epic-proj-a-01/`
 
 4. **Create Spec for PROJ-A**
    - [ ] Run `/sl-spec-story` on PROJ-A story
-   - [ ] Verify: `ls .workflow/specs/epic-proj-a-01/`
+   - [ ] Verify: `ls .storyline/specs/epic-proj-a-01/`
 
 5. **Second Initiative (PROJ-B)**
    - [ ] Run `/sl-epic-creator` again
    - [ ] Provide identifier: `PROJ-B`
    - [ ] Answer questions (different from PROJ-A)
-   - [ ] Verify: `ls .workflow/PRD-proj-b.md`
-   - [ ] Verify: `ls .workflow/epics/epic-proj-b-*`
+   - [ ] Verify: `ls .storyline/PRD-proj-b.md`
+   - [ ] Verify: `ls .storyline/epics/epic-proj-b-*`
 
 6. **Create Stories for PROJ-B**
    - [ ] Run `/sl-story-creator` on PROJ-B epic
-   - [ ] Verify: `ls .workflow/stories/epic-proj-b-01/`
+   - [ ] Verify: `ls .storyline/stories/epic-proj-b-01/`
 
 7. **Create Spec for PROJ-B**
    - [ ] Run `/sl-spec-story` on PROJ-B story
-   - [ ] Verify: `ls .workflow/specs/epic-proj-b-01/`
+   - [ ] Verify: `ls .storyline/specs/epic-proj-b-01/`
 
 8. **Project Status**
    - [ ] Run `/sl-setup status`
@@ -199,37 +199,37 @@
    - [ ] Create stories: Get at least 4 stories created in one epic
 
 2. **Simple Strategy (1 story → 1 spec)**
-   - [ ] Run `/sl-spec-story .workflow/stories/epic-spec-test-01/story-01.md`
+   - [ ] Run `/sl-spec-story .storyline/stories/epic-spec-test-01/story-01.md`
    - [ ] Choose **"Simple"** strategy
-   - [ ] Verify created: `ls .workflow/specs/epic-spec-test-01/spec-01.md`
+   - [ ] Verify created: `ls .storyline/specs/epic-spec-test-01/spec-01.md`
    - [ ] Verify frontmatter:
      - [ ] `spec_id: 01`
      - [ ] `story_ids: [01]`
      - [ ] `complexity: simple`
 
 3. **Complex Strategy (1 story → multiple specs)**
-   - [ ] Run `/sl-spec-story .workflow/stories/epic-spec-test-01/story-02.md`
+   - [ ] Run `/sl-spec-story .storyline/stories/epic-spec-test-01/story-02.md`
    - [ ] Choose **"Complex"** strategy
    - [ ] When prompted, specify you need 2 specs for this story
    - [ ] Verify created:
-     - [ ] `ls .workflow/specs/epic-spec-test-01/spec-story02-01.md`
-     - [ ] `ls .workflow/specs/epic-spec-test-01/spec-story02-02.md`
+     - [ ] `ls .storyline/specs/epic-spec-test-01/spec-story02-01.md`
+     - [ ] `ls .storyline/specs/epic-spec-test-01/spec-story02-02.md`
    - [ ] Verify frontmatter in both specs:
      - [ ] Both reference `story_ids: [02]`
      - [ ] `complexity: split` or `complexity: complex`
 
 4. **Combined Strategy (multiple stories → 1 spec)**
-   - [ ] Run `/sl-spec-story .workflow/stories/epic-spec-test-01/story-03.md`
+   - [ ] Run `/sl-spec-story .storyline/stories/epic-spec-test-01/story-03.md`
    - [ ] Choose **"Combined"** strategy
    - [ ] When prompted, specify combining with story-04
-   - [ ] Verify created: `ls .workflow/specs/epic-spec-test-01/spec-stories-03-04-combined.md`
+   - [ ] Verify created: `ls .storyline/specs/epic-spec-test-01/spec-stories-03-04-combined.md`
    - [ ] Verify frontmatter:
      - [ ] `story_ids: [03, 04]` (array of both stories)
      - [ ] `complexity: combined`
    - [ ] Verify spec content includes context from both stories
 
 5. **Directory Check**
-   - [ ] Run `ls .workflow/specs/epic-spec-test-01/`
+   - [ ] Run `ls .storyline/specs/epic-spec-test-01/`
    - [ ] Verify all specs are in the correct epic subdirectory
    - [ ] Verify naming conventions are correct
 
@@ -248,11 +248,11 @@
    - [ ] Create new test directory: `mkdir ../test-case-5 && cd ../test-case-5`
    - [ ] Create old v1.x structure manually:
      ```bash
-     mkdir -p .workflow/epics .workflow/stories .workflow/specs
+     mkdir -p .storyline/epics .storyline/stories .storyline/specs
      ```
    - [ ] Create a v1.x style epic (no identifier):
      ```bash
-     cat > .workflow/epics/epic-001-authentication.md <<EOF
+     cat > .storyline/epics/epic-001-authentication.md <<EOF
      ---
      epic_id: 001
      title: Authentication
@@ -263,7 +263,7 @@
      ```
 
 2. **Test Story Creation on Old Epic**
-   - [ ] Run `/sl-story-creator .workflow/epics/epic-001-authentication.md`
+   - [ ] Run `/sl-story-creator .storyline/epics/epic-001-authentication.md`
    - [ ] Verify stories created (should handle missing identifier gracefully)
    - [ ] Check that stories work even without identifier in epic
 

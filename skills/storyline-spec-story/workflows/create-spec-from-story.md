@@ -20,7 +20,7 @@ Supports epic subdirectories and identifier propagation.
 - From frontmatter: `story_id`, `epic_id`, `identifier`
 - If frontmatter missing, parse from file path
 
-**Example path:** `.workflow/stories/epic-mco-1234-01/story-02.md`
+**Example path:** `.storyline/stories/epic-mco-1234-01/story-02.md`
 - Epic ID: `mco-1234-01`
 - Story ID: `02`
 - Identifier: `mco-1234`
@@ -46,37 +46,37 @@ Based on strategy:
 **Simple:**
 - Format: `spec-{story_id}.md`
 - Example: `spec-02.md`
-- Full path: `.workflow/specs/epic-{epic_id}/spec-02.md`
+- Full path: `.storyline/specs/epic-{epic_id}/spec-02.md`
 
 **Complex:**
 - Prompt: "This is part {N} of story-{story_id}. What does this part cover?"
 - Format: `spec-story{story_id}-{part_nn}.md`
 - Example: `spec-story02-01.md`, `spec-story02-02.md`
-- Full path: `.workflow/specs/epic-{epic_id}/spec-story02-01.md`
+- Full path: `.storyline/specs/epic-{epic_id}/spec-story02-01.md`
 
 **Combined:**
 - Prompt: "Which other stories to combine? (comma-separated, e.g., 03,04)"
 - Format: `spec-stories-{ids}-combined.md`
 - Example: `spec-stories-02-03-combined.md`
-- Full path: `.workflow/specs/epic-{epic_id}/spec-stories-02-03-combined.md`
+- Full path: `.storyline/specs/epic-{epic_id}/spec-stories-02-03-combined.md`
 
 ## Step 4: Read Parent Epic
 
 Read the parent epic file for additional context:
 - Path from story frontmatter: `parent_epic` field
-- Or construct: `.workflow/epics/epic-{epic_id}-*.md`
+- Or construct: `.storyline/epics/epic-{epic_id}-*.md`
 
 Extract business context, technical considerations, constraints.
 
 ## Step 5: Create Epic Subdirectory
 
 ```bash
-mkdir -p .workflow/specs/epic-{epic_id}/
+mkdir -p .storyline/specs/epic-{epic_id}/
 ```
 
 Examples:
-- `.workflow/specs/epic-mco-1234-01/`
-- `.workflow/specs/epic-001/`
+- `.storyline/specs/epic-mco-1234-01/`
+- `.storyline/specs/epic-001/`
 
 ## Step 6: Generate Spec Content
 
@@ -103,12 +103,12 @@ Using the template and story content:
 ## Step 7: Write Spec File
 
 Use Write tool:
-- file_path: `.workflow/specs/epic-{epic_id}/{filename}`
+- file_path: `.storyline/specs/epic-{epic_id}/{filename}`
 - content: Generated spec
 
 Verify with ls:
 ```bash
-ls -la .workflow/specs/epic-{epic_id}/
+ls -la .storyline/specs/epic-{epic_id}/
 ```
 
 ## Step 8: Display Success Message
@@ -116,22 +116,22 @@ ls -la .workflow/specs/epic-{epic_id}/
 ```
 ✅ Spec created successfully!
 
-File: .workflow/specs/epic-{epic_id}/{filename}
+File: .storyline/specs/epic-{epic_id}/{filename}
 Strategy: {simple|complex|combined}
 Stories: {story_ids}
 
 Next: Implement this spec
-  /sl-develop .workflow/specs/epic-{epic_id}/{filename}
+  /sl-develop .storyline/specs/epic-{epic_id}/{filename}
 ```
 
 </process>
 
 <output_specification>
 Creates:
-- .workflow/specs/epic-{epic_id}/ (directory, if not exists)
-- .workflow/specs/epic-{epic_id}/spec-{nn}.md (simple)
-- OR .workflow/specs/epic-{epic_id}/spec-story{nn}-{part}.md (complex)
-- OR .workflow/specs/epic-{epic_id}/spec-stories-{ids}-combined.md (combined)
+- .storyline/specs/epic-{epic_id}/ (directory, if not exists)
+- .storyline/specs/epic-{epic_id}/spec-{nn}.md (simple)
+- OR .storyline/specs/epic-{epic_id}/spec-story{nn}-{part}.md (complex)
+- OR .storyline/specs/epic-{epic_id}/spec-stories-{ids}-combined.md (combined)
 
 Each spec file contains:
 - YAML frontmatter with spec_id, story_ids, epic_id, identifier, complexity
@@ -144,7 +144,7 @@ Each spec file contains:
 
 <success_criteria>
 Complete when:
-1. Spec file written to .workflow/specs/epic-{epic_id}/
+1. Spec file written to .storyline/specs/epic-{epic_id}/
 2. Filename follows chosen strategy
 3. All acceptance criteria from story mapped to verification
 4. User informed of next step (/sl-develop)

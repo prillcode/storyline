@@ -5,7 +5,7 @@ This directory contains all Storyline artifacts for this project.
 ## Directory Structure
 
 ```
-.workflow/
+.storyline/
 ├── README.md           # This file
 ├── PRD-*.md            # Product requirements documents
 ├── epics/              # Epic-level themes from PRDs
@@ -34,19 +34,19 @@ Each stage refines the work until it's ready to execute.
 ### Creating stories from epics
 
 ```bash
-/sl-story-creator .workflow/epics/epic-[id]-01-*.md
+/sl-story-creator .storyline/epics/epic-[id]-01-*.md
 ```
 
 ### Creating specs from stories
 
 ```bash
-/sl-spec-story .workflow/stories/epic-[id]-01/story-01.md
+/sl-spec-story .storyline/stories/epic-[id]-01/story-01.md
 ```
 
 ### Implementing specs
 
 ```bash
-/sl-develop .workflow/specs/epic-[id]-01/spec-01.md
+/sl-develop .storyline/specs/epic-[id]-01/spec-01.md
 ```
 
 ### Project management
@@ -67,21 +67,21 @@ Use identifiers to track work back to your project management system (JIRA, Line
 When you provide an identifier:
 - PRD: `PRD-mco-1234.md`
 - Epics: `epic-mco-1234-01-auth.md`
-- Stories: `.workflow/stories/epic-mco-1234-01/story-01.md`
-- Specs: `.workflow/specs/epic-mco-1234-01/spec-01.md`
+- Stories: `.storyline/stories/epic-mco-1234-01/story-01.md`
+- Specs: `.storyline/specs/epic-mco-1234-01/spec-01.md`
 
 If you skip the identifier:
 - PRD: `PRD-001.md`
 - Epics: `epic-001-auth.md`
-- Stories: `.workflow/stories/epic-001/story-01.md`
-- Specs: `.workflow/specs/epic-001/spec-01.md`
+- Stories: `.storyline/stories/epic-001/story-01.md`
+- Specs: `.storyline/specs/epic-001/spec-01.md`
 
 ## Multi-Initiative Projects
 
 You can have multiple PRDs with different identifiers in one project:
 
 ```
-.workflow/
+.storyline/
 ├── PRD-mco-1234.md       # First initiative
 ├── PRD-feature-789.md    # Second initiative
 ├── epics/

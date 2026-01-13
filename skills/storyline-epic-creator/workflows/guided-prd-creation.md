@@ -172,7 +172,7 @@ status: draft
 - Use lowercase for identifier in filename
 
 **If no identifier:**
-- Check existing PRD files: `ls .workflow/PRD-*.md`
+- Check existing PRD files: `ls .storyline/PRD-*.md`
 - Find highest number (e.g., PRD-001.md, PRD-002.md)
 - Increment by 1
 - Filename: `PRD-{new_number}.md`
@@ -181,12 +181,12 @@ status: draft
 ## Step 6: Write PRD File
 
 Use Write tool:
-- file_path: `.workflow/PRD-{identifier}.md` or `.workflow/PRD-{number}.md`
+- file_path: `.storyline/PRD-{identifier}.md` or `.storyline/PRD-{number}.md`
 - content: Generated PRD content from Step 4
 
 Verify file written:
 ```bash
-ls -la .workflow/PRD-*.md
+ls -la .storyline/PRD-*.md
 ```
 
 ## Step 7: Display Summary
@@ -195,7 +195,7 @@ Display:
 ```
 ✅ PRD created successfully!
 
-File: .workflow/PRD-{identifier}.md
+File: .storyline/PRD-{identifier}.md
 
 Summary:
 • Goal: {goal}
@@ -222,7 +222,7 @@ Automatically proceed to epic creation:
 
 <output_specification>
 Creates:
-- .workflow/PRD-{identifier}.md OR .workflow/PRD-{number}.md
+- .storyline/PRD-{identifier}.md OR .storyline/PRD-{number}.md
 
 Contains:
 - Frontmatter with prd_id
@@ -234,7 +234,7 @@ Then transitions to epic creation automatically.
 
 <success_criteria>
 Complete when:
-1. PRD file written to .workflow/
+1. PRD file written to .storyline/
 2. User informed of what was created
 3. Workflow transitions to epic creation (don't stop here)
 </success_criteria>

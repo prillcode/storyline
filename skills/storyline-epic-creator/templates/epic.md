@@ -108,4 +108,4 @@ PRD-{identifier}.md
 
 ---
 
-**Next step:** Run `/sl-story-creator .workflow/epics/epic-{EPIC_ID}-{slug}.md`
+**Next step:** Run `/sl-story-creator .storyline/epics/epic-{EPIC_ID}-{slug}.md`

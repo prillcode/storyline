@@ -73,11 +73,11 @@ For each identified epic:
    - Dependencies on other epics
    - Estimated story count
 
-4. **Write the file** using Write tool to .workflow/epics/
+4. **Write the file** using Write tool to .storyline/epics/
 
 ## Step 5: Create Epic Index
 
-Create `.workflow/epics/INDEX.md`:
+Create `.storyline/epics/INDEX.md`:
 
 ```markdown
 # Epic Index
@@ -106,7 +106,7 @@ Recommended sequence based on dependencies:
 
 ## Next Steps
 
-Run `/sl-story-creator .workflow/epics/epic-{id}-01-[slug].md` to begin.
+Run `/sl-story-creator .storyline/epics/epic-{id}-01-[slug].md` to begin.
 ```
 
 **Note:** Use actual epic filenames in the next steps command.
@@ -126,18 +126,18 @@ Run validation checks:
 <output_specification>
 Creates:
 **With identifier:**
-- .workflow/PRD-{identifier}.md (if created via guided mode)
-- .workflow/epics/epic-{identifier}-01-{slug}.md
-- .workflow/epics/epic-{identifier}-02-{slug}.md
-- .workflow/epics/epic-{identifier}-0N-{slug}.md
-- .workflow/epics/INDEX.md
+- .storyline/PRD-{identifier}.md (if created via guided mode)
+- .storyline/epics/epic-{identifier}-01-{slug}.md
+- .storyline/epics/epic-{identifier}-02-{slug}.md
+- .storyline/epics/epic-{identifier}-0N-{slug}.md
+- .storyline/epics/INDEX.md
 
 **Without identifier:**
-- .workflow/PRD-{nnn}.md (if created via guided mode)
-- .workflow/epics/epic-001-{slug}.md
-- .workflow/epics/epic-002-{slug}.md
-- .workflow/epics/epic-00N-{slug}.md
-- .workflow/epics/INDEX.md
+- .storyline/PRD-{nnn}.md (if created via guided mode)
+- .storyline/epics/epic-001-{slug}.md
+- .storyline/epics/epic-002-{slug}.md
+- .storyline/epics/epic-00N-{slug}.md
+- .storyline/epics/INDEX.md
 
 Each epic file contains:
 - YAML frontmatter (epic_id, identifier (if provided), epic_number, title, status)
@@ -151,7 +151,7 @@ Each epic file contains:
 
 <success_criteria>
 Complete when:
-1. All epic files written to .workflow/epics/
+1. All epic files written to .storyline/epics/
 2. INDEX.md created
 3. Validation checks pass
 4. User informed of next step (/story-creator)

@@ -24,7 +24,7 @@ Full chain: PRD → Epic → Story → Spec → Code
 </principle>
 
 <principle name="output_structure">
-Epics are markdown files in .workflow/epics/:
+Epics are markdown files in .storyline/epics/:
 - With identifier: epic-mco-1234-01-authentication.md
 - Without identifier: epic-001-authentication.md
 
@@ -48,7 +48,7 @@ Each epic includes:
 
 1. **With existing PRD** - Provide the path to your PRD or technical spec document:
    - `docs/PRD.md`
-   - `.workflow/technical-spec.md`
+   - `.storyline/technical-spec.md`
    - `requirements/product-requirements.md`
 
 2. **Guided mode (no PRD)** - Run without arguments:
@@ -60,6 +60,20 @@ Each epic includes:
 
 <routing>
 After receiving input:
+
+**First, detect project directory** (checks .storyline/ first, falls back to .workflow/):
+```bash
+if [ -d ".storyline" ]; then
+  ROOT_DIR=".storyline"
+elif [ -d ".workflow" ]; then
+  ROOT_DIR=".workflow"
+else
+  echo "No Storyline project found. Run /sl-setup init first."
+  exit 1
+fi
+```
+
+Use `$ROOT_DIR` in all file paths throughout the workflow.
 
 **Case 1: No arguments provided (guided mode)**
 → workflows/guided-prd-creation.md
@@ -75,29 +89,29 @@ After receiving input:
 4. **Route to workflow**:
    - Small feature (1-2 main capabilities) → workflows/create-single-epic.md (if exists)
    - Large project (3+ main capabilities) → workflows/create-multi-epic.md
-   - Pass identifier to workflow
+   - Pass identifier AND ROOT_DIR to workflow
 
 **Automatic routing based on content analysis, no user prompt needed for epic count.**
 </routing>
 
 <validation>
 Before completing, verify:
-- [ ] All epics saved to .workflow/epics/
+- [ ] All epics saved to $ROOT_DIR/epics/ (use detected directory from routing)
 - [ ] Each epic follows template structure
 - [ ] Epic numbers sequential (01, 02, 03) with identifier if provided
 - [ ] Each epic has clear business goal
 - [ ] Success criteria are measurable
 - [ ] Dependencies identified
 - [ ] Identifier stored in frontmatter (if provided)
-- [ ] Created epic index file (.workflow/epics/INDEX.md)
+- [ ] Created epic index file ($ROOT_DIR/epics/INDEX.md)
 </validation>
 
 <success_criteria>
 Epic creation successful when:
-1. All epics written to .workflow/epics/
+1. All epics written to $ROOT_DIR/epics/ (supports both .storyline/ and .workflow/)
 2. Each epic file validates against template
 3. INDEX.md created with epic summary
-4. User can proceed to story creation with /story-creator
+4. User can proceed to story creation with /sl-story-creator
 </success_criteria>
 
 <reference_index>

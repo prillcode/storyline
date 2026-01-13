@@ -62,12 +62,12 @@ PRD-{identifier}.md
 - Format: `epic-{identifier}-{nn}-{slug}.md`
 
 **Story directory:**
-- With identifier: `.workflow/stories/epic-mco-1234-01/`
-- Without: `.workflow/stories/epic-001/`
+- With identifier: `.storyline/stories/epic-mco-1234-01/`
+- Without: `.storyline/stories/epic-001/`
 
 **Spec directory:**
-- With identifier: `.workflow/specs/epic-mco-1234-01/`
-- Without: `.workflow/specs/epic-001/`
+- With identifier: `.storyline/specs/epic-mco-1234-01/`
+- Without: `.storyline/specs/epic-001/`
 
 ### Frontmatter
 
@@ -178,7 +178,7 @@ If identifier portion contains no letters, it's numeric-only (no identifier):
 
 **Extraction:**
 ```
-path: ".workflow/stories/epic-mco-1234-01/story-02.md"
+path: ".storyline/stories/epic-mco-1234-01/story-02.md"
 
 1. Extract directory name → "epic-mco-1234-01"
 2. Remove "epic-" prefix → "mco-1234-01"
@@ -226,7 +226,7 @@ When executing spec:
 
 **Structure:**
 ```
-.workflow/
+.storyline/
 ├── PRD-mco-1234.md
 ├── PRD-feature-789.md
 ├── PRD-bugfix-456.md

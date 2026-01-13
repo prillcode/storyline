@@ -29,10 +29,10 @@ Chain: Epic → Story → Spec → Code
 
 <principle name="output_structure">
 Stories are organized in epic-specific subdirectories:
-- With identifier: .workflow/stories/epic-mco-1234-01/story-01.md
-- Without identifier: .workflow/stories/epic-001/story-01.md
+- With identifier: .storyline/stories/epic-mco-1234-01/story-01.md
+- Without identifier: .storyline/stories/epic-001/story-01.md
 
-Format: .workflow/stories/epic-{epic_id}/story-{nn}.md
+Format: .storyline/stories/epic-{epic_id}/story-{nn}.md
 
 Each story includes:
 - User story statement
@@ -51,8 +51,8 @@ Each story includes:
 Provide the path to your epic file.
 
 Example:
-- `.workflow/epics/epic-001-authentication.md`
-- `.workflow/epics/epic-002-task-management.md`
+- `.storyline/epics/epic-001-authentication.md`
+- `.storyline/epics/epic-002-task-management.md`
 
 **Wait for file path before proceeding.**
 </intake>
@@ -60,17 +60,31 @@ Example:
 <routing>
 After receiving epic file path:
 
+**First, detect project directory** (checks .storyline/ first, falls back to .workflow/):
+```bash
+if [ -d ".storyline" ]; then
+  ROOT_DIR=".storyline"
+elif [ -d ".workflow" ]; then
+  ROOT_DIR=".workflow"
+else
+  echo "No Storyline project found. Run /sl-setup init first."
+  exit 1
+fi
+```
+
+Use `$ROOT_DIR` in all file paths throughout the workflow.
+
 1. **Read the epic**: Load the epic document
 2. **Read template**: Load templates/story.md
 3. **Read patterns**: Load references/story-patterns.md
-4. **Execute workflow**: workflows/create-stories-from-epic.md
+4. **Execute workflow**: workflows/create-stories-from-epic.md (pass ROOT_DIR to workflow)
 
 **Single workflow path - no branching needed.**
 </routing>
 
 <validation>
 Before completing, verify:
-- [ ] Epic subdirectory created (.workflow/stories/epic-{epic_id}/)
+- [ ] Epic subdirectory created ($ROOT_DIR/stories/epic-{epic_id}/)
 - [ ] All stories saved to epic subdirectory
 - [ ] Each story follows INVEST criteria
 - [ ] Story numbers sequential (01, 02, 03)
@@ -82,7 +96,7 @@ Before completing, verify:
 
 <success_criteria>
 Story creation successful when:
-1. All stories written to .workflow/stories/epic-{epic_id}/
+1. All stories written to $ROOT_DIR/stories/epic-{epic_id}/ (supports both .storyline/ and .workflow/)
 2. Each story validates against INVEST criteria
 3. INDEX.md created in epic subdirectory
 4. User can proceed to spec creation with /sl-spec-story

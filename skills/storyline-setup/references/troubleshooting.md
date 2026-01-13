@@ -67,7 +67,7 @@ cd ~/projects/my-project
 
 ### Project Structure Issues
 
-#### Problem: .workflow/ exists but is empty
+#### Problem: .storyline/ exists but is empty
 
 **Symptoms:**
 ```
@@ -95,12 +95,12 @@ This is normal! Create your first epic:
 Move files to correct structure:
 ```bash
 # Move stories into epic subdirectories
-mkdir -p .workflow/stories/epic-001
-mv .workflow/stories/story-*.md .workflow/stories/epic-001/
+mkdir -p .storyline/stories/epic-001
+mv .storyline/stories/story-*.md .storyline/stories/epic-001/
 
 # Move specs into epic subdirectories
-mkdir -p .workflow/specs/epic-001
-mv .workflow/specs/spec-*.md .workflow/specs/epic-001/
+mkdir -p .storyline/specs/epic-001
+mv .storyline/specs/spec-*.md .storyline/specs/epic-001/
 ```
 
 #### Problem: Can't find parent files
@@ -116,10 +116,10 @@ Error: Cannot find parent epic at ../../epics/epic-001-auth.md
 Verify file structure:
 ```bash
 # From project root
-ls .workflow/epics/epic-001-*.md
+ls .storyline/epics/epic-001-*.md
 
 # Check relative path from story location
-# From .workflow/stories/epic-001/story-01.md
+# From .storyline/stories/epic-001/story-01.md
 # Parent should be at: ../../epics/epic-001-*.md
 ```
 
@@ -164,7 +164,7 @@ Epic has identifier `mco-1234` but stories reference `MCO-1234`.
 Identifiers are case-sensitive. Be consistent:
 ```bash
 # Check what identifier was used
-grep -r "identifier:" .workflow/epics/
+grep -r "identifier:" .storyline/epics/
 
 # Use exact case throughout
 ```
@@ -180,16 +180,16 @@ Created work without identifier, now want to track it.
 Rename files manually:
 ```bash
 # Rename PRD
-mv .workflow/PRD-001.md .workflow/PRD-mco-1234.md
+mv .storyline/PRD-001.md .storyline/PRD-mco-1234.md
 
 # Rename epics
-mv .workflow/epics/epic-001-auth.md .workflow/epics/epic-mco-1234-01-auth.md
+mv .storyline/epics/epic-001-auth.md .storyline/epics/epic-mco-1234-01-auth.md
 
 # Rename story directories
-mv .workflow/stories/epic-001 .workflow/stories/epic-mco-1234-01
+mv .storyline/stories/epic-001 .storyline/stories/epic-mco-1234-01
 
 # Rename spec directories
-mv .workflow/specs/epic-001 .workflow/specs/epic-mco-1234-01
+mv .storyline/specs/epic-001 .storyline/specs/epic-mco-1234-01
 
 # Update frontmatter in all files to reflect new identifiers
 ```
@@ -224,14 +224,14 @@ Have 10 epics, overwhelmed, don't know where to start.
 **Focus on one epic:**
 ```bash
 # List epics
-ls .workflow/epics/
+ls .storyline/epics/
 
 # Pick highest priority epic
-/sl-story-creator .workflow/epics/epic-001-core.md
+/sl-story-creator .storyline/epics/epic-001-core.md
 
 # Implement one story to validate approach
-/sl-spec-story .workflow/stories/epic-001/story-01.md
-/sl-develop .workflow/specs/epic-001/spec-01.md
+/sl-spec-story .storyline/stories/epic-001/story-01.md
+/sl-develop .storyline/specs/epic-001/spec-01.md
 ```
 
 **Don't create all specs first.** Implement one, learn, iterate.
@@ -259,24 +259,24 @@ Spec is 10 pages, too complex to implement.
 Split the spec into multiple parts:
 ```bash
 # Create spec-story03-01.md (first part)
-/sl-spec-story .workflow/stories/epic-001/story-03.md
+/sl-spec-story .storyline/stories/epic-001/story-03.md
 # → Choose: "Complex story - multiple specs"
 
 # Create spec-story03-02.md (second part)
-/sl-spec-story .workflow/stories/epic-001/story-03.md
+/sl-spec-story .storyline/stories/epic-001/story-03.md
 # → Choose: "Complex story - multiple specs"
 ```
 
 ### Git and Version Control
 
-#### Problem: Should I commit .workflow/?
+#### Problem: Should I commit .storyline/?
 
 **Answer:** **YES!**
 
-`.workflow/` contains your project documentation. Commit it.
+`.storyline/` contains your project documentation. Commit it.
 
 ```bash
-git add .workflow/
+git add .storyline/
 git commit -m "Add epic and stories for auth feature"
 ```
 
@@ -287,12 +287,12 @@ git commit -m "Add epic and stories for auth feature"
 `.planning/` contains temporary execution plans. Add to `.gitignore`:
 
 ```bash
-echo ".workflow/.planning/" >> .gitignore
+echo ".storyline/.planning/" >> .gitignore
 ```
 
 The specs are the source of truth, not the plans.
 
-#### Problem: Merge conflicts in .workflow/
+#### Problem: Merge conflicts in .storyline/
 
 **Symptoms:**
 Two developers created epics/stories, git conflicts.
@@ -302,7 +302,7 @@ This is rare but possible. Resolve like any markdown conflict:
 
 1. **Check what changed:**
    ```bash
-   git diff .workflow/
+   git diff .storyline/
    ```
 
 2. **Keep both if different epics:**
@@ -368,11 +368,11 @@ Remove duplicate symlinks.
 **Cause:** Large project with many files.
 
 **Solution:**
-1. **Use specific paths:** Don't scan entire .workflow/ repeatedly.
-2. **Archive old work:** Move completed initiatives to `.workflow/archive/`.
+1. **Use specific paths:** Don't scan entire .storyline/ repeatedly.
+2. **Archive old work:** Move completed initiatives to `.storyline/archive/`.
 3. **Check file count:**
    ```bash
-   find .workflow/ -type f | wc -l
+   find .storyline/ -type f | wc -l
    ```
 
 If thousands of files, consider archiving.
@@ -385,7 +385,7 @@ Have `PRD-mco-1234.md` but forgot what MCO-1234 is.
 **Solution:**
 Open the PRD file:
 ```bash
-cat .workflow/PRD-mco-1234.md
+cat .storyline/PRD-mco-1234.md
 ```
 
 PRD should explain the context. If not, add a note:
@@ -405,15 +405,15 @@ Created epic by mistake, want to remove it.
 **Solution:**
 **Before deleting, check if stories/specs exist:**
 ```bash
-ls .workflow/stories/epic-001/
-ls .workflow/specs/epic-001/
+ls .storyline/stories/epic-001/
+ls .storyline/specs/epic-001/
 ```
 
 **If they exist, delete those first:**
 ```bash
-rm -r .workflow/stories/epic-001/
-rm -r .workflow/specs/epic-001/
-rm .workflow/epics/epic-001-*.md
+rm -r .storyline/stories/epic-001/
+rm -r .storyline/specs/epic-001/
+rm .storyline/epics/epic-001-*.md
 ```
 
 **Then verify:**
@@ -434,11 +434,11 @@ To upgrade gradually:
 2. **Use v2 structure for new work** (epic subdirectories)
 3. **Migrate old files if desired:**
    ```bash
-   mkdir -p .workflow/stories/epic-001
-   mv .workflow/stories/story-001-*.md .workflow/stories/epic-001/
+   mkdir -p .storyline/stories/epic-001
+   mv .storyline/stories/story-001-*.md .storyline/stories/epic-001/
 
-   mkdir -p .workflow/specs/epic-001
-   mv .workflow/specs/spec-001-*.md .workflow/specs/epic-001/
+   mkdir -p .storyline/specs/epic-001
+   mv .storyline/specs/spec-001-*.md .storyline/specs/epic-001/
    ```
 
 ## Getting Help
@@ -460,20 +460,20 @@ To upgrade gradually:
 
 **Check directory structure:**
 ```bash
-tree .workflow/
+tree .storyline/
 # or
-ls -R .workflow/
+ls -R .storyline/
 ```
 
 **View file contents:**
 ```bash
-cat .workflow/PRD-*.md
-cat .workflow/epics/epic-*.md
+cat .storyline/PRD-*.md
+cat .storyline/epics/epic-*.md
 ```
 
 **Search for identifier:**
 ```bash
-grep -r "mco-1234" .workflow/
+grep -r "mco-1234" .storyline/
 ```
 
 ## Still Stuck?

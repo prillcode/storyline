@@ -26,17 +26,17 @@ This document shows common usage patterns and real-world scenarios for using Sto
 # → Output: PRD-mvp-2024.md + 3 epic files
 
 # 3. Start with highest priority epic
-/sl-story-creator .workflow/epics/epic-mvp-2024-01-core-features.md
-# → Output: 5 stories in .workflow/stories/epic-mvp-2024-01/
+/sl-story-creator .storyline/epics/epic-mvp-2024-01-core-features.md
+# → Output: 5 stories in .storyline/stories/epic-mvp-2024-01/
 
 # 4. Create specs for first sprint
-/sl-spec-story .workflow/stories/epic-mvp-2024-01/story-01.md
-/sl-spec-story .workflow/stories/epic-mvp-2024-01/story-02.md
-# → Output: specs in .workflow/specs/epic-mvp-2024-01/
+/sl-spec-story .storyline/stories/epic-mvp-2024-01/story-01.md
+/sl-spec-story .storyline/stories/epic-mvp-2024-01/story-02.md
+# → Output: specs in .storyline/specs/epic-mvp-2024-01/
 
 # 5. Implement
-/sl-develop .workflow/specs/epic-mvp-2024-01/spec-01.md
-/sl-develop .workflow/specs/epic-mvp-2024-01/spec-02.md
+/sl-develop .storyline/specs/epic-mvp-2024-01/spec-01.md
+/sl-develop .storyline/specs/epic-mvp-2024-01/spec-02.md
 
 # 6. Check progress
 /sl-setup status
@@ -44,7 +44,7 @@ This document shows common usage patterns and real-world scenarios for using Sto
 
 **Resulting structure:**
 ```
-.workflow/
+.storyline/
 ├── PRD-mvp-2024.md
 ├── epics/
 │   ├── epic-mvp-2024-01-core-features.md
@@ -81,14 +81,14 @@ This document shows common usage patterns and real-world scenarios for using Sto
 # → Output: PRD-feature-789.md + epic files
 
 # 3. Continue with stories/specs/implementation
-/sl-story-creator .workflow/epics/epic-feature-789-01-export.md
-/sl-spec-story .workflow/stories/epic-feature-789-01/story-01.md
-/sl-develop .workflow/specs/epic-feature-789-01/spec-01.md
+/sl-story-creator .storyline/epics/epic-feature-789-01-export.md
+/sl-spec-story .storyline/stories/epic-feature-789-01/story-01.md
+/sl-develop .storyline/specs/epic-feature-789-01/spec-01.md
 ```
 
 **Resulting structure:**
 ```
-.workflow/
+.storyline/
 ├── PRD-mvp-2024.md              # Original work
 ├── PRD-feature-789.md           # NEW feature
 ├── epics/
@@ -122,21 +122,21 @@ This document shows common usage patterns and real-world scenarios for using Sto
 # → Identifier: MCO-1234
 # → Creates: PRD-mco-1234.md
 
-/sl-story-creator .workflow/epics/epic-mco-1234-01-payment.md
-# → Stories in: .workflow/stories/epic-mco-1234-01/
+/sl-story-creator .storyline/epics/epic-mco-1234-01-payment.md
+# → Stories in: .storyline/stories/epic-mco-1234-01/
 
 # For JIRA ticket DASH-567 (New Dashboard)
 /sl-epic-creator
 # → Identifier: DASH-567
 # → Creates: PRD-dash-567.md
 
-/sl-story-creator .workflow/epics/epic-dash-567-01-widgets.md
-# → Stories in: .workflow/stories/epic-dash-567-01/
+/sl-story-creator .storyline/epics/epic-dash-567-01-widgets.md
+# → Stories in: .storyline/stories/epic-dash-567-01/
 ```
 
 **Benefits:**
 - Easy to see all work for a JIRA ticket
-- Grep by identifier: `grep -r "MCO-1234" .workflow/`
+- Grep by identifier: `grep -r "MCO-1234" .storyline/`
 - Git commits can reference ticket: "MCO-1234: Implemented payment flow"
 
 ## Pattern 4: No Identifier (Simple Projects)
@@ -157,16 +157,16 @@ This document shows common usage patterns and real-world scenarios for using Sto
 # → Identifier: [press Enter to skip]
 # → Creates: PRD-001.md, epic-001-*.md
 
-/sl-story-creator .workflow/epics/epic-001-*.md
-# → Creates: .workflow/stories/epic-001/
+/sl-story-creator .storyline/epics/epic-001-*.md
+# → Creates: .storyline/stories/epic-001/
 
-/sl-spec-story .workflow/stories/epic-001/story-01.md
-# → Creates: .workflow/specs/epic-001/spec-01.md
+/sl-spec-story .storyline/stories/epic-001/story-01.md
+# → Creates: .storyline/specs/epic-001/spec-01.md
 ```
 
 **Resulting structure:**
 ```
-.workflow/
+.storyline/
 ├── PRD-001.md
 ├── epics/
 │   ├── epic-001-auth.md
@@ -197,17 +197,17 @@ This document shows common usage patterns and real-world scenarios for using Sto
 # - Part 2: Filters and facets
 # - Part 3: Search analytics
 
-/sl-spec-story .workflow/stories/epic-mco-1234-01/story-03.md
+/sl-spec-story .storyline/stories/epic-mco-1234-01/story-03.md
 # → Choose: "Complex story - will need multiple specs"
 # → Name this part: "basic-text-search"
 # → Output: spec-story03-01-basic-text-search.md
 
-/sl-spec-story .workflow/stories/epic-mco-1234-01/story-03.md
+/sl-spec-story .storyline/stories/epic-mco-1234-01/story-03.md
 # → Choose: "Complex story - will need multiple specs"
 # → Name this part: "filters-and-facets"
 # → Output: spec-story03-02-filters-and-facets.md
 
-/sl-spec-story .workflow/stories/epic-mco-1234-01/story-03.md
+/sl-spec-story .storyline/stories/epic-mco-1234-01/story-03.md
 # → Choose: "Complex story - will need multiple specs"
 # → Name this part: "search-analytics"
 # → Output: spec-story03-03-search-analytics.md
@@ -215,7 +215,7 @@ This document shows common usage patterns and real-world scenarios for using Sto
 
 **Resulting structure:**
 ```
-.workflow/specs/epic-mco-1234-01/
+.storyline/specs/epic-mco-1234-01/
 ├── spec-01.md                            # Story 1 (simple)
 ├── spec-02.md                            # Story 2 (simple)
 ├── spec-story03-01-basic-text-search.md  # Story 3, part 1
@@ -238,7 +238,7 @@ This document shows common usage patterns and real-world scenarios for using Sto
 # Stories 4, 5, 6 are all small UI tweaks
 # Combine into one spec
 
-/sl-spec-story .workflow/stories/epic-mco-1234-01/story-04.md
+/sl-spec-story .storyline/stories/epic-mco-1234-01/story-04.md
 # → Choose: "Combine with other stories"
 # → Which stories? story-05.md, story-06.md
 # → Output: spec-stories-04-05-06-combined.md
@@ -246,7 +246,7 @@ This document shows common usage patterns and real-world scenarios for using Sto
 
 **Resulting structure:**
 ```
-.workflow/specs/epic-mco-1234-01/
+.storyline/specs/epic-mco-1234-01/
 ├── spec-01.md                           # Story 1
 ├── spec-02.md                           # Story 2
 ├── spec-03.md                           # Story 3
@@ -282,13 +282,13 @@ Summary:
 📋 Next suggested actions:
 
 Continue epic-mco-1234-01:
-  /sl-spec-story .workflow/stories/epic-mco-1234-01/story-05.md
+  /sl-spec-story .storyline/stories/epic-mco-1234-01/story-05.md
 
 Continue epic-mco-1234-02:
-  /sl-spec-story .workflow/stories/epic-mco-1234-02/story-03.md
+  /sl-spec-story .storyline/stories/epic-mco-1234-02/story-03.md
 
 Implement ready specs from DASH-567:
-  /sl-develop .workflow/specs/epic-dash-567-01/spec-01.md
+  /sl-develop .storyline/specs/epic-dash-567-01/spec-01.md
 ```
 
 ## Pattern 8: Starting with Existing PRD Document
@@ -307,12 +307,12 @@ Implement ready specs from DASH-567:
 # → Output: PRD-q4-2024.md (copy) + epic files
 
 # Continue as normal
-/sl-story-creator .workflow/epics/epic-q4-2024-01-*.md
+/sl-story-creator .storyline/epics/epic-q4-2024-01-*.md
 ```
 
 **Benefits:**
 - Leverage existing documentation
-- PRD stays in .workflow/ for traceability
+- PRD stays in .storyline/ for traceability
 - Epics extracted automatically
 
 ## Pattern 9: Exploratory Development (No PRD Yet)
@@ -336,11 +336,11 @@ Implement ready specs from DASH-567:
 # → Output: PRD-001.md + epic-001-*.md
 
 # Create just a few stories to start
-/sl-story-creator .workflow/epics/epic-001-*.md
+/sl-story-creator .storyline/epics/epic-001-*.md
 
 # Implement one spec to validate approach
-/sl-spec-story .workflow/stories/epic-001/story-01.md
-/sl-develop .workflow/specs/epic-001/spec-01.md
+/sl-spec-story .storyline/stories/epic-001/story-01.md
+/sl-develop .storyline/specs/epic-001/spec-01.md
 ```
 
 **Use case:**
@@ -358,12 +358,12 @@ Implement ready specs from DASH-567:
 ```bash
 /sl-setup init
 /sl-epic-creator
-/sl-story-creator .workflow/epics/epic-proj-123-01-*.md
-/sl-spec-story .workflow/stories/epic-proj-123-01/story-01.md
+/sl-story-creator .storyline/epics/epic-proj-123-01-*.md
+/sl-spec-story .storyline/stories/epic-proj-123-01/story-01.md
 # ... create all specs
 
 # Commit to git
-git add .workflow/
+git add .storyline/
 git commit -m "PROJ-123: Created specs for phase 1"
 git push
 ```
@@ -377,8 +377,8 @@ git pull
 /sl-setup status
 
 # Start implementing
-/sl-develop .workflow/specs/epic-proj-123-01/spec-01.md
-/sl-develop .workflow/specs/epic-proj-123-01/spec-02.md
+/sl-develop .storyline/specs/epic-proj-123-01/spec-01.md
+/sl-develop .storyline/specs/epic-proj-123-01/spec-02.md
 ```
 
 **Benefits:**
@@ -400,17 +400,17 @@ git pull
 ```bash
 /sl-epic-creator                           # Guided mode
 /sl-epic-creator docs/prd.md              # From existing PRD
-/sl-story-creator .workflow/epics/epic-*.md
-/sl-spec-story .workflow/stories/epic-*/story-*.md
-/sl-develop .workflow/specs/epic-*/spec-*.md
+/sl-story-creator .storyline/epics/epic-*.md
+/sl-spec-story .storyline/stories/epic-*/story-*.md
+/sl-develop .storyline/specs/epic-*/spec-*.md
 ```
 
 **Navigation:**
 ```bash
-ls .workflow/epics/              # See all epics
-ls .workflow/stories/            # See all story directories
-ls .workflow/specs/              # See all spec directories
-cat .workflow/PRD-*.md           # Read a PRD
+ls .storyline/epics/              # See all epics
+ls .storyline/stories/            # See all story directories
+ls .storyline/specs/              # See all spec directories
+cat .storyline/PRD-*.md           # Read a PRD
 ```
 
 ## Tips
@@ -425,6 +425,6 @@ cat .workflow/PRD-*.md           # Read a PRD
 
 **Split complex stories:** Don't try to implement huge stories in one go.
 
-**Commit .workflow/:** Your specs ARE documentation. Don't lose them.
+**Commit .storyline/:** Your specs ARE documentation. Don't lose them.
 
 **Review before implementing:** Read the spec carefully before `/sl-develop`.

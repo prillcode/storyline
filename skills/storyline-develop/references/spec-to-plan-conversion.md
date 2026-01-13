@@ -237,7 +237,7 @@ For each major section in spec:
 
 1. Assess size (how many tasks?)
 2. If > 3 tasks, split into multiple plans
-3. Create plan directory: .workflow/.planning/story-{N}/
+3. Create plan directory: .storyline/.planning/story-{N}/
 4. Write 01-01-PLAN.md, 01-02-PLAN.md, etc.
 5. Each plan:
    - Clear objective

@@ -24,10 +24,10 @@ Chain: Epic → Story → Spec → Code
 
 <principle name="output_structure">
 Specs are organized in epic-specific subdirectories:
-- With identifier: .workflow/specs/epic-mco-1234-01/spec-01.md
-- Without identifier: .workflow/specs/epic-001/spec-01.md
+- With identifier: .storyline/specs/epic-mco-1234-01/spec-01.md
+- Without identifier: .storyline/specs/epic-001/spec-01.md
 
-Format: .workflow/specs/epic-{epic_id}/spec-{nn}.md
+Format: .storyline/specs/epic-{epic_id}/spec-{nn}.md
 
 Each spec includes:
 - Technical approach
@@ -56,8 +56,8 @@ User chooses strategy when creating spec.
 Provide the path to your story file.
 
 Example:
-- `.workflow/stories/epic-mco-1234-01/story-01.md`
-- `.workflow/stories/epic-001/story-02.md`
+- `.storyline/stories/epic-mco-1234-01/story-01.md`
+- `.storyline/stories/epic-001/story-02.md`
 
 You'll be prompted to choose a spec strategy:
 - Simple: One story → one spec
@@ -70,13 +70,27 @@ You'll be prompted to choose a spec strategy:
 <routing>
 After receiving story file path:
 
+**First, detect project directory** (checks .storyline/ first, falls back to .workflow/):
+```bash
+if [ -d ".storyline" ]; then
+  ROOT_DIR=".storyline"
+elif [ -d ".workflow" ]; then
+  ROOT_DIR=".workflow"
+else
+  echo "No Storyline project found. Run /sl-setup init first."
+  exit 1
+fi
+```
+
+Use `$ROOT_DIR` in all file paths throughout the workflow.
+
 1. **Read the story**: Load the story document
 2. **Extract identifier and epic_id**: From story frontmatter or path
 3. **Prompt for spec strategy**: Ask user which approach to use
 4. **Read parent epic**: For additional context
 5. **Read template**: Load templates/spec.md
 6. **Execute workflow**: workflows/create-spec-from-story.md
-   - Pass spec strategy to workflow
+   - Pass spec strategy AND ROOT_DIR to workflow
    - Workflow determines filename based on strategy
 
 **Single workflow with strategy parameter.**
@@ -84,7 +98,7 @@ After receiving story file path:
 
 <validation>
 Before completing, verify:
-- [ ] Epic subdirectory created (.workflow/specs/epic-{epic_id}/)
+- [ ] Epic subdirectory created ($ROOT_DIR/specs/epic-{epic_id}/)
 - [ ] Spec saved to epic subdirectory
 - [ ] Spec filename follows chosen strategy
 - [ ] All files to change identified
@@ -97,7 +111,7 @@ Before completing, verify:
 
 <success_criteria>
 Spec creation successful when:
-1. Spec file written to .workflow/specs/epic-{epic_id}/
+1. Spec file written to $ROOT_DIR/specs/epic-{epic_id}/ (supports both .storyline/ and .workflow/)
 2. Filename follows spec strategy (simple/complex/combined)
 3. Technical approach is clear and executable
 4. All file changes documented

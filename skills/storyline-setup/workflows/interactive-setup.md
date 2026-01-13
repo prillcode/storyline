@@ -4,23 +4,45 @@
 
 **Context:** User ran `/sl-setup` without arguments.
 
+## CRITICAL: Correct Directory Structure
+
+**The official Storyline structure (v2.1+):**
+- Root directory: `.storyline/` (lowercase, required)
+- Subdirectories: `epics/`, `stories/`, `specs/` (lowercase preferred, uppercase also supported)
+
+**Legacy support:**
+- `.workflow/` directory from v2.0 is still supported for backward compatibility
+- Projects can migrate from `.workflow/` to `.storyline/` during setup
+
+**If .storyline/ exists with correct subdirectories, the project IS set up correctly.**
+
 ## Steps
 
 ### 1. Check Current Project State
 
-Use Bash tool to check if `.workflow/` directory exists:
+Use Bash tool to check for both new and legacy directories:
 
 ```bash
-ls -la .workflow/ 2>/dev/null && echo "EXISTS" || echo "NOT_FOUND"
+# Check for .storyline/ (v2.1+)
+if [ -d ".storyline" ]; then
+  echo "STORYLINE_EXISTS"
+  ls -d .storyline/epics .storyline/stories .storyline/specs .storyline/EPICS .storyline/STORIES .storyline/SPECS 2>/dev/null | tr '\n' ' '
+# Check for .workflow/ (v2.0 legacy)
+elif [ -d ".workflow" ]; then
+  echo "WORKFLOW_EXISTS"
+  ls -d .workflow/epics .workflow/stories .workflow/specs .workflow/EPICS .workflow/STORIES .workflow/SPECS 2>/dev/null | tr '\n' ' '
+else
+  echo "NOT_FOUND"
+fi
 ```
 
 ### 2. Branch Based on State
 
-#### If .workflow/ EXISTS:
+#### If .storyline/ EXISTS with subdirectories:
 
-Display:
+**This is a VALID Storyline v2.1+ project!** Display:
 ```
-Storyline is already set up in this project!
+✅ Storyline is already set up in this project!
 
 Current state:
 [Show brief status - count of PRDs, epics, stories, specs]
@@ -36,7 +58,51 @@ Then use AskUserQuestion tool:
   3. "Verify installation" → workflows/verify-installation.md
   4. "Exit" → End
 
-#### If .workflow/ NOT FOUND:
+#### If .workflow/ EXISTS with subdirectories (Legacy v2.0):
+
+**Migration opportunity!** Display:
+```
+📦 Found Storyline v2.0 project using .workflow/ directory
+
+Storyline v2.1 now uses .storyline/ for better branding.
+Would you like to migrate your existing work?
+```
+
+Then use AskUserQuestion tool:
+- Question: "Migrate from .workflow/ to .storyline/?"
+- Options:
+  1. "Yes, migrate now (recommended)" → Perform migration (see Migration Logic below)
+  2. "No, keep using .workflow/ (legacy mode)" → Display: "Continuing with .workflow/ (legacy mode). Your project will still work but we recommend migrating when ready."
+
+**Migration Logic (when user selects "Yes"):**
+```bash
+# Move the entire directory
+mv .workflow .storyline
+```
+
+Then verify and display:
+```bash
+ls -la .storyline/
+```
+
+Display:
+```
+✅ Migration complete!
+
+Migrated to .storyline/:
+  .storyline/
+  ├── PRD files
+  ├── epics/
+  ├── stories/
+  ├── specs/
+  └── .planning/
+
+All your existing work has been preserved.
+```
+
+Then continue to "What would you like to do?" options above.
+
+#### If NEITHER directory found:
 
 Continue to initialization...
 
@@ -54,7 +120,7 @@ Key concepts:
 • A project has many bodies of work over its lifetime
 • Each PRD represents one epic-sized initiative
 • Identifiers (optional) help track work back to your planning system (JIRA, etc.)
-• Everything is organized in .workflow/ directory
+• Everything is organized in .storyline/ directory
 ```
 
 ### 4. Initialize Project
@@ -63,16 +129,16 @@ Call the init workflow directly (don't use Tool, just execute inline):
 
 Create directories:
 ```bash
-mkdir -p .workflow/epics .workflow/stories .workflow/specs .workflow/.planning
+mkdir -p .storyline/epics .storyline/stories .storyline/specs .storyline/.planning
 ```
 
 Load references/directory-structure.md and templates/workflow-readme.md.
 
-Create `.workflow/README.md` using the template.
+Create `.storyline/README.md` using the template.
 
 Verify creation:
 ```bash
-ls -la .workflow/
+ls -la .storyline/
 ```
 
 Display:
@@ -80,7 +146,7 @@ Display:
 ✅ Project initialized successfully!
 
 Created directory structure:
-  .workflow/
+  .storyline/
   ├── epics/      # Epic-level themes from PRDs
   ├── stories/    # User stories from epics
   ├── specs/      # Technical specifications
@@ -139,9 +205,13 @@ Happy building! 🚀
 ## Error Handling
 
 **Cannot create directories:** Permission issues
-- Display: "Unable to create .workflow/ directory. Check permissions."
+- Display: "Unable to create .storyline/ directory. Check permissions."
 - Suggest: "Try running: chmod +w . or sudo if needed"
 
-**Already initialized but corrupted:** .workflow/ exists but missing subdirectories
-- Display: "Found .workflow/ but structure is incomplete. Recreating subdirectories..."
+**Already initialized but corrupted:** .storyline/ exists but missing subdirectories
+- Display: "Found .storyline/ but structure is incomplete. Recreating subdirectories..."
 - Run init logic to fill in missing pieces
+
+**Legacy .workflow/ exists but corrupted:**
+- Display: "Found .workflow/ but structure is incomplete."
+- Offer migration to .storyline/ with structure repair

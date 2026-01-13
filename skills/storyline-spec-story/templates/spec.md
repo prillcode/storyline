@@ -247,4 +247,4 @@ PRD-{identifier}.md
 
 ---
 
-**Next step:** Run `/sl-develop .workflow/specs/epic-{EPIC_ID}/spec-{SPEC_ID}.md`
+**Next step:** Run `/sl-develop .storyline/specs/epic-{EPIC_ID}/spec-{SPEC_ID}.md`

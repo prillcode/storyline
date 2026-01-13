@@ -58,15 +58,15 @@ spec-001-user-signup.md →
 
 For each atomic plan:
 
-1. **Create directory**: `.workflow/.planning/story-{number}/`
+1. **Create directory**: `.storyline/.planning/story-{number}/`
 
 2. **Write PLAN.md** following create-plans format:
 
 ```markdown
 ---
 phase_id: story-{number}-{segment}
-spec_source: .workflow/specs/spec-{number}-{slug}.md
-story_source: .workflow/stories/story-{number}-{slug}.md
+spec_source: .storyline/specs/spec-{number}-{slug}.md
+story_source: .storyline/stories/story-{number}-{slug}.md
 ---
 
 <objective>
@@ -76,8 +76,8 @@ story_source: .workflow/stories/story-{number}-{slug}.md
 <execution_context>
 Essential reading before executing ANY tasks:
 
-@.workflow/specs/spec-{number}-{slug}.md - Technical spec for this story
-@.workflow/stories/story-{number}-{slug}.md - Parent story with acceptance criteria
+@.storyline/specs/spec-{number}-{slug}.md - Technical spec for this story
+@.storyline/stories/story-{number}-{slug}.md - Parent story with acceptance criteria
 
 **Execution protocol:**
 - Follow deviation rules (auto-fix bugs, ask architectural, etc.)
@@ -132,7 +132,7 @@ Create SUMMARY.md in same directory with:
 - Deviations (if any)
 - Tests added
 - Verification results
-- Link to parent story: .workflow/stories/story-{number}-{slug}.md
+- Link to parent story: .storyline/stories/story-{number}-{slug}.md
 - Commit hash
 </output>
 ```
@@ -143,7 +143,7 @@ For each PLAN.md created:
 
 Invoke the create-plans execution flow:
 ```
-Read the PLAN.md at .workflow/.planning/story-{number}/01-01-PLAN.md
+Read the PLAN.md at .storyline/.planning/story-{number}/01-01-PLAN.md
 
 Execute all tasks following:
 - Deviation rules from create-plans
@@ -170,7 +170,7 @@ After all plan segments execute:
    - Manual verification completed (if needed)
 
 2. Update story status:
-   - Edit .workflow/stories/story-{number}-{slug}.md
+   - Edit .storyline/stories/story-{number}-{slug}.md
    - Change `status: ready_for_spec` → `status: implemented`
    - Add implementation reference
 
@@ -179,10 +179,10 @@ After all plan segments execute:
 ```markdown
 ## Implementation Summary
 
-**Spec:** .workflow/specs/spec-{number}-{slug}.md
+**Spec:** .storyline/specs/spec-{number}-{slug}.md
 **Plans executed:**
-- .workflow/.planning/story-{number}/01-01-PLAN.md
-- .workflow/.planning/story-{number}/01-02-PLAN.md
+- .storyline/.planning/story-{number}/01-01-PLAN.md
+- .storyline/.planning/story-{number}/01-02-PLAN.md
 
 **Commits:**
 - {commit hash}: {message}
@@ -200,13 +200,13 @@ After all plan segments execute:
 
 <output_specification>
 Creates:
-- .workflow/.planning/story-{number}/01-01-PLAN.md
-- .workflow/.planning/story-{number}/01-01-SUMMARY.md
-- .workflow/.planning/story-{number}/01-0N-PLAN.md (if needed)
-- .workflow/.planning/story-{number}/01-0N-SUMMARY.md
+- .storyline/.planning/story-{number}/01-01-PLAN.md
+- .storyline/.planning/story-{number}/01-01-SUMMARY.md
+- .storyline/.planning/story-{number}/01-0N-PLAN.md (if needed)
+- .storyline/.planning/story-{number}/01-0N-SUMMARY.md
 
 Updates:
-- .workflow/stories/story-{number}-{slug}.md (status → implemented)
+- .storyline/stories/story-{number}-{slug}.md (status → implemented)
 
 Produces:
 - Working code implementing the spec
