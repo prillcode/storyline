@@ -49,6 +49,18 @@ Write-Host ""
 Write-Host "✅ Repository cloned successfully" -ForegroundColor Green
 Write-Host ""
 
+# Normalize line endings for PowerShell scripts
+# PowerShell on Windows requires CRLF endings, but Git may clone with LF
+Write-Host "Normalizing line endings for PowerShell compatibility..."
+$InstallScript = Join-Path $InstallDir "install.ps1"
+if (Test-Path $InstallScript) {
+    $content = Get-Content $InstallScript -Raw
+    # Convert LF to CRLF if needed
+    $content = $content -replace "`r`n", "`n"  # First normalize to LF
+    $content = $content -replace "`n", "`r`n"  # Then convert to CRLF
+    Set-Content -Path $InstallScript -Value $content -NoNewline
+}
+
 # Run the installer
 Push-Location $InstallDir
 try {

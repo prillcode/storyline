@@ -1,0 +1,17 @@
+# Line ending normalization
+
+# Shell scripts should always have LF endings (Unix-style)
+*.sh text eol=lf
+install.sh text eol=lf
+remote-install.sh text eol=lf
+
+# PowerShell scripts should always have CRLF endings (Windows-style)
+*.ps1 text eol=crlf
+
+# Markdown and YAML files use LF
+*.md text eol=lf
+*.yaml text eol=lf
+*.yml text eol=lf
+
+# Let Git handle these automatically
+* text=auto
