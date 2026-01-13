@@ -54,11 +54,13 @@ Write-Host ""
 Write-Host "Normalizing line endings for PowerShell compatibility..."
 $InstallScript = Join-Path $InstallDir "install.ps1"
 if (Test-Path $InstallScript) {
-    $content = Get-Content $InstallScript -Raw
-    # Convert LF to CRLF if needed
-    $content = $content -replace "`r`n", "`n"  # First normalize to LF
-    $content = $content -replace "`n", "`r`n"  # Then convert to CRLF
-    Set-Content -Path $InstallScript -Value $content -NoNewline
+    # Use .NET file methods for reliable line ending conversion
+    $content = [System.IO.File]::ReadAllText($InstallScript)
+    # Normalize to LF first, then convert to CRLF
+    $content = $content -replace "`r`n", "`n"
+    $content = $content -replace "`n", "`r`n"
+    # Write with proper encoding
+    [System.IO.File]::WriteAllText($InstallScript, $content, [System.Text.UTF8Encoding]::new($false))
 }
 
 # Run the installer
