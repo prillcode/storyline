@@ -105,9 +105,14 @@ If you have an existing project with `.workflow/`, simply run `/sl-setup` and ch
 
 ## Installation
 
-### Recommended: Linux/macOS/WSL (One-Line Install)
+### Requirements
 
-For the smoothest experience, we recommend using Linux, macOS, or WSL (Windows Subsystem for Linux):
+**Linux, macOS, or WSL (Windows Subsystem for Linux)** is required.
+
+- **Windows users:** Please use [WSL (Windows Subsystem for Linux)](https://learn.microsoft.com/en-us/windows/wsl/install). It's easy to set up and provides a seamless Linux environment.
+- Native Windows PowerShell is not currently supported due to line ending compatibility issues.
+
+### One-Line Install
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/prillcode/storyline/main/remote-install.sh | bash
@@ -118,33 +123,15 @@ This will:
 2. Install everything to `~/.local/share/storyline`
 3. Copy skills and commands to `~/.claude/`
 
-### Windows PowerShell (Alternative)
-
-If you prefer to use native Windows PowerShell:
-
-```powershell
-irm https://raw.githubusercontent.com/prillcode/storyline/main/remote-install.ps1 | iex
-```
-
-**Note:** The bash version is recommended for the best compatibility. Windows users can easily use WSL for a native Linux experience.
-
 ### Manual Installation
 
 If you prefer to clone and install manually:
 
 ```bash
-# Linux/macOS/WSL
 git clone --recurse-submodules https://github.com/prillcode/storyline.git
 cd storyline
 chmod +x install.sh
 ./install.sh
-```
-
-```powershell
-# Windows PowerShell
-git clone --recurse-submodules https://github.com/prillcode/storyline.git
-cd storyline
-powershell -ExecutionPolicy Bypass -File .\install.ps1
 ```
 
 The `--recurse-submodules` flag automatically includes the cc-resources dependency. If you forget the flag, the installer will offer to initialize submodules for you.
@@ -153,14 +140,8 @@ The `--recurse-submodules` flag automatically includes the cc-resources dependen
 
 To update to the latest version, re-run the one-line installer:
 
-**Linux/macOS/WSL:**
 ```bash
 curl -fsSL https://raw.githubusercontent.com/prillcode/storyline/main/remote-install.sh | bash
-```
-
-**Windows PowerShell:**
-```powershell
-irm https://raw.githubusercontent.com/prillcode/storyline/main/remote-install.ps1 | iex
 ```
 
 Or if you cloned manually:
@@ -169,7 +150,7 @@ Or if you cloned manually:
 cd storyline
 git pull origin main
 git submodule update --init --recursive
-./install.sh  # or .\install.ps1 on Windows
+./install.sh
 ```
 
 ### Verify Installation
