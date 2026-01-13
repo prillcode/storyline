@@ -36,6 +36,9 @@ echo "Cloning Storyline repository with dependencies..."
 if [ -d "$INSTALL_DIR/.git" ]; then
     echo "Storyline already cloned. Updating..."
     cd "$INSTALL_DIR"
+    # Reset any local changes to ensure clean update
+    git reset --hard HEAD
+    git clean -fd
     git pull origin main
     git submodule update --init --recursive
 else
