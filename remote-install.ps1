@@ -49,26 +49,26 @@ Write-Host ""
 Write-Host "✅ Repository cloned successfully" -ForegroundColor Green
 Write-Host ""
 
-# Normalize line endings for PowerShell scripts
+# Run the installer with proper line ending handling
 # PowerShell on Windows requires CRLF endings, but Git may clone with LF
-Write-Host "Normalizing line endings for PowerShell compatibility..."
+Write-Host "Running installer..."
 $InstallScript = Join-Path $InstallDir "install.ps1"
 if (Test-Path $InstallScript) {
-    # Use .NET file methods for reliable line ending conversion
-    $content = [System.IO.File]::ReadAllText($InstallScript)
-    # Normalize to LF first, then convert to CRLF
-    $content = $content -replace "`r`n", "`n"
-    $content = $content -replace "`n", "`r`n"
-    # Write with proper encoding
-    [System.IO.File]::WriteAllText($InstallScript, $content, [System.Text.UTF8Encoding]::new($false))
-}
+    Push-Location $InstallDir
+    try {
+        # Read and normalize line endings before execution
+        $content = [System.IO.File]::ReadAllText($InstallScript)
+        $content = $content -replace "`r`n", "`n"  # Normalize to LF
+        $content = $content -replace "`n", "`r`n"  # Convert to CRLF
 
-# Run the installer
-Push-Location $InstallDir
-try {
-    & powershell -ExecutionPolicy Bypass -File ".\install.ps1"
-} finally {
-    Pop-Location
+        # Execute the script content directly instead of via file
+        Invoke-Expression $content
+    } finally {
+        Pop-Location
+    }
+} else {
+    Write-Host "Error: install.ps1 not found" -ForegroundColor Red
+    exit 1
 }
 
 Write-Host ""
