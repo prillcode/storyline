@@ -56,13 +56,16 @@ $InstallScript = Join-Path $InstallDir "install.ps1"
 if (Test-Path $InstallScript) {
     Push-Location $InstallDir
     try {
-        # Read and normalize line endings before execution
-        $content = [System.IO.File]::ReadAllText($InstallScript)
-        $content = $content -replace "`r`n", "`n"  # Normalize to LF
-        $content = $content -replace "`n", "`r`n"  # Convert to CRLF
+        # Read script content with explicit encoding
+        $content = Get-Content -Path $InstallScript -Raw -Encoding UTF8
 
-        # Execute the script content directly instead of via file
-        Invoke-Expression $content
+        # Normalize line endings to CRLF for PowerShell on Windows
+        $content = $content -replace "`r`n", "`n"  # First normalize to LF
+        $content = $content -replace "`n", "`r`n"  # Then convert to CRLF
+
+        # Create and execute as ScriptBlock (more reliable than Invoke-Expression)
+        $scriptBlock = [ScriptBlock]::Create($content)
+        & $scriptBlock
     } finally {
         Pop-Location
     }
