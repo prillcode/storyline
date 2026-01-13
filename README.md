@@ -107,9 +107,10 @@ If you have an existing project with `.workflow/`, simply run `/sl-setup` and ch
 
 ### Requirements
 
-**Linux, macOS, WSL, or Windows (PowerShell)** are all supported.
+**Linux, macOS, or WSL (Windows Subsystem for Linux)** are recommended.
 
-- **Windows users:** You can use either [WSL (Windows Subsystem for Linux)](https://learn.microsoft.com/en-us/windows/wsl/install) (recommended) or native Windows PowerShell.
+- **Windows users:** [WSL (Windows Subsystem for Linux)](https://learn.microsoft.com/en-us/windows/wsl/install) is strongly recommended for the best experience.
+- **Experimental:** Native Windows PowerShell support is available but may have line ending issues with the remote installer. Manual installation works reliably.
 
 ### One-Line Install
 
@@ -118,10 +119,12 @@ If you have an existing project with `.workflow/`, simply run `/sl-setup` and ch
 curl -fsSL https://raw.githubusercontent.com/prillcode/storyline/main/remote-install.sh | bash
 ```
 
-**Windows (PowerShell):**
+**Windows (PowerShell) - Experimental:**
 ```powershell
 iwr -useb https://raw.githubusercontent.com/prillcode/storyline/main/remote-install.ps1 | iex
 ```
+
+**Note:** Due to line ending issues, the remote PowerShell installer may not work reliably. For Windows native, we recommend using WSL or the manual installation method below.
 
 This will:
 1. Clone Storyline with all dependencies (using git submodules)
@@ -138,7 +141,7 @@ chmod +x install.sh
 ./install.sh
 ```
 
-**Windows (PowerShell):**
+**Windows (PowerShell) - Recommended for native Windows:**
 ```powershell
 git clone --recurse-submodules https://github.com/prillcode/storyline.git
 cd storyline
@@ -146,6 +149,8 @@ cd storyline
 ```
 
 The `--recurse-submodules` flag automatically includes the cc-resources dependency. If you forget the flag, the installer will offer to initialize submodules for you.
+
+**Note:** Manual installation via PowerShell works reliably. The remote one-line installer above may have issues due to line ending conversion.
 
 ### Advanced: Windows Native (Step-by-Step File Copy)
 
@@ -188,12 +193,14 @@ To update to the latest version, re-run the one-line installer:
 curl -fsSL https://raw.githubusercontent.com/prillcode/storyline/main/remote-install.sh | bash
 ```
 
-**Windows (PowerShell):**
+**Windows (PowerShell) - Experimental:**
 ```powershell
 iwr -useb https://raw.githubusercontent.com/prillcode/storyline/main/remote-install.ps1 | iex
 ```
 
-Or if you cloned manually:
+**Note:** The remote installer may have line ending issues. Use manual update method below for best results.
+
+Or if you cloned manually (recommended for Windows):
 
 **Linux/macOS/WSL:**
 ```bash
