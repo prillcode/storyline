@@ -26,3 +26,6 @@ yarn.lock
 .storyline/
 .planning/
 test-output/
+
+# Clade stuff
+tmpclaude-*-cwd
