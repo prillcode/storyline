@@ -105,7 +105,9 @@ If you have an existing project with `.workflow/`, simply run `/sl-setup` and ch
 
 ## Installation
 
-### Option 1: One-Line Remote Install (Recommended)
+### Recommended: Linux/macOS/WSL (One-Line Install)
+
+For the smoothest experience, we recommend using Linux, macOS, or WSL (Windows Subsystem for Linux):
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/prillcode/storyline/main/remote-install.sh | bash
@@ -116,40 +118,49 @@ This will:
 2. Install everything to `~/.local/share/storyline`
 3. Copy skills and commands to `~/.claude/`
 
-### Option 2: Clone and Install
+### Windows PowerShell (Alternative)
+
+If you prefer to use native Windows PowerShell:
+
+```powershell
+irm https://raw.githubusercontent.com/prillcode/storyline/main/remote-install.ps1 | iex
+```
+
+**Note:** The bash version is recommended for the best compatibility. Windows users can easily use WSL for a native Linux experience.
+
+### Manual Installation
+
+If you prefer to clone and install manually:
 
 ```bash
+# Linux/macOS/WSL
 git clone --recurse-submodules https://github.com/prillcode/storyline.git
 cd storyline
 chmod +x install.sh
 ./install.sh
 ```
 
-The `--recurse-submodules` flag automatically includes the cc-resources dependency.
-
-If you forget the flag, the installer will offer to initialize submodules for you.
-
-### Option 3: Manual Install
-
-```bash
-# Clone with dependencies
+```powershell
+# Windows PowerShell
 git clone --recurse-submodules https://github.com/prillcode/storyline.git
 cd storyline
-
-# Manually copy files
-cp -r dependencies/cc-resources/skills/* ~/.claude/skills/
-cp -r dependencies/cc-resources/commands/* ~/.claude/commands/
-cp -r dependencies/cc-resources/agents/* ~/.claude/agents/
-cp -r skills/* ~/.claude/skills/
-cp -r commands/* ~/.claude/commands/
+powershell -ExecutionPolicy Bypass -File .\install.ps1
 ```
+
+The `--recurse-submodules` flag automatically includes the cc-resources dependency. If you forget the flag, the installer will offer to initialize submodules for you.
 
 ### Updating Storyline
 
-To update to the latest version:
+To update to the latest version, re-run the one-line installer:
 
+**Linux/macOS/WSL:**
 ```bash
 curl -fsSL https://raw.githubusercontent.com/prillcode/storyline/main/remote-install.sh | bash
+```
+
+**Windows PowerShell:**
+```powershell
+irm https://raw.githubusercontent.com/prillcode/storyline/main/remote-install.ps1 | iex
 ```
 
 Or if you cloned manually:
@@ -158,7 +169,7 @@ Or if you cloned manually:
 cd storyline
 git pull origin main
 git submodule update --init --recursive
-./install.sh
+./install.sh  # or .\install.ps1 on Windows
 ```
 
 ### Verify Installation
