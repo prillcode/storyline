@@ -115,6 +115,7 @@ If you have an existing project with `.workflow/`, simply run `/sl-setup` and ch
 ### One-Line Install
 
 **Linux/macOS/WSL:**
+**Linux/macOS/WSL:**
 ```bash
 curl -fsSL https://raw.githubusercontent.com/prillcode/storyline/main/remote-install.sh | bash
 ```
@@ -132,7 +133,9 @@ This will:
 3. Copy skills and commands to `~/.claude/`
 
 ### Manual Installation
+### Manual Installation
 
+**Linux/macOS/WSL:**
 **Linux/macOS/WSL:**
 ```bash
 git clone --recurse-submodules https://github.com/prillcode/storyline.git
@@ -154,6 +157,7 @@ The `--recurse-submodules` flag automatically includes the cc-resources dependen
 
 ### Advanced: Windows Native (Step-by-Step File Copy)
 
+If you prefer to manually copy files without running the installer script:
 If you prefer to manually copy files without running the installer script:
 
 **Step 1: Clone the repository with submodules**
@@ -189,6 +193,7 @@ Copy-Item -Path ".\commands\*" -Destination "$HOME\.claude\commands\" -Recurse -
 To update to the latest version, re-run the one-line installer:
 
 **Linux/macOS/WSL:**
+**Linux/macOS/WSL:**
 ```bash
 curl -fsSL https://raw.githubusercontent.com/prillcode/storyline/main/remote-install.sh | bash
 ```
@@ -203,11 +208,20 @@ iwr -useb https://raw.githubusercontent.com/prillcode/storyline/main/remote-inst
 Or if you cloned manually (recommended for Windows):
 
 **Linux/macOS/WSL:**
+**Linux/macOS/WSL:**
 ```bash
 cd storyline
 git pull origin main
 git submodule update --init --recursive
 ./install.sh
+```
+
+**Windows (PowerShell):**
+```powershell
+cd storyline
+git pull origin main
+git submodule update --init --recursive
+.\install.ps1
 ```
 
 **Windows (PowerShell):**
