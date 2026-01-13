@@ -107,15 +107,20 @@ If you have an existing project with `.workflow/`, simply run `/sl-setup` and ch
 
 ### Requirements
 
-**Linux, macOS, or WSL (Windows Subsystem for Linux)** is required.
+**Linux, macOS, WSL, or Windows (PowerShell)** are all supported.
 
-- **Windows users:** Please use [WSL (Windows Subsystem for Linux)](https://learn.microsoft.com/en-us/windows/wsl/install). It's easy to set up and provides a seamless Linux environment.
-- Native Windows PowerShell is not currently supported due to line ending compatibility issues.
+- **Windows users:** You can use either [WSL (Windows Subsystem for Linux)](https://learn.microsoft.com/en-us/windows/wsl/install) (recommended) or native Windows PowerShell.
 
 ### One-Line Install
 
+**Linux/macOS/WSL:**
 ```bash
 curl -fsSL https://raw.githubusercontent.com/prillcode/storyline/main/remote-install.sh | bash
+```
+
+**Windows (PowerShell):**
+```powershell
+iwr -useb https://raw.githubusercontent.com/prillcode/storyline/main/remote-install.ps1 | iex
 ```
 
 This will:
@@ -123,10 +128,9 @@ This will:
 2. Install everything to `~/.local/share/storyline`
 3. Copy skills and commands to `~/.claude/`
 
-### Manual Installation (Linux/macOS/WSL)
+### Manual Installation
 
-If you prefer to clone and install manually:
-
+**Linux/macOS/WSL:**
 ```bash
 git clone --recurse-submodules https://github.com/prillcode/storyline.git
 cd storyline
@@ -134,11 +138,18 @@ chmod +x install.sh
 ./install.sh
 ```
 
+**Windows (PowerShell):**
+```powershell
+git clone --recurse-submodules https://github.com/prillcode/storyline.git
+cd storyline
+.\install.ps1
+```
+
 The `--recurse-submodules` flag automatically includes the cc-resources dependency. If you forget the flag, the installer will offer to initialize submodules for you.
 
-### Advanced: Windows Native (Manual File Copy)
+### Advanced: Windows Native (Step-by-Step File Copy)
 
-While WSL is strongly recommended, advanced users can manually install on native Windows by copying files:
+If you prefer to manually copy files without running the installer script:
 
 **Step 1: Clone the repository with submodules**
 ```powershell
@@ -172,17 +183,32 @@ Copy-Item -Path ".\commands\*" -Destination "$HOME\.claude\commands\" -Recurse -
 
 To update to the latest version, re-run the one-line installer:
 
+**Linux/macOS/WSL:**
 ```bash
 curl -fsSL https://raw.githubusercontent.com/prillcode/storyline/main/remote-install.sh | bash
 ```
 
+**Windows (PowerShell):**
+```powershell
+iwr -useb https://raw.githubusercontent.com/prillcode/storyline/main/remote-install.ps1 | iex
+```
+
 Or if you cloned manually:
 
+**Linux/macOS/WSL:**
 ```bash
 cd storyline
 git pull origin main
 git submodule update --init --recursive
 ./install.sh
+```
+
+**Windows (PowerShell):**
+```powershell
+cd storyline
+git pull origin main
+git submodule update --init --recursive
+.\install.ps1
 ```
 
 ### Verify Installation
