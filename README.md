@@ -45,6 +45,14 @@ Each step produces structured markdown files that feed into the next stage, crea
 - **🛠️ Standalone Usage** - Use `/sl-commit` for any repository changes, not just Storyline work
 - **🤖 Auto-Integration** - `/sl-develop` automatically creates commits using the new system
 
+**⚡ Standalone Stories (No Epic Required):**
+
+- **🎯 Quick Workflow** - Create stories for bug fixes, small features, or tasks without needing a full epic
+- **📝 Guided Creation** - Run `/sl-story-creator` with no arguments for guided standalone story creation
+- **📁 Hidden Directory** - Stored in `.storyline/stories/.standalone/` for easy organization
+- **🔗 Full Pipeline Support** - Standalone stories work seamlessly with `/sl-spec-story` and `/sl-develop`
+- **💡 Best For** - Bug fixes, quick enhancements, small features, and one-off tasks
+
 ## What's New in v2.1
 
 **📦 Better Branding & Backward Compatibility:**
@@ -76,12 +84,18 @@ If you have an existing project with `.workflow/`, simply run `/sl-setup` and ch
 │   ├── epic-{id}-01-auth.md   # Identifiers in filenames
 │   └── epic-{id}-02-tasks.md
 ├── stories/
+│   ├── .standalone/           # Standalone stories (no epic required)
+│   │   ├── story-fix-login-validation.md
+│   │   └── story-add-export-button.md
 │   ├── epic-{id}-01/          # Organized by epic
 │   │   ├── story-01.md
 │   │   └── story-02.md
 │   └── epic-{id}-02/
 │       └── story-01.md
 └── specs/
+    ├── .standalone/           # Specs from standalone stories
+    │   ├── spec-fix-login-validation.md
+    │   └── spec-add-export-button.md
     ├── epic-{id}-01/          # Organized by epic
     │   ├── spec-01.md
     │   └── spec-stories-02-03-combined.md
@@ -190,7 +204,7 @@ Creates:
     └── epic-jira-123-03-categories.md
 ```
 
-### 3. Create Stories from Epic
+### 3a. Create Stories from Epic
 
 ```bash
 /sl-story-creator .storyline/epics/epic-jira-123-01-authentication.md
@@ -204,8 +218,28 @@ Creates:
 └── story-03.md          # Password reset
 ```
 
+### 3b. Create Standalone Story (No Epic Required)
+
+**New in v2.1.2:** For bug fixes, small features, or quick tasks that don't need a full epic:
+
+```bash
+/sl-story-creator
+```
+
+This launches a guided workflow that prompts you for:
+- Work type (bug fix, small feature, enhancement, task)
+- Title and description
+- User persona and acceptance criteria
+
+Creates:
+```
+.storyline/stories/.standalone/
+└── story-fix-login-validation.md
+```
+
 ### 4. Generate Technical Spec
 
+**From epic-based story:**
 ```bash
 /sl-spec-story .storyline/stories/epic-jira-123-01/story-01.md
 ```
@@ -218,6 +252,18 @@ You'll choose a spec strategy:
 Creates:
 ```
 .storyline/specs/epic-jira-123-01/spec-01.md
+```
+
+**From standalone story:**
+```bash
+/sl-spec-story .storyline/stories/.standalone/story-fix-login-validation.md
+```
+
+Standalone stories always use simple strategy (1 story → 1 spec).
+
+Creates:
+```
+.storyline/specs/.standalone/spec-fix-login-validation.md
 ```
 
 ### 5. Implement the Code
@@ -255,7 +301,11 @@ my-project/
 │   │   ├── epic-jira-123-01-auth.md   # Identifier propagates
 │   │   ├── epic-jira-123-02-tasks.md
 │   │   └── epic-feature-789-01-export.md
-│   ├── stories/                       # Organized by epic
+│   ├── stories/                       # Organized by epic + standalone
+│   │   ├── .standalone/               # Standalone stories (no epic)
+│   │   │   ├── story-fix-login.md
+│   │   │   ├── story-add-export.md
+│   │   │   └── INDEX.md
 │   │   ├── epic-jira-123-01/
 │   │   │   ├── story-01.md
 │   │   │   ├── story-02.md
@@ -264,7 +314,10 @@ my-project/
 │   │   │   └── story-01.md
 │   │   └── epic-feature-789-01/
 │   │       └── story-01.md
-│   ├── specs/                         # Organized by epic
+│   ├── specs/                         # Organized by epic + standalone
+│   │   ├── .standalone/               # Specs from standalone stories
+│   │   │   ├── spec-fix-login.md
+│   │   │   └── spec-add-export.md
 │   │   ├── epic-jira-123-01/
 │   │   │   ├── spec-01.md
 │   │   │   └── spec-stories-02-03-combined.md
@@ -303,24 +356,43 @@ Parse a PRD or technical spec into one or more epics.
 - Single epic mode (small features)
 - Multi-epic mode (large projects)
 
-### `/sl-story-creator <epic-file>`
+### `/sl-story-creator [epic-file]`
 
-Generate user stories from an epic.
+Generate user stories from an epic OR create standalone stories.
 
-**Input:** Epic markdown file
-**Output:** Story files in `.storyline/stories/`
+**Mode 1: From epic**
+```bash
+/sl-story-creator .storyline/epics/epic-001-auth.md
+```
+**Output:** Story files in `.storyline/stories/epic-{id}/`
+
+**Mode 2: Standalone (no epic required)**
+```bash
+/sl-story-creator
+```
+Guided workflow for bug fixes, small features, quick tasks.
+**Output:** Story files in `.storyline/stories/.standalone/`
 
 **Features:**
 - Validates story format
 - Ensures INVEST criteria
-- Links back to parent epic
+- Links to parent epic (epic-based) or marks as standalone
+- Supports optional tracking identifiers
 
 ### `/sl-spec-story <story-file>`
 
-Create technical specification from a user story.
+Create technical specification from a user story (epic-based or standalone).
 
-**Input:** Story markdown file
-**Output:** Technical spec in `.storyline/specs/`
+**Input:** Story markdown file (epic-based or standalone)
+**Output:** Technical spec in `.storyline/specs/` (organized by epic or in `.standalone/`)
+
+**Epic-based stories:**
+- Prompted to choose spec strategy (simple/complex/combined)
+- Output: `.storyline/specs/epic-{id}/spec-{nn}.md`
+
+**Standalone stories:**
+- Always simple strategy (1 story → 1 spec)
+- Output: `.storyline/specs/.standalone/spec-{slug}.md`
 
 **Includes:**
 - Architecture decisions

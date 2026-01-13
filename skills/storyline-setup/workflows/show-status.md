@@ -120,6 +120,15 @@ For each epic directory:
   ls {STORIES_DIR}/epic-{id}/*.md 2>/dev/null | wc -l
   ```
 
+**Also scan for standalone stories:**
+```bash
+if [ -d "{STORIES_DIR}/.standalone" ]; then
+  ls {STORIES_DIR}/.standalone/story-*.md 2>/dev/null | wc -l
+fi
+```
+
+Store standalone story count separately.
+
 ### 6. Scan Specs
 
 Use Bash tool to list spec directories with detected path:
@@ -133,6 +142,15 @@ For each epic directory:
   ```bash
   ls {SPECS_DIR}/epic-{id}/*.md 2>/dev/null | wc -l
   ```
+
+**Also scan for standalone specs:**
+```bash
+if [ -d "{SPECS_DIR}/.standalone" ]; then
+  ls {SPECS_DIR}/.standalone/spec-*.md 2>/dev/null | wc -l
+fi
+```
+
+Store standalone spec count separately.
 
 ### 7. Build Status Table
 
@@ -168,17 +186,37 @@ Next step: Create your first epic
 Storyline Project Status
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
+Epic-Based Work:
 | Initiative      | Epics | Stories | Specs | Status          |
 |-----------------|-------|---------|-------|-----------------|
 | PRD-mco-1234.md | 2     | 5       | 4     | In progress     |
 | PRD-feat-789.md | 1     | 3       | 3     | Ready to develop|
 | PRD-001.md      | 1     | 0       | 0     | Epics only      |
 
+Standalone Work (no epic required):
+• Stories: {standalone_story_count}
+• Specs: {standalone_spec_count}
+
 Summary:
 • 3 PRDs/initiatives
 • 4 epics total
-• 8 stories total
-• 7 specs total
+• 8 epic-based stories + {standalone_story_count} standalone stories
+• 7 epic-based specs + {standalone_spec_count} standalone specs
+```
+
+**If only standalone work exists (no PRDs/epics):**
+```
+Storyline Project Status
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Standalone Work (no epic required):
+• Stories: {standalone_story_count}
+• Specs: {standalone_spec_count}
+
+No epic-based work found.
+
+To create standalone stories: /sl-story-creator
+To create epic-based work: /sl-epic-creator
 ```
 
 ### 9. Suggest Next Actions
@@ -225,6 +263,22 @@ Implement ready specs:
   /sl-develop {SPECS_DIR}/epic-mco-1234-01/spec-01.md
 ```
 
+**If standalone stories exist but no specs:**
+```
+📋 Next suggested action for standalone work:
+
+Create spec from standalone story:
+  /sl-spec-story {STORIES_DIR}/.standalone/story-{slug}.md
+```
+
+**If standalone specs exist (not implemented):**
+```
+📋 Next suggested action for standalone work:
+
+Implement standalone spec:
+  /sl-develop {SPECS_DIR}/.standalone/spec-{slug}.md
+```
+
 ### 10. Show Incomplete Workflows
 
 If any epic has gaps in the pipeline:
@@ -238,12 +292,20 @@ epic-001: Has stories but no specs yet
 ### 11. Traceability Quick Reference
 
 If project has files, show a sample chain using detected paths:
+
+**Epic-based chain:**
 ```
-Example traceability chain:
   PRD-mco-1234.md
   └─ {EPICS_DIR}/epic-mco-1234-01-auth.md
      └─ {STORIES_DIR}/epic-mco-1234-01/story-01.md
         └─ {SPECS_DIR}/epic-mco-1234-01/spec-01.md
+```
+
+**Standalone chain:**
+```
+  Standalone work (adhoc bug fixes, small features)
+  └─ {STORIES_DIR}/.standalone/story-fix-login.md
+     └─ {SPECS_DIR}/.standalone/spec-fix-login.md
 ```
 
 ## Implementation Notes

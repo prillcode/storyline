@@ -23,11 +23,17 @@ Chain: Epic → Story → Spec → Code
 </principle>
 
 <principle name="output_structure">
-Specs are organized in epic-specific subdirectories:
+Specs are organized in epic-specific subdirectories OR standalone directory:
+
+**Epic-based specs:**
 - With identifier: .storyline/specs/epic-mco-1234-01/spec-01.md
 - Without identifier: .storyline/specs/epic-001/spec-01.md
+- Format: .storyline/specs/epic-{epic_id}/spec-{nn}.md
 
-Format: .storyline/specs/epic-{epic_id}/spec-{nn}.md
+**Standalone specs** (from standalone stories):
+- Location: .storyline/specs/.standalone/spec-{slug}.md
+- Format: .storyline/specs/.standalone/spec-fix-login-validation.md
+- Matches parent story slug for easy tracing
 
 Each spec includes:
 - Technical approach
@@ -53,16 +59,22 @@ User chooses strategy when creating spec.
 <intake>
 **Technical spec creation from story**
 
-Provide the path to your story file.
+Provide the path to your story file (epic-based or standalone).
 
-Example:
+**Epic-based stories:**
 - `.storyline/stories/epic-mco-1234-01/story-01.md`
 - `.storyline/stories/epic-001/story-02.md`
 
-You'll be prompted to choose a spec strategy:
+**Standalone stories:**
+- `.storyline/stories/.standalone/story-fix-login-validation.md`
+- `.storyline/stories/.standalone/story-add-export-button.md`
+
+**For epic-based stories**, you'll be prompted to choose a spec strategy:
 - Simple: One story → one spec
 - Complex: One story → multiple specs (for large stories)
 - Combined: Multiple stories → one spec (for small related stories)
+
+**For standalone stories**, specs are always simple (1 story → 1 spec).
 
 **Wait for file path before proceeding.**
 </intake>
@@ -84,6 +96,20 @@ fi
 
 Use `$ROOT_DIR` in all file paths throughout the workflow.
 
+**Second, detect story type** from file path or frontmatter:
+- If path contains `/.standalone/` OR frontmatter has `story_type: standalone` → Standalone story
+- Otherwise → Epic-based story
+
+**For standalone stories:**
+1. **Read the story**: Load the story document
+2. **Extract slug**: From filename (e.g., `story-fix-login.md` → `fix-login`)
+3. **Read template**: Load templates/spec.md
+4. **Execute workflow**: workflows/create-spec-from-story.md
+   - Pass ROOT_DIR and story_type=standalone
+   - Spec strategy is always "simple" (no prompt needed)
+   - Spec location: `$ROOT_DIR/specs/.standalone/spec-{slug}.md`
+
+**For epic-based stories:**
 1. **Read the story**: Load the story document
 2. **Extract identifier and epic_id**: From story frontmatter or path
 3. **Prompt for spec strategy**: Ask user which approach to use
@@ -93,11 +119,11 @@ Use `$ROOT_DIR` in all file paths throughout the workflow.
    - Pass spec strategy AND ROOT_DIR to workflow
    - Workflow determines filename based on strategy
 
-**Single workflow with strategy parameter.**
+**Single workflow with strategy and story type parameters.**
 </routing>
 
 <validation>
-Before completing, verify:
+**For epic-based specs:**
 - [ ] Epic subdirectory created ($ROOT_DIR/specs/epic-{epic_id}/)
 - [ ] Spec saved to epic subdirectory
 - [ ] Spec filename follows chosen strategy
@@ -107,12 +133,30 @@ Before completing, verify:
 - [ ] Links to parent story and epic
 - [ ] Identifier stored in frontmatter (if present)
 - [ ] Acceptance criteria mapped to verification steps
+
+**For standalone specs:**
+- [ ] Standalone directory created ($ROOT_DIR/specs/.standalone/)
+- [ ] Spec saved with matching slug (spec-{slug}.md)
+- [ ] All files to change identified
+- [ ] API contracts defined
+- [ ] Testing requirements specified
+- [ ] Links to parent story (no epic link needed)
+- [ ] Frontmatter indicates story_type: standalone
+- [ ] Acceptance criteria mapped to verification steps
 </validation>
 
 <success_criteria>
-Spec creation successful when:
+**Epic-based specs:**
 1. Spec file written to $ROOT_DIR/specs/epic-{epic_id}/ (supports both .storyline/ and .workflow/)
 2. Filename follows spec strategy (simple/complex/combined)
+3. Technical approach is clear and executable
+4. All file changes documented
+5. Testing requirements defined
+6. User can proceed to implementation with /sl-develop
+
+**Standalone specs:**
+1. Spec file written to $ROOT_DIR/specs/.standalone/spec-{slug}.md
+2. Slug matches parent story for easy tracing
 3. Technical approach is clear and executable
 4. All file changes documented
 5. Testing requirements defined

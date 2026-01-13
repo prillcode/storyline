@@ -55,7 +55,7 @@ chmod +x install.sh
 ./install.sh
 
 echo ""
-echo -e "${BLUE}Installation complete!${NC}"
+echo -e "${GREEN}✅ Storyline v2.1.3 installation complete!${NC}"
 echo ""
 echo "You can update Storyline anytime by running:"
 echo -e "${YELLOW}  curl -fsSL https://raw.githubusercontent.com/prillcode/storyline/main/remote-install.sh | bash${NC}"
