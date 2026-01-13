@@ -11,7 +11,7 @@ The following skills and patterns from taches-cc-resources power Storyline:
 ### `create-plans` Skill
 - **Author**: glittercowboy
 - **Purpose**: Hierarchical project planning for solo developer + Claude workflows
-- **How we use it**: Powers the `/dev-story` command, executing technical specs with atomic task breakdown, quality controls, and git integration
+- **How we use it**: Powers the `/sl-develop` command, executing technical specs with atomic task breakdown, quality controls, and git integration
 - **License**: As specified in [taches-cc-resources](https://github.com/glittercowboy/taches-cc-resources)
 
 ### `create-agent-skills` Skill

@@ -28,16 +28,18 @@ Chain: Epic → Story → Spec → Code
 </principle>
 
 <principle name="output_structure">
-Stories are markdown files in .workflow/stories/:
-- story-001-user-signup.md
-- story-002-user-login.md
-- story-003-password-reset.md
+Stories are organized in epic-specific subdirectories:
+- With identifier: .workflow/stories/epic-mco-1234-01/story-01.md
+- Without identifier: .workflow/stories/epic-001/story-01.md
+
+Format: .workflow/stories/epic-{epic_id}/story-{nn}.md
 
 Each story includes:
 - User story statement
 - Acceptance criteria
 - Business value
 - Technical notes
+- Identifier tracking (optional)
 - Link to parent epic
 </principle>
 
@@ -68,20 +70,22 @@ After receiving epic file path:
 
 <validation>
 Before completing, verify:
-- [ ] All stories saved to .workflow/stories/
+- [ ] Epic subdirectory created (.workflow/stories/epic-{epic_id}/)
+- [ ] All stories saved to epic subdirectory
 - [ ] Each story follows INVEST criteria
-- [ ] Story numbers sequential
+- [ ] Story numbers sequential (01, 02, 03)
 - [ ] Each story has acceptance criteria
 - [ ] All stories link back to parent epic
-- [ ] Created story index for this epic
+- [ ] Identifier stored in frontmatter (if present)
+- [ ] Created INDEX.md in epic subdirectory
 </validation>
 
 <success_criteria>
 Story creation successful when:
-1. All stories written to .workflow/stories/
+1. All stories written to .workflow/stories/epic-{epic_id}/
 2. Each story validates against INVEST criteria
-3. Story index created
-4. User can proceed to spec creation with /spec-story
+3. INDEX.md created in epic subdirectory
+4. User can proceed to spec creation with /sl-spec-story
 </success_criteria>
 
 <reference_index>

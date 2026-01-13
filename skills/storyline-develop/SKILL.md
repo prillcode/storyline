@@ -1,6 +1,6 @@
 ---
-name: dev-story
-description: Execute technical specs using autonomous planning. Use when ready to implement a technical spec file. Converts specs into executable plans and invokes create-plans for implementation.
+name: develop
+description: Execute technical specs using autonomous planning. Use when ready to implement a technical spec file. Takes spec files as input (one story may have multiple specs). Converts specs into executable plans and invokes create-plans for implementation.
 ---
 
 <essential_principles>
@@ -38,8 +38,8 @@ Chain: Epic → Story → Spec → Plan → Code → Summary
 Provide the path to your technical spec file.
 
 Example:
-- `.workflow/specs/spec-001-user-signup.md`
-- `.workflow/specs/spec-002-task-creation.md`
+- `.workflow/specs/epic-mco-1234-01/spec-01.md`
+- `.workflow/specs/epic-001/spec-02.md`
 
 **Wait for file path before proceeding.**
 </intake>
@@ -48,9 +48,11 @@ Example:
 After receiving spec file path:
 
 1. **Read the spec**: Load the technical spec
-2. **Read parent story**: For acceptance criteria
-3. **Read references**: Load references/spec-to-plan-conversion.md
-4. **Execute workflow**: workflows/execute-spec.md
+2. **Extract identifier and epic_id**: From spec frontmatter for traceability
+3. **Read parent story**: For acceptance criteria
+4. **Read references**: Load references/spec-to-plan-conversion.md
+5. **Execute workflow**: workflows/execute-spec.md
+   - Pass identifier for planning directory naming
 
 **Single workflow path.**
 </routing>

@@ -15,7 +15,7 @@ Storyline is a CLI toolkit for Claude Code that implements a complete story-driv
 ```
 PRD/Tech Spec → Epics → User Stories → Technical Specs → Implementation
      ↓            ↓         ↓              ↓                ↓
-[epic-creator] [story] [spec-story]  [dev-story]    [create-plans]
+[epic-creator] [story] [spec-story]  [develop]      [create-plans]
 ```
 
 Each step produces structured markdown files that feed into the next stage, creating full traceability from original requirements to shipped code.
@@ -29,6 +29,38 @@ Each step produces structured markdown files that feed into the next stage, crea
 - **🔗 Full Traceability** - Track from requirement → epic → story → spec → code
 - **📦 Git Integration** - Automatic commits with proper attribution
 - **🎯 Quality Control** - Built-in validation at each stage
+
+## What's New in v2.0
+
+**✨ Major enhancements for production projects:**
+
+- **🎯 Setup & Onboarding** - New `/sl-setup` command for project initialization and status tracking
+- **🏷️ Identifier System** - Optional tracking codes (JIRA tickets, feature IDs) that propagate through the entire chain
+- **📁 Epic Subdirectories** - Stories and specs organized by epic for better scalability
+- **🎭 Spec Strategies** - Flexible approaches: simple (1 story → 1 spec), complex (1 story → multiple specs), or combined (multiple stories → 1 spec)
+- **📊 Multi-Initiative Support** - Multiple PRDs with different identifiers can coexist in one project
+- **🧭 Guided PRD Creation** - Run `/sl-epic-creator` without arguments for interactive PRD creation
+
+**New directory structure:**
+```
+.workflow/
+├── PRD-{identifier}.md        # Multiple PRDs supported
+├── epics/
+│   ├── epic-{id}-01-auth.md   # Identifiers in filenames
+│   └── epic-{id}-02-tasks.md
+├── stories/
+│   ├── epic-{id}-01/          # Organized by epic
+│   │   ├── story-01.md
+│   │   └── story-02.md
+│   └── epic-{id}-02/
+│       └── story-01.md
+└── specs/
+    ├── epic-{id}-01/          # Organized by epic
+    │   ├── spec-01.md
+    │   └── spec-stories-02-03-combined.md
+    └── epic-{id}-02/
+        └── spec-01.md
+```
 
 ## Installation
 
@@ -90,71 +122,81 @@ git submodule update --init --recursive
 
 ### Verify Installation
 
-Start a new Claude Code session and try:
+Start a new Claude Code session and run:
 ```
-/sl-epic-creator --help
+/sl-setup check
 ```
+
+This verifies all Storyline components are installed correctly.
 
 ## Quick Start
 
-### 1. Create Your PRD
+### 1. Initialize Your Project
 
-```markdown
-# Product Requirements: Task Manager
-
-## Overview
-Build a simple task management application...
-
-## Core Features
-- User authentication
-- Task CRUD operations
-- Task categorization
-- Due date tracking
+```bash
+/sl-setup init
 ```
 
-### 2. Generate Epics
+This creates the `.workflow/` directory structure.
 
+### 2. Create Your First Epic
+
+**Option A: With existing PRD**
 ```bash
 /sl-epic-creator docs/PRD.md
 ```
+You'll be prompted for an optional identifier (e.g., `JIRA-123`).
+
+**Option B: Guided mode (no PRD yet)**
+```bash
+/sl-epic-creator
+```
+Answer a few questions to generate your PRD and epics interactively.
 
 Creates:
 ```
-.workflow/epics/
-├── epic-001-authentication.md
-├── epic-002-task-management.md
-└── epic-003-categories.md
+.workflow/
+├── PRD-jira-123.md           # If identifier provided
+└── epics/
+    ├── epic-jira-123-01-authentication.md
+    ├── epic-jira-123-02-task-management.md
+    └── epic-jira-123-03-categories.md
 ```
 
 ### 3. Create Stories from Epic
 
 ```bash
-/sl-story-creator .workflow/epics/epic-001-authentication.md
+/sl-story-creator .workflow/epics/epic-jira-123-01-authentication.md
 ```
 
 Creates:
 ```
-.workflow/stories/
-├── story-001-user-signup.md
-├── story-002-user-login.md
-└── story-003-password-reset.md
+.workflow/stories/epic-jira-123-01/
+├── story-01.md          # User signup
+├── story-02.md          # User login
+└── story-03.md          # Password reset
 ```
 
 ### 4. Generate Technical Spec
 
 ```bash
-/sl-spec-story .workflow/stories/story-001-user-signup.md
+/sl-spec-story .workflow/stories/epic-jira-123-01/story-01.md
 ```
+
+You'll choose a spec strategy:
+- Simple: One story → one spec
+- Complex: One story → multiple specs
+- Combined: Multiple stories → one spec
 
 Creates:
 ```
-.workflow/specs/spec-001-user-signup.md
+.workflow/specs/epic-jira-123-01/spec-01.md
 ```
 
 ### 5. Implement the Code
 
 ```bash
-/sl-dev-story .workflow/specs/spec-001-user-signup.md
+/sl-develop .workflow/specs/epic-jira-123-01/spec-01.md
 ```
 
 This uses the underlying `create-plans` skill to:
@@ -164,38 +206,68 @@ This uses the underlying `create-plans` skill to:
 - Create git commits
 - Generate SUMMARY.md
 
+### 6. Check Your Progress
+
+```bash
+/sl-setup status
+```
+
+Shows what you've created and suggests next steps.
+
 ## Project Structure
 
-When using Storyline, your project will follow this structure:
+When using Storyline v2.0, your project follows this structure:
 
 ```
 my-project/
 ├── .workflow/
-│   ├── PRD.md                    # Original requirements
+│   ├── README.md                      # Quick reference guide
+│   ├── PRD-jira-123.md                # Product requirements (with identifier)
+│   ├── PRD-feature-789.md             # Multiple PRDs supported
 │   ├── epics/
-│   │   ├── epic-001-auth.md
-│   │   └── epic-002-tasks.md
-│   ├── stories/
-│   │   ├── story-001-signup.md
-│   │   └── story-002-login.md
-│   ├── specs/
-│   │   ├── spec-001-signup.md
-│   │   └── spec-002-login.md
-│   └── .planning/                # Generated by create-plans
-│       ├── BRIEF.md
-│       ├── ROADMAP.md
-│       └── phases/
-│           └── 01-authentication/
-│               ├── PLAN.md
-│               └── SUMMARY.md
-└── src/                          # Your actual code
+│   │   ├── epic-jira-123-01-auth.md   # Identifier propagates
+│   │   ├── epic-jira-123-02-tasks.md
+│   │   └── epic-feature-789-01-export.md
+│   ├── stories/                       # Organized by epic
+│   │   ├── epic-jira-123-01/
+│   │   │   ├── story-01.md
+│   │   │   ├── story-02.md
+│   │   │   └── INDEX.md
+│   │   ├── epic-jira-123-02/
+│   │   │   └── story-01.md
+│   │   └── epic-feature-789-01/
+│   │       └── story-01.md
+│   ├── specs/                         # Organized by epic
+│   │   ├── epic-jira-123-01/
+│   │   │   ├── spec-01.md
+│   │   │   └── spec-stories-02-03-combined.md
+│   │   └── epic-jira-123-02/
+│   │       └── spec-01.md
+│   └── .planning/                     # Generated by create-plans
+│       └── jira-123-01-spec-01/
+│           ├── PLAN.md
+│           └── SUMMARY.md
+└── src/                               # Your actual code
 ```
 
 ## Commands Reference
 
-### `/sl-epic-creator <prd-file>`
+### `/sl-setup [command]`
+
+Initialize, manage, and check Storyline projects.
+
+**Usage:**
+- `/sl-setup` - Interactive setup and onboarding
+- `/sl-setup init` - Initialize `.workflow/` directory structure
+- `/sl-setup status` - Show project state and suggest next steps
+- `/sl-setup guide` - Display full tutorial
+- `/sl-setup check` - Verify installation
+
+### `/sl-epic-creator [prd-file]`
 
 Parse a PRD or technical spec into one or more epics.
+
+**New in v2.0:** Run without arguments for guided PRD creation with optional identifier.
 
 **Input:** PRD markdown file
 **Output:** Epic files in `.workflow/epics/`
@@ -229,7 +301,7 @@ Create technical specification from a user story.
 - Testing requirements
 - Acceptance criteria
 
-### `/sl-dev-story <spec-file>`
+### `/sl-develop <spec-file>`
 
 Execute the technical spec and implement the code.
 

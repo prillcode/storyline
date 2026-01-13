@@ -1,13 +1,16 @@
 ---
-spec_id: {NUMBER}
-story_id: {STORY_NUMBER}
-epic_id: {EPIC_NUMBER}
+spec_id: {SPEC_ID}
+story_ids: [{STORY_IDS}]
+epic_id: {EPIC_ID}
+identifier: {IDENTIFIER}
 title: {Spec Title}
 status: ready_for_implementation
+complexity: {simple|split|combined}
+parent_story: ../stories/epic-{EPIC_ID}/story-{NN}.md
 created: {ISO date}
 ---
 
-# Technical Spec {NUMBER}: {Title}
+# Technical Spec {SPEC_ID}: {Title}
 
 ## Overview
 
@@ -218,8 +221,17 @@ After implementation, verify:
 
 ## Traceability
 
-**Parent story:** .workflow/stories/story-{NUMBER}-{slug}.md
-**Parent epic:** .workflow/epics/epic-{NUMBER}-{slug}.md
+**Parent story:** [story-{NN}.md](../stories/epic-{EPIC_ID}/story-{NN}.md)
+**Parent epic:** [epic-{EPIC_ID}-{slug}.md](../epics/epic-{EPIC_ID}-{slug}.md)
+
+**Full chain:**
+```
+PRD-{identifier}.md
+└─ epic-{EPIC_ID}-{slug}.md
+   └─ stories/epic-{EPIC_ID}/story-{NN}.md
+      └─ specs/epic-{EPIC_ID}/spec-{SPEC_ID}.md (this file)
+         └─ .planning/{identifier}-{epic_num}-spec-{id}/ (created during implementation)
+```
 
 ## Implementation Notes
 
@@ -235,4 +247,4 @@ After implementation, verify:
 
 ---
 
-**Next step:** Run `/dev-story .workflow/specs/spec-{NUMBER}-{slug}.md`
+**Next step:** Run `/sl-develop .workflow/specs/epic-{EPIC_ID}/spec-{SPEC_ID}.md`

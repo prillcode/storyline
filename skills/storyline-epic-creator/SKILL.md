@@ -25,9 +25,10 @@ Full chain: PRD → Epic → Story → Spec → Code
 
 <principle name="output_structure">
 Epics are markdown files in .workflow/epics/:
-- epic-001-authentication.md
-- epic-002-task-management.md
-- epic-003-notifications.md
+- With identifier: epic-mco-1234-01-authentication.md
+- Without identifier: epic-001-authentication.md
+
+Format: epic-{identifier}-{nn}-{slug}.md
 
 Each epic includes:
 - Business goal (why this matters)
@@ -35,6 +36,7 @@ Each epic includes:
 - User value (who benefits and how)
 - Scope boundaries (what's in/out)
 - Related epics (dependencies)
+- Identifier tracking (optional, for JIRA/etc)
 </principle>
 
 </essential_principles>
@@ -42,36 +44,51 @@ Each epic includes:
 <intake>
 **Epic creation from PRD/spec**
 
-Provide the path to your PRD or technical spec document.
+**Two modes:**
 
-Example:
-- `docs/PRD.md`
-- `.workflow/technical-spec.md`
-- `requirements/product-requirements.md`
+1. **With existing PRD** - Provide the path to your PRD or technical spec document:
+   - `docs/PRD.md`
+   - `.workflow/technical-spec.md`
+   - `requirements/product-requirements.md`
 
-**Wait for file path before proceeding.**
+2. **Guided mode (no PRD)** - Run without arguments:
+   - `/sl-epic-creator`
+   - I'll guide you through creating a PRD with questions
+
+**Wait for input before proceeding.**
 </intake>
 
 <routing>
-After receiving file path:
+After receiving input:
 
+**Case 1: No arguments provided (guided mode)**
+→ workflows/guided-prd-creation.md
+(Creates PRD through questions, then proceeds to epic creation)
+
+**Case 2: File path provided**
 1. **Read the PRD/spec**: Load the document using Read tool
-2. **Analyze complexity**: Determine if single-epic or multi-epic
-3. **Route to workflow**:
-   - Small feature (1-2 main capabilities) → workflows/create-single-epic.md
+2. **Prompt for identifier**: Ask user for optional tracking identifier (see references/identifier-system.md)
+   - "Optional: Provide an identifier for this work (e.g., JIRA ticket MCO-1234):"
+   - Validate: alphanumeric + hyphens + underscores only
+   - Can skip (press Enter)
+3. **Analyze complexity**: Determine if single-epic or multi-epic
+4. **Route to workflow**:
+   - Small feature (1-2 main capabilities) → workflows/create-single-epic.md (if exists)
    - Large project (3+ main capabilities) → workflows/create-multi-epic.md
+   - Pass identifier to workflow
 
-**Automatic routing based on content analysis, no user prompt needed.**
+**Automatic routing based on content analysis, no user prompt needed for epic count.**
 </routing>
 
 <validation>
 Before completing, verify:
 - [ ] All epics saved to .workflow/epics/
 - [ ] Each epic follows template structure
-- [ ] Epic numbers sequential (001, 002, 003)
+- [ ] Epic numbers sequential (01, 02, 03) with identifier if provided
 - [ ] Each epic has clear business goal
 - [ ] Success criteria are measurable
 - [ ] Dependencies identified
+- [ ] Identifier stored in frontmatter (if provided)
 - [ ] Created epic index file (.workflow/epics/INDEX.md)
 </validation>
 
@@ -91,6 +108,7 @@ All in `references/`:
 **epic-patterns.md** - Common epic patterns and anti-patterns
 **prd-parsing.md** - How to extract epics from different PRD formats
 **scope-sizing.md** - Guidelines for right-sizing epics
+**identifier-system.md** - Identifier format rules, validation, and propagation
 </reference_index>
 
 <workflows_index>
@@ -100,7 +118,7 @@ All in `workflows/`:
 
 | Workflow | Purpose |
 |----------|---------|
-| create-single-epic.md | Simple feature → one epic |
-| create-multi-epic.md | Complex project → multiple epics |
-| validate-epic.md | Check epic quality and completeness |
+| guided-prd-creation.md | Create PRD through questions (no existing PRD) |
+| create-multi-epic.md | Complex project → multiple epics (most common) |
+| create-single-epic.md | Simple feature → one epic (if exists) |
 </workflows_index>

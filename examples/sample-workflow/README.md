@@ -1,46 +1,50 @@
-# Sample Workflow: Task Manager
+# Sample Workflow: Task Manager (v2.0)
 
-This directory contains a complete example of the Storyline workflow, demonstrating how to go from PRD to working code.
+This directory contains a complete example of the Storyline v2.0 workflow, demonstrating how to go from PRD to working code with identifiers and epic-based organization.
 
 ## Files in This Example
 
-### 1. PRD.md
-The original product requirements document describing a simple task management application.
+### 1. PRD-demo-auth.md
+The original product requirements document with identifier `demo-auth`.
 
-### 2. epics/epic-001-authentication.md
-An epic generated from the PRD using `/sl-epic-creator PRD.md`
+### 2. epics/epic-demo-auth-01-authentication.md
+An epic generated from the PRD using `/sl-epic-creator PRD-demo-auth.md`
 
-Shows how PRD features are broken into epic-level themes.
+Shows how PRD features are broken into epic-level themes with identifier propagation.
 
-### 3. stories/story-001-user-signup.md
-A user story generated from the epic using `/sl-story-creator epics/epic-001-authentication.md`
+### 3. stories/epic-demo-auth-01/story-01.md
+A user story generated from the epic using `/sl-story-creator epics/epic-demo-auth-01-authentication.md`
+
+**New in v2.0:** Stories organized in epic-specific subdirectories.
 
 Demonstrates INVEST criteria and acceptance criteria format.
 
-### 4. specs/spec-001-user-signup.md
-A technical specification generated from the story using `/sl-spec-story stories/story-001-user-signup.md`
+### 4. specs/epic-demo-auth-01/spec-01.md
+A technical specification generated from the story using `/sl-spec-story stories/epic-demo-auth-01/story-01.md`
+
+**New in v2.0:** Specs organized by epic with flexible strategies (simple/complex/combined).
 
 Shows detailed implementation plan ready for execution.
 
 ### 5. Next Step: Implementation
-Run `/sl-dev-story specs/spec-001-user-signup.md` to:
+Run `/sl-develop specs/epic-demo-auth-01/spec-01.md` to:
 - Convert spec to PLAN.md
 - Execute implementation using create-plans
 - Generate working code
 - Create SUMMARY.md with results
 
-## The Full Pipeline
+## The Full Pipeline (v2.0)
 
 ```
-PRD.md
+PRD-demo-auth.md
   ↓ /sl-epic-creator
-epics/epic-001-authentication.md
+epics/epic-demo-auth-01-authentication.md
   ↓ /sl-story-creator
-stories/story-001-user-signup.md
+stories/epic-demo-auth-01/story-01.md
   ↓ /sl-spec-story
-specs/spec-001-user-signup.md
-  ↓ /sl-dev-story
-.planning/story-001/PLAN.md → Code → SUMMARY.md
+specs/epic-demo-auth-01/spec-01.md
+  ↓ /sl-develop
+.planning/demo-auth-01-spec-01/PLAN.md → Code → SUMMARY.md
 ```
 
 ## Traceability

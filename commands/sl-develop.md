@@ -1,7 +1,7 @@
 ---
 description: Execute technical spec and implement the code
 allowed-tools:
-  - Skill(storyline-dev-story)
+  - Skill(storyline-develop)
   - Skill(create-plans)
   - Read
   - Write
@@ -10,4 +10,4 @@ allowed-tools:
 argument-hint: <path-to-spec.md>
 ---
 
-Invoke the storyline-dev-story skill for: $ARGUMENTS
+Invoke the storyline-develop skill for: $ARGUMENTS

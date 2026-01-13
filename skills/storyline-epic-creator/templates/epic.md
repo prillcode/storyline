@@ -1,12 +1,14 @@
 ---
-epic_id: {NUMBER}
+epic_id: {EPIC_ID}
+identifier: {IDENTIFIER}
+epic_number: {NN}
 title: {Epic Title}
 status: ready_for_stories
-source: {Path to PRD/spec}
+prd_source: {Path to PRD}
 created: {ISO date}
 ---
 
-# Epic {NUMBER}: {Title}
+# Epic {EPIC_ID}: {Title}
 
 ## Business Goal
 
@@ -53,10 +55,11 @@ When this epic is complete:
 ## Dependencies
 
 **Depends on:**
-- Epic {NUMBER}: {Title} - {Why this is needed first}
+- Epic {EPIC_ID}: {Title} - {Why this is needed first}
+- {Link to epic file: ../epic-{identifier}-{nn}-{slug}.md}
 
 **Enables:**
-- Epic {NUMBER}: {Title} - {What becomes possible after this}
+- Epic {EPIC_ID}: {Title} - {What becomes possible after this}
 
 **No dependencies:** {If applicable}
 
@@ -84,15 +87,25 @@ When this epic is complete:
 
 ## Related Epics
 
-- Epic {NUMBER}: {Title} - {Relationship}
-- Epic {NUMBER}: {Title} - {Relationship}
+- Epic {EPIC_ID}: {Title} - {Relationship}
+- Link: [epic-{identifier}-{nn}-{slug}.md](epic-{identifier}-{nn}-{slug}.md)
 
 ## Source Reference
 
-**Original PRD/Spec:** {Link or path}
+**Original PRD:** [PRD-{identifier}.md](../PRD-{identifier}.md)
 
 **Relevant sections:** {Which parts of PRD informed this epic}
 
+## Traceability
+
+**Full chain:**
+```
+PRD-{identifier}.md
+└─ epic-{identifier}-{nn}-{slug}.md (this file)
+   └─ stories/epic-{identifier}-{nn}/ (stories created here)
+      └─ specs/epic-{identifier}-{nn}/ (specs created here)
+```
+
 ---
 
-**Next step:** Run `/story-creator .workflow/epics/epic-{NUMBER}-{slug}.md`
+**Next step:** Run `/sl-story-creator .workflow/epics/epic-{EPIC_ID}-{slug}.md`

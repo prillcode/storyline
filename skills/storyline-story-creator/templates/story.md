@@ -1,12 +1,14 @@
 ---
-story_id: {NUMBER}
-epic_id: {EPIC_NUMBER}
+story_id: {NN}
+epic_id: {EPIC_ID}
+identifier: {IDENTIFIER}
 title: {Story Title}
 status: ready_for_spec
+parent_epic: ../../epics/epic-{EPIC_ID}-{slug}.md
 created: {ISO date}
 ---
 
-# Story {NUMBER}: {Title}
+# Story {NN}: {Title}
 
 ## User Story
 
@@ -76,10 +78,18 @@ created: {ISO date}
 
 ## Traceability
 
-**Parent epic:** .workflow/epics/epic-{NUMBER}-{slug}.md
+**Parent epic:** [epic-{EPIC_ID}-{slug}.md](../../epics/epic-{EPIC_ID}-{slug}.md)
 
-**Related stories:** Story {NUMBER}, Story {NUMBER}
+**Related stories:** Story {NN}, Story {NN}
+
+**Full chain:**
+```
+PRD-{identifier}.md
+└─ epic-{EPIC_ID}-{slug}.md
+   └─ stories/epic-{EPIC_ID}/story-{NN}.md (this file)
+      └─ specs/epic-{EPIC_ID}/ (specs created here)
+```
 
 ---
 
-**Next step:** Run `/spec-story .workflow/stories/story-{NUMBER}-{slug}.md`
+**Next step:** Run `/sl-spec-story .workflow/stories/epic-{EPIC_ID}/story-{NN}.md`

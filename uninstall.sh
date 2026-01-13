@@ -33,24 +33,30 @@ rm -rf ~/.claude/skills/storyline-epic-creator 2>/dev/null || true
 rm -rf ~/.claude/skills/storyline-story-creator 2>/dev/null || true
 rm -rf ~/.claude/skills/storyline-spec-story 2>/dev/null || true
 rm -rf ~/.claude/skills/storyline-dev-story 2>/dev/null || true
+rm -rf ~/.claude/skills/storyline-develop 2>/dev/null || true
+rm -rf ~/.claude/skills/storyline-setup 2>/dev/null || true
 
 # Remove old skill names (if they exist from previous installation)
 rm -rf ~/.claude/skills/epic-creator 2>/dev/null || true
 rm -rf ~/.claude/skills/story-creator 2>/dev/null || true
 rm -rf ~/.claude/skills/spec-story 2>/dev/null || true
 rm -rf ~/.claude/skills/dev-story 2>/dev/null || true
+rm -rf ~/.claude/skills/develop 2>/dev/null || true
 
 # Remove commands (both old and new naming)
 rm -f ~/.claude/commands/sl-epic-creator.md 2>/dev/null || true
 rm -f ~/.claude/commands/sl-story-creator.md 2>/dev/null || true
 rm -f ~/.claude/commands/sl-spec-story.md 2>/dev/null || true
 rm -f ~/.claude/commands/sl-dev-story.md 2>/dev/null || true
+rm -f ~/.claude/commands/sl-develop.md 2>/dev/null || true
+rm -f ~/.claude/commands/sl-setup.md 2>/dev/null || true
 
 # Remove old command names (if they exist from previous installation)
 rm -f ~/.claude/commands/epic-creator.md 2>/dev/null || true
 rm -f ~/.claude/commands/story-creator.md 2>/dev/null || true
 rm -f ~/.claude/commands/spec-story.md 2>/dev/null || true
 rm -f ~/.claude/commands/dev-story.md 2>/dev/null || true
+rm -f ~/.claude/commands/develop.md 2>/dev/null || true
 
 echo -e "${GREEN}✅ Storyline skills and commands removed${NC}"
 echo ""
