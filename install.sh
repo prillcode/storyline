@@ -77,7 +77,7 @@ echo "Installing Storyline commands..."
 cp -r "$SCRIPT_DIR/commands"/* ~/.claude/commands/
 
 echo ""
-echo -e "${GREEN}✅ Storyline v2.1.3 installed successfully!${NC}"
+echo -e "${GREEN}✅ Storyline v2.1.4 installed successfully!${NC}"
 echo ""
 echo "Available sl-commands (story-led development):"
 echo "  /sl-setup [command]            - Initialize, manage, check projects"

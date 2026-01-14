@@ -51,7 +51,7 @@ xcopy /E /I /Y /Q "commands\*" "%USERPROFILE%\.claude\commands\" >nul
 
 echo.
 echo ================================
-echo Storyline v2.1.3 installed successfully!
+echo Storyline v2.1.4 installed successfully!
 echo ================================
 echo.
 echo Available sl-commands (story-led development):
