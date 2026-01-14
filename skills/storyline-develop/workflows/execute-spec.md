@@ -160,6 +160,21 @@ Generate SUMMARY.md with:
 **Note:** Don't invoke create-plans skill directly.
 Instead, execute the plan following create-plans patterns.
 
+**Commit Protocol:**
+When creating git commits during implementation:
+1. **Primary method:** Use the `sl-commit` skill (storyline-commit) for all commits
+2. **Fallback method:** If `sl-commit` skill is not available, use standard git commit
+3. **Verification:** Check if skill exists before attempting to use it:
+   ```bash
+   if [ -f ~/.claude/skills/storyline-commit/SKILL.md ]; then
+     # Use /sl-commit or invoke Skill(storyline-commit)
+   else
+     # Fall back to standard git commit
+   fi
+   ```
+
+This ensures commits follow Storyline's conventional commit format when available.
+
 ## Step 6: Verify Story Completion
 
 After all plan segments execute:
@@ -210,7 +225,7 @@ Updates:
 
 Produces:
 - Working code implementing the spec
-- Git commits
+- Git commits (using /sl-commit skill when available, standard git commit as fallback)
 - Tests
 - Summary linking back to story
 </output_specification>
