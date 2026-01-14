@@ -4,6 +4,15 @@
 
 Transform PRDs and technical specs into working code through a structured pipeline: **Epic → Story → Spec → Implementation**
 
+<p align="center">
+  <img src="public/logo-large.png" alt="Storyline Logo" width="400">
+</p>
+
+<p align="center">
+  <a href="https://storyline.apcode.dev"><img src="https://img.shields.io/badge/Website-storyline.apcode.dev-blue?style=for-the-badge" alt="Website"></a>
+  <a href="https://discord.gg/VrP4xar9g5"><img src="https://img.shields.io/badge/Discord-Join%20Server-5865F2?style=for-the-badge&logo=discord&logoColor=white" alt="Discord"></a>
+</p>
+
 ---
 
 ## What is Storyline?
