@@ -1,52 +1,27 @@
 @echo off
 REM Storyline Windows Installer
-REM Usage: Download and run this file, or run directly from command prompt
+REM Usage: Run this file from the cloned storyline repository
 
 echo.
 echo Installing Storyline for Windows...
 echo.
 
-REM Check if git is installed
-where git >nul 2>nul
-if %ERRORLEVEL% NEQ 0 (
-    echo Error: git is not installed
-    echo Please install git first: https://git-scm.com/downloads
+REM Get the directory where this script is located
+set "SCRIPT_DIR=%~dp0"
+cd /d "%SCRIPT_DIR%"
+
+REM Verify we're in the storyline repository
+if not exist "skills" (
+    echo Error: This script must be run from the storyline repository directory
+    echo Please clone the repository first:
+    echo   git clone --recurse-submodules https://github.com/prillcode/storyline.git
+    echo   cd storyline
+    echo   windows-install.cmd
     pause
     exit /b 1
 )
 
-REM Set installation directory
-if "%STORYLINE_INSTALL_DIR%"=="" (
-    set "INSTALL_DIR=%USERPROFILE%\.local\share\storyline"
-) else (
-    set "INSTALL_DIR=%STORYLINE_INSTALL_DIR%"
-)
-
-echo Installation directory: %INSTALL_DIR%
-echo.
-
-REM Check if already installed
-if exist "%INSTALL_DIR%\.git" (
-    echo Storyline already installed. Updating...
-    cd /d "%INSTALL_DIR%"
-    git reset --hard HEAD
-    git clean -fd
-    git pull origin main
-    git submodule update --init --recursive
-) else (
-    echo Cloning Storyline repository...
-    git clone --recurse-submodules https://github.com/prillcode/storyline.git "%INSTALL_DIR%"
-)
-
-if %ERRORLEVEL% NEQ 0 (
-    echo.
-    echo Error: Failed to clone/update repository
-    pause
-    exit /b 1
-)
-
-echo.
-echo Repository ready!
+echo Installing from: %SCRIPT_DIR%
 echo.
 
 REM Create .claude directories
@@ -55,23 +30,24 @@ if not exist "%USERPROFILE%\.claude\commands" mkdir "%USERPROFILE%\.claude\comma
 if not exist "%USERPROFILE%\.claude\agents" mkdir "%USERPROFILE%\.claude\agents"
 
 REM Install cc-resources dependencies
-if exist "%INSTALL_DIR%\dependencies\cc-resources\skills" (
+if exist "dependencies\cc-resources\skills" (
     echo Installing cc-resources dependencies...
-    xcopy /E /I /Y /Q "%INSTALL_DIR%\dependencies\cc-resources\skills\*" "%USERPROFILE%\.claude\skills\" >nul
-    xcopy /E /I /Y /Q "%INSTALL_DIR%\dependencies\cc-resources\commands\*" "%USERPROFILE%\.claude\commands\" >nul
-    if exist "%INSTALL_DIR%\dependencies\cc-resources\agents" (
-        xcopy /E /I /Y /Q "%INSTALL_DIR%\dependencies\cc-resources\agents\*" "%USERPROFILE%\.claude\agents\" >nul
+    xcopy /E /I /Y /Q "dependencies\cc-resources\skills\*" "%USERPROFILE%\.claude\skills\" >nul
+    xcopy /E /I /Y /Q "dependencies\cc-resources\commands\*" "%USERPROFILE%\.claude\commands\" >nul
+    if exist "dependencies\cc-resources\agents" (
+        xcopy /E /I /Y /Q "dependencies\cc-resources\agents\*" "%USERPROFILE%\.claude\agents\" >nul
     )
     echo cc-resources installed successfully!
 ) else (
     echo Warning: cc-resources dependencies not found
     echo The submodule may not have been initialized correctly
+    echo Run: git submodule update --init --recursive
 )
 
 REM Install storyline skills and commands
 echo Installing Storyline skills and commands...
-xcopy /E /I /Y /Q "%INSTALL_DIR%\skills\*" "%USERPROFILE%\.claude\skills\" >nul
-xcopy /E /I /Y /Q "%INSTALL_DIR%\commands\*" "%USERPROFILE%\.claude\commands\" >nul
+xcopy /E /I /Y /Q "skills\*" "%USERPROFILE%\.claude\skills\" >nul
+xcopy /E /I /Y /Q "commands\*" "%USERPROFILE%\.claude\commands\" >nul
 
 echo.
 echo ================================
