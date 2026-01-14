@@ -69,6 +69,11 @@ Provide the path to your story file (epic-based or standalone).
 - `.storyline/stories/.standalone/story-fix-login-validation.md`
 - `.storyline/stories/.standalone/story-add-export-button.md`
 
+**After reading the story**, you'll be prompted to optionally provide existing files for context:
+- Components that will be modified
+- Related source files
+- Type definitions or interfaces
+
 **For epic-based stories**, you'll be prompted to choose a spec strategy:
 - Simple: One story → one spec
 - Complex: One story → multiple specs (for large stories)
@@ -103,23 +108,32 @@ Use `$ROOT_DIR` in all file paths throughout the workflow.
 **For standalone stories:**
 1. **Read the story**: Load the story document
 2. **Extract slug**: From filename (e.g., `story-fix-login.md` → `fix-login`)
-3. **Read template**: Load templates/spec.md
-4. **Execute workflow**: workflows/create-spec-from-story.md
-   - Pass ROOT_DIR and story_type=standalone
+3. **Prompt for file references**: Ask if existing files should be referenced (optional)
+4. **Read template**: Load templates/spec.md
+5. **Execute workflow**: workflows/create-spec-from-story.md
+   - Pass ROOT_DIR, story_type=standalone, and referenced_files (if any)
    - Spec strategy is always "simple" (no prompt needed)
    - Spec location: `$ROOT_DIR/specs/.standalone/spec-{slug}.md`
 
 **For epic-based stories:**
 1. **Read the story**: Load the story document
 2. **Extract identifier and epic_id**: From story frontmatter or path
-3. **Prompt for spec strategy**: Ask user which approach to use
-4. **Read parent epic**: For additional context
-5. **Read template**: Load templates/spec.md
-6. **Execute workflow**: workflows/create-spec-from-story.md
-   - Pass spec strategy AND ROOT_DIR to workflow
+3. **Prompt for file references**: Ask if existing files should be referenced (optional)
+4. **Prompt for spec strategy**: Ask user which approach to use
+5. **Read parent epic**: For additional context
+6. **Read template**: Load templates/spec.md
+7. **Execute workflow**: workflows/create-spec-from-story.md
+   - Pass spec strategy, ROOT_DIR, and referenced_files (if any)
    - Workflow determines filename based on strategy
 
-**Single workflow with strategy and story type parameters.**
+**File reference prompt** (used in both flows):
+- Ask: "Are there existing files this story will modify or should reference? Only include files that provide additional context for the feature/fix outlined in this story."
+- Options: Yes / No
+- If Yes: "Enter file paths (relative to project root), one per line. Press Enter on empty line when done."
+- Read each file and extract relevant context (exports, interfaces, key functions)
+- Pass file contexts to workflow for inclusion in spec
+
+**Single workflow with strategy, story type, and file references parameters.**
 </routing>
 
 <validation>

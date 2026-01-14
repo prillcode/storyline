@@ -1,6 +1,6 @@
 <objective>
 Create technical specification from user story, with flexible spec strategies for different story complexities.
-Supports epic subdirectories, standalone stories, and identifier propagation.
+Supports epic subdirectories, standalone stories, identifier propagation, and optional file references for additional context.
 </objective>
 
 <required_reading>
@@ -33,7 +33,7 @@ Supports epic subdirectories, standalone stories, and identifier propagation.
 - Story type: `standalone`
 - Parent epic: `null`
 
-**Skip to Step 3A (standalone spec handling)**
+**Continue to Step 1C (file references), then Step 3A (standalone spec handling)**
 
 ### Step 1B: Extract Epic-Based Story Context
 
@@ -47,7 +47,44 @@ Supports epic subdirectories, standalone stories, and identifier propagation.
 - Story ID: `02`
 - Identifier: `mco-1234`
 
-**Continue to Step 2**
+**Continue to Step 1C**
+
+## Step 1C: Prompt for File References (Both Story Types)
+
+**This step applies to both standalone and epic-based stories.**
+
+Use AskUserQuestion tool:
+
+```
+Question: "Are there existing files this story will modify or should reference? Only include files that provide additional context for the feature/fix outlined in this story."
+Header: "File refs"
+Options:
+  - Yes - I have files to reference
+  - No - Proceed without file references
+```
+
+**If user selects "No":**
+- Set `referenced_files` to empty array
+- Continue to next step (Step 2 for epic-based, Step 3A for standalone)
+
+**If user selects "Yes":**
+1. Prompt: "Enter file paths (relative to project root), one per line. Examples: src/components/Button.tsx, lib/utils.ts"
+2. Collect file paths from user input
+3. For each valid file path:
+   - Read the file using Read tool
+   - Extract relevant context:
+     - For TypeScript/JavaScript: exports, interfaces, type definitions, key function signatures
+     - For other files: main structure, key definitions
+   - Store as `{ path: string, context: string }` object
+4. Store array as `referenced_files`
+
+**File context extraction guidance:**
+- Focus on exports, interfaces, and function signatures
+- Include relevant type definitions
+- Note key patterns or conventions used in the file
+- Keep context concise but informative (not entire file contents)
+
+**Continue to Step 2 (epic-based) or Step 3A (standalone)**
 
 ## Step 2: Prompt for Spec Strategy
 
@@ -129,7 +166,7 @@ Example:
 
 ## Step 6: Generate Spec Content
 
-Using the template and story content:
+Using the template, story content, and referenced files (if any):
 
 1. **Frontmatter:**
    - `spec_id`: Based on strategy (e.g., `02`, `story02-01`, `stories-02-03`)
@@ -138,6 +175,7 @@ Using the template and story content:
    - `identifier`: From story (if present)
    - `complexity`: simple|split|combined
    - `parent_story`: Relative path to story file
+   - `referenced_files`: Array of file paths (if any were provided)
 
 2. **Content sections:**
    - Technical approach
@@ -147,13 +185,32 @@ Using the template and story content:
    - Testing requirements
    - Acceptance criteria verification
 
-3. **Map story acceptance criteria** to technical verification steps
+3. **If `referenced_files` is not empty**, add section:
+   ```markdown
+   ## Referenced Files
+
+   The following existing files provide context for this implementation:
+
+   ### `{file_path}`
+   {extracted context: exports, interfaces, key functions}
+
+   ### `{file_path_2}`
+   {extracted context}
+   ```
+
+4. **Use file context to inform spec:**
+   - Reference existing patterns and conventions from the files
+   - Identify specific functions/components to modify
+   - Note existing interfaces to extend or implement
+   - Align new code with existing code style
+
+5. **Map story acceptance criteria** to technical verification steps
 
 ## Step 6A: Generate Spec Content (Standalone)
 
 **For standalone stories:**
 
-Using the template and story content:
+Using the template, story content, and referenced files (if any):
 
 1. **Frontmatter:**
    - `spec_id`: Same as story slug (e.g., `fix-login-validation`)
@@ -163,6 +220,7 @@ Using the template and story content:
    - `identifier`: From story (if present) or null
    - `parent_story`: Relative path to story file
    - `parent_epic`: `null` (no parent epic)
+   - `referenced_files`: Array of file paths (if any were provided)
 
 2. **Content sections:**
    - Technical approach
@@ -172,9 +230,25 @@ Using the template and story content:
    - Testing requirements
    - Acceptance criteria verification
 
-3. **Map story acceptance criteria** to technical verification steps
+3. **If `referenced_files` is not empty**, add section:
+   ```markdown
+   ## Referenced Files
 
-4. **Traceability:** Update to reflect standalone structure
+   The following existing files provide context for this implementation:
+
+   ### `{file_path}`
+   {extracted context: exports, interfaces, key functions}
+   ```
+
+4. **Use file context to inform spec:**
+   - Reference existing patterns and conventions from the files
+   - Identify specific functions/components to modify
+   - Note existing interfaces to extend or implement
+   - Align new code with existing code style
+
+5. **Map story acceptance criteria** to technical verification steps
+
+6. **Traceability:** Update to reflect standalone structure
    ```
    Standalone story (adhoc work)
    └─ .storyline/stories/.standalone/story-{slug}.md
