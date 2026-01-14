@@ -246,10 +246,10 @@ Creates:
 **New in v2.1.2:** For bug fixes, small features, or quick tasks that don't need a full epic:
 
 ```bash
-/sl-story-creator
+/sl-story-creator --standalone
 ```
 
-This launches a guided workflow that prompts you for:
+The `--standalone` flag skips epic detection and immediately enters standalone mode. This launches a guided workflow that prompts you for:
 - Work type (bug fix, small feature, enhancement, task)
 - Title and description
 - User persona and acceptance criteria
@@ -379,7 +379,7 @@ Parse a PRD or technical spec into one or more epics.
 - Single epic mode (small features)
 - Multi-epic mode (large projects)
 
-### `/sl-story-creator [epic-file]`
+### `/sl-story-creator [epic-file | --standalone]`
 
 Generate user stories from an epic OR create standalone stories.
 
@@ -391,9 +391,9 @@ Generate user stories from an epic OR create standalone stories.
 
 **Mode 2: Standalone (no epic required)**
 ```bash
-/sl-story-creator
+/sl-story-creator --standalone
 ```
-Guided workflow for bug fixes, small features, quick tasks.
+The `--standalone` flag skips epic detection and immediately enters guided standalone mode.
 **Output:** Story files in `.storyline/stories/.standalone/`
 
 **Features:**

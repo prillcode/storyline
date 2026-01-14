@@ -62,11 +62,15 @@ Example:
 - `.storyline/epics/epic-002-task-management.md`
 
 **Mode 2: Standalone story** (no epic required)
-Run without arguments for guided story creation.
+Use `--standalone` flag OR run without arguments for guided story creation.
 Best for: bug fixes, small features, quick tasks
+
+Example:
+- `/sl-story-creator --standalone` → Immediately enters standalone mode
 
 **Detection logic:**
 - If epic file path provided → Use Mode 1
+- If `--standalone` flag provided → Use Mode 2 (skip epic check)
 - If no arguments → Check for existing epics:
   - If epics exist → Offer both modes as choice
   - If no epics → Automatically use Mode 2 with explanation
@@ -89,13 +93,19 @@ Use `$ROOT_DIR` in all file paths throughout the workflow.
 
 **Then, determine mode:**
 
-**Mode 1: Epic file path provided**
+**Mode 1: Epic file path provided** (argument is a file path)
 1. **Read the epic**: Load the epic document
 2. **Read template**: Load templates/story.md
 3. **Read patterns**: Load references/story-patterns.md
 4. **Execute workflow**: workflows/create-stories-from-epic.md (pass ROOT_DIR to workflow)
 
-**Mode 2: No arguments (Standalone story)**
+**Mode 2a: --standalone flag provided** (explicit standalone request)
+1. **Skip epic check entirely** - user explicitly wants standalone mode
+2. **Read template**: Load templates/standalone-story.md
+3. **Read patterns**: Load references/story-patterns.md
+4. **Execute workflow**: workflows/guided-standalone-story.md (pass ROOT_DIR to workflow)
+
+**Mode 2b: No arguments** (auto-detect mode)
 1. Check if $ROOT_DIR/epics/ has any epic files
 2. If epics exist:
    - Present choice: "Create from epic" or "Create standalone story"
