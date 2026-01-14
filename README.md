@@ -4,6 +4,15 @@
 
 Transform PRDs and technical specs into working code through a structured pipeline: **Epic → Story → Spec → Implementation**
 
+<p align="center">
+  <img src="public/logo-large.png" alt="Storyline Logo" width="400">
+</p>
+
+<p align="center">
+  <a href="https://storyline.apcode.dev"><img src="https://img.shields.io/badge/Website-storyline.apcode.dev-blue?style=for-the-badge" alt="Website"></a>
+  <a href="https://discord.gg/VrP4xar9g5"><img src="https://img.shields.io/badge/Discord-Join%20Server-5865F2?style=for-the-badge&logo=discord&logoColor=white" alt="Discord"></a>
+</p>
+
 ---
 
 ## What is Storyline?
@@ -107,26 +116,36 @@ If you have an existing project with `.workflow/`, simply run `/sl-setup` and ch
 
 ### Requirements
 
-**Linux, macOS, or WSL (Windows Subsystem for Linux)** is required.
+**Linux, macOS, or WSL (Windows Subsystem for Linux)** are recommended.
 
-- **Windows users:** Please use [WSL (Windows Subsystem for Linux)](https://learn.microsoft.com/en-us/windows/wsl/install). It's easy to set up and provides a seamless Linux environment.
-- Native Windows PowerShell is not currently supported due to line ending compatibility issues.
+- **Windows users:** [WSL (Windows Subsystem for Linux)](https://learn.microsoft.com/en-us/windows/wsl/install) is strongly recommended for the best experience.
+- **Experimental:** Native Windows PowerShell support is available but may have line ending issues with the remote installer. Manual installation works reliably.
 
 ### One-Line Install
 
+**Linux/macOS/WSL:**
+**Linux/macOS/WSL:**
 ```bash
 curl -fsSL https://raw.githubusercontent.com/prillcode/storyline/main/remote-install.sh | bash
 ```
+
+**Windows (PowerShell) - Experimental:**
+```powershell
+iwr -useb https://raw.githubusercontent.com/prillcode/storyline/main/remote-install.ps1 | iex
+```
+
+**Note:** Due to line ending issues, the remote PowerShell installer may not work reliably. For Windows native, we recommend using WSL or the manual installation method below.
 
 This will:
 1. Clone Storyline with all dependencies (using git submodules)
 2. Install everything to `~/.local/share/storyline`
 3. Copy skills and commands to `~/.claude/`
 
-### Manual Installation (Linux/macOS/WSL)
+### Manual Installation
+### Manual Installation
 
-If you prefer to clone and install manually:
-
+**Linux/macOS/WSL:**
+**Linux/macOS/WSL:**
 ```bash
 git clone --recurse-submodules https://github.com/prillcode/storyline.git
 cd storyline
@@ -134,11 +153,21 @@ chmod +x install.sh
 ./install.sh
 ```
 
+**Windows (PowerShell) - Recommended for native Windows:**
+```powershell
+git clone --recurse-submodules https://github.com/prillcode/storyline.git
+cd storyline
+.\install.ps1
+```
+
 The `--recurse-submodules` flag automatically includes the cc-resources dependency. If you forget the flag, the installer will offer to initialize submodules for you.
 
-### Advanced: Windows Native (Manual File Copy)
+**Note:** Manual installation via PowerShell works reliably. The remote one-line installer above may have issues due to line ending conversion.
 
-While WSL is strongly recommended, advanced users can manually install on native Windows by copying files:
+### Advanced: Windows Native (Step-by-Step File Copy)
+
+If you prefer to manually copy files without running the installer script:
+If you prefer to manually copy files without running the installer script:
 
 **Step 1: Clone the repository with submodules**
 ```powershell
@@ -172,17 +201,44 @@ Copy-Item -Path ".\commands\*" -Destination "$HOME\.claude\commands\" -Recurse -
 
 To update to the latest version, re-run the one-line installer:
 
+**Linux/macOS/WSL:**
+**Linux/macOS/WSL:**
 ```bash
 curl -fsSL https://raw.githubusercontent.com/prillcode/storyline/main/remote-install.sh | bash
 ```
 
-Or if you cloned manually:
+**Windows (PowerShell) - Experimental:**
+```powershell
+iwr -useb https://raw.githubusercontent.com/prillcode/storyline/main/remote-install.ps1 | iex
+```
 
+**Note:** The remote installer may have line ending issues. Use manual update method below for best results.
+
+Or if you cloned manually (recommended for Windows):
+
+**Linux/macOS/WSL:**
+**Linux/macOS/WSL:**
 ```bash
 cd storyline
 git pull origin main
 git submodule update --init --recursive
 ./install.sh
+```
+
+**Windows (PowerShell):**
+```powershell
+cd storyline
+git pull origin main
+git submodule update --init --recursive
+.\install.ps1
+```
+
+**Windows (PowerShell):**
+```powershell
+cd storyline
+git pull origin main
+git submodule update --init --recursive
+.\install.ps1
 ```
 
 ### Verify Installation

@@ -6,9 +6,11 @@ install.sh text eol=lf
 remote-install.sh text eol=lf
 
 # PowerShell scripts should always have CRLF endings (Windows-style)
-*.ps1 text eol=crlf
-install.ps1 text eol=crlf
-remote-install.ps1 text eol=crlf
+# Using -text to store with CRLF in repository (not normalized to LF)
+*.ps1 -text
+install.ps1 -text
+remote-install.ps1 -text
+uninstall.ps1 -text
 
 # Markdown and YAML files use LF
 *.md text eol=lf
