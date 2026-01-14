@@ -118,8 +118,7 @@ If you have an existing project with `.workflow/`, simply run `/sl-setup` and ch
 
 **Linux, macOS, or WSL (Windows Subsystem for Linux)** are recommended.
 
-- **Windows users:** [WSL (Windows Subsystem for Linux)](https://learn.microsoft.com/en-us/windows/wsl/install) is strongly recommended for the best experience.
-- **Native Windows:** A batch file installer (`windows-install.cmd`) is available for PowerShell users.
+- **Windows native users:** While [WSL (Windows Subsystem for Linux)](https://learn.microsoft.com/en-us/windows/wsl/install) is recommended, a manual installation option is given below.
 
 ### One-Line Install
 
@@ -133,9 +132,9 @@ This will:
 2. Install everything to `~/.local/share/storyline`
 3. Copy skills and commands to `~/.claude/`
 
-**Windows (PowerShell):**
+**Windows:**
 
-Windows users should use the 3-step installation below for best results.
+Windows users should use the manual 3-step installation below.
 
 ### Manual Installation
 
