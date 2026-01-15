@@ -38,7 +38,7 @@ description: Generates commits with clear commit messages from git diffs. Part o
 <rules>
   <rule priority="critical">Run git diff HEAD to analyze all changes before creating commit message</rule>
   <rule priority="critical">Select correct semantic prefix based on change type - fix: for bug fixes, feat: for new features/enhancements, chore: for documentation/maintenance</rule>
-  <rule priority="critical">Do NOT include "Generated with [Claude Code]" footer in commit messages</rule>
+  <rule priority="critical">Do NOT include "Co-Authored-By: Claude [Model Name] noreply@anthropic.com" footer in commit messages</rule>
   <rule priority="high">Keep summary line under 50 characters including prefix</rule>
   <rule priority="high">Include detailed description as bulleted list with affected components/files</rule>
   <rule priority="high">Use present tense in commit messages</rule>
