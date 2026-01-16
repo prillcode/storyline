@@ -14,7 +14,7 @@ REM Verify we're in the storyline repository
 if not exist "skills" (
     echo Error: This script must be run from the storyline repository directory
     echo Please clone the repository first:
-    echo   git clone --recurse-submodules https://github.com/prillcode/storyline.git
+    echo   git clone https://github.com/prillcode/storyline.git
     echo   cd storyline
     echo   windows-install.cmd
     pause
@@ -29,19 +29,17 @@ if not exist "%USERPROFILE%\.claude\skills" mkdir "%USERPROFILE%\.claude\skills"
 if not exist "%USERPROFILE%\.claude\commands" mkdir "%USERPROFILE%\.claude\commands"
 if not exist "%USERPROFILE%\.claude\agents" mkdir "%USERPROFILE%\.claude\agents"
 
-REM Install cc-resources dependencies
-if exist "dependencies\cc-resources\skills" (
+REM Install bundled cc-resources dependencies
+if exist "cc-resources\skills" (
     echo Installing cc-resources dependencies...
-    xcopy /E /I /Y /Q "dependencies\cc-resources\skills\*" "%USERPROFILE%\.claude\skills\" >nul
-    xcopy /E /I /Y /Q "dependencies\cc-resources\commands\*" "%USERPROFILE%\.claude\commands\" >nul
-    if exist "dependencies\cc-resources\agents" (
-        xcopy /E /I /Y /Q "dependencies\cc-resources\agents\*" "%USERPROFILE%\.claude\agents\" >nul
-    )
+    xcopy /E /I /Y /Q "cc-resources\skills\*" "%USERPROFILE%\.claude\skills\" >nul
     echo cc-resources installed successfully!
 ) else (
-    echo Warning: cc-resources dependencies not found
-    echo The submodule may not have been initialized correctly
-    echo Run: git submodule update --init --recursive
+    echo Error: cc-resources directory not found
+    echo The bundled dependencies are missing. This shouldn't happen.
+    echo Please re-clone the repository or report this issue.
+    pause
+    exit /b 1
 )
 
 REM Install storyline skills and commands
@@ -51,7 +49,7 @@ xcopy /E /I /Y /Q "commands\*" "%USERPROFILE%\.claude\commands\" >nul
 
 echo.
 echo ================================
-echo Storyline v2.1.4 installed successfully!
+echo Storyline v0.21.5 installed successfully!
 echo ================================
 echo.
 echo Available sl-commands (story-led development):

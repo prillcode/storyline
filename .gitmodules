@@ -1,3 +1,0 @@
-[submodule "dependencies/cc-resources"]
-	path = dependencies/cc-resources
-	url = https://github.com/prillcode/cc-resources.git

@@ -1,0 +1,22 @@
+{
+  "name": "storyline",
+  "description": "Story-driven development workflow - transform PRDs into code through Epic → Story → Spec → Implementation pipeline",
+  "version": "0.21.5",
+  "author": {
+    "name": "Aaron Prill",
+    "email": "prillcode@gmail.com"
+  },
+  "homepage": "https://storyline.apcode.dev",
+  "repository": "https://github.com/prillcode/storyline",
+  "license": "MIT",
+  "keywords": [
+    "story-driven-development",
+    "workflow",
+    "prd",
+    "epic",
+    "technical-specs",
+    "planning",
+    "agile",
+    "requirements"
+  ]
+}

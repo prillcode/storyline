@@ -21,13 +21,13 @@ mkdir -p ~/.claude/agents
 
 # Determine installation source
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-DEPENDENCY_DIR="$SCRIPT_DIR/dependencies/cc-resources"
+DEPENDENCY_DIR="$SCRIPT_DIR/cc-resources"
 
-# Check if we have the dependency available locally (submodule)
+# Check if we have the bundled dependencies
 if [ -d "$DEPENDENCY_DIR/skills" ]; then
-  echo -e "${BLUE}📦 Installing from local repository with submodules...${NC}"
+  echo -e "${BLUE}📦 Installing from local repository...${NC}"
 
-  # Install cc-resources from submodule
+  # Install bundled cc-resources
   echo "Installing cc-resources dependencies..."
   cp -r "$DEPENDENCY_DIR/skills"/* ~/.claude/skills/ 2>/dev/null || true
   cp -r "$DEPENDENCY_DIR/commands"/* ~/.claude/commands/ 2>/dev/null || true
@@ -35,37 +35,11 @@ if [ -d "$DEPENDENCY_DIR/skills" ]; then
 
   echo -e "${GREEN}✅ cc-resources installed${NC}"
 else
-  echo -e "${YELLOW}⚠️  Dependency submodule not found${NC}"
+  echo -e "${RED}❌ Error: cc-resources directory not found${NC}"
   echo ""
-  echo "It looks like the cc-resources submodule wasn't initialized."
-  echo "This usually happens when you clone without --recurse-submodules."
-  echo ""
-  echo "Would you like to initialize it now? (y/n)"
-  read -r response
-
-  if [[ "$response" =~ ^([yY][eE][sS]|[yY])$ ]]; then
-    echo "Initializing submodules..."
-    cd "$SCRIPT_DIR"
-    git submodule update --init --recursive
-
-    if [ -d "$DEPENDENCY_DIR/skills" ]; then
-      echo "Installing cc-resources dependencies..."
-      cp -r "$DEPENDENCY_DIR/skills"/* ~/.claude/skills/ 2>/dev/null || true
-      cp -r "$DEPENDENCY_DIR/commands"/* ~/.claude/commands/ 2>/dev/null || true
-      cp -r "$DEPENDENCY_DIR/agents"/* ~/.claude/agents/ 2>/dev/null || true
-      echo -e "${GREEN}✅ cc-resources installed${NC}"
-    else
-      echo -e "${RED}Failed to initialize submodules${NC}"
-      exit 1
-    fi
-  else
-    echo -e "${RED}Installation cancelled.${NC}"
-    echo ""
-    echo "To install manually, run:"
-    echo "  git submodule update --init --recursive"
-    echo "  ./install.sh"
-    exit 1
-  fi
+  echo "The bundled dependencies are missing. This shouldn't happen."
+  echo "Please re-clone the repository or report this issue."
+  exit 1
 fi
 
 # Install storyline skills
@@ -77,7 +51,7 @@ echo "Installing Storyline commands..."
 cp -r "$SCRIPT_DIR/commands"/* ~/.claude/commands/
 
 echo ""
-echo -e "${GREEN}✅ Storyline v2.1.4 installed successfully!${NC}"
+echo -e "${GREEN}✅ Storyline v0.21.5 installed successfully!${NC}"
 echo ""
 echo "Available sl-commands (story-led development):"
 echo "  /sl-setup [command]            - Initialize, manage, check projects"
