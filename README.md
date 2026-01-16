@@ -111,9 +111,21 @@ If you have an existing project with `.workflow/`, simply run `/sl-setup` and ch
 
 ## Installation
 
-### Requirements
+### Plugin Installation (Coming Soon)
 
-**Linux, macOS, or WSL (Windows Subsystem for Linux)** are recommended.
+Storyline will soon be available as a Claude Code plugin for one-command installation:
+
+```
+/plugin marketplace add prillcode/storyline
+/plugin install storyline
+/sl-setup check
+```
+
+Stay tuned for the official plugin marketplace release!
+
+### Current Installation Method
+
+**Requirements:** Linux, macOS, or WSL (Windows Subsystem for Linux) are recommended.
 
 - **Windows native users:** While [WSL (Windows Subsystem for Linux)](https://learn.microsoft.com/en-us/windows/wsl/install) is recommended, Windows installation instructions are provided below.
 
