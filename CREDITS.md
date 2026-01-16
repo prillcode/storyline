@@ -4,6 +4,15 @@
 
 Storyline is built on the foundation of **[taches-cc-resources](https://github.com/glittercowboy/taches-cc-resources)** by **[glittercowboy](https://github.com/glittercowboy)**.
 
+## Bundled Dependencies
+
+Starting with v0.21.5, Storyline ships as a Claude Code plugin with essential cc-resources skills bundled:
+
+- **`create-plans`** - Hierarchical planning and execution framework
+- **`create-agent-skills`** - Skill authoring patterns and best practices
+
+These are the only cc-resources dependencies included in the plugin bundle, ensuring a lean installation. The full cc-resources repository contains many additional skills and utilities that can be installed separately if needed.
+
 ## Core Dependencies
 
 The following skills and patterns from taches-cc-resources power Storyline:

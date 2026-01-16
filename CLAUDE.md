@@ -67,14 +67,13 @@ Invoke the skill-name skill for: $ARGUMENTS
 
 ### Dependencies
 
-Uses `dependencies/cc-resources/` git submodule (fork of taches-cc-resources) which provides:
+Bundles essential cc-resources skills in `cc-resources/` directory (fork of taches-cc-resources):
 - `create-plans` skill for hierarchical planning and execution
 - `create-agent-skills` for skill authoring patterns
-- Various utility commands and agents
 
-Clone with `--recurse-submodules` or run `git submodule update --init --recursive`.
+Only the essential skills needed for Storyline workflows are included. Full cc-resources available separately.
 
-## Project Directory Structure (v2.1+)
+## Project Directory Structure (v0.21+)
 
 When Storyline is used in a target project, it creates:
 
@@ -89,7 +88,7 @@ When Storyline is used in a target project, it creates:
 └── .planning/                # Generated plans and summaries
 ```
 
-Supports both `.storyline/` (v2.1+) and `.workflow/` (v2.0 legacy).
+Supports both `.storyline/` (v0.21+) and `.workflow/` (v0.20 legacy).
 
 ## Contribution Patterns
 

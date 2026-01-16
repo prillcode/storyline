@@ -43,38 +43,36 @@ Each step produces structured markdown files that feed into the next stage, crea
 - **📦 Git Integration** - Conventional commits with semantic versioning (auto-created, never auto-pushed)
 - **🎯 Quality Control** - Built-in validation at each stage
 
-## What's New in v2.1.2
+## What's New in v0.21.5
 
-**🔧 Enhanced Commit Management:**
+**🎉 Plugin Marketplace Release:**
 
-- **📝 New `/sl-commit` Command** - Intelligent git commit message generation using conventional commit standards
-- **🎯 Semantic Commit Format** - Automatic prefix selection (feat:/fix:/chore:) based on change analysis
-- **📊 Better Commit Quality** - 50-char summaries, detailed descriptions, consistent formatting
-- **🔒 Safe Workflow** - Commits created automatically but **never auto-pushed** - you control when to push
-- **🛠️ Standalone Usage** - Use `/sl-commit` for any repository changes, not just Storyline work
-- **🤖 Auto-Integration** - `/sl-develop` automatically creates commits using the new system
+- **📦 Official Plugin** - Storyline is now available via Claude Code plugin marketplace
+- **⚡ One-Command Install** - Use `/plugin marketplace add prillcode/storyline` to install
+- **📚 Bundled Dependencies** - Ships with essential cc-resources skills (create-plans, create-agent-skills)
+- **🔄 Automatic Updates** - Plugin system handles updates seamlessly
+- **✅ Simpler Setup** - No more git submodules or manual cloning required
+- **🔧 Backward Compatible** - Git-based installation still available as fallback option
 
-**⚡ Standalone Stories (No Epic Required):**
+**Previous Features (v0.21.2):**
 
-- **🎯 Quick Workflow** - Create stories for bug fixes, small features, or tasks without needing a full epic
-- **📝 Guided Creation** - Run `/sl-story-creator` with no arguments for guided standalone story creation
-- **📁 Hidden Directory** - Stored in `.storyline/stories/.standalone/` for easy organization
-- **🔗 Full Pipeline Support** - Standalone stories work seamlessly with `/sl-spec-story` and `/sl-develop`
-- **💡 Best For** - Bug fixes, quick enhancements, small features, and one-off tasks
+- **📝 `/sl-commit` Command** - Intelligent git commit message generation with conventional commit standards
+- **⚡ Standalone Stories** - Create stories for bug fixes and small features without needing a full epic
+- **🎯 Guided Workflows** - Run commands without arguments for interactive guided experiences
 
-## What's New in v2.1
+## What's New in v0.21
 
 **📦 Better Branding & Backward Compatibility:**
 
 - **🎨 New Directory Name** - `.storyline/` replaces `.workflow/` for better branding and clarity
-- **🔄 Seamless Migration** - Run `/sl-setup` to migrate existing v2.0 projects (takes seconds, preserves all work)
-- **✅ Full Backward Compatibility** - All skills support both `.storyline/` (v2.1+) and `.workflow/` (v2.0 legacy)
+- **🔄 Seamless Migration** - Run `/sl-setup` to migrate existing v0.20 projects (takes seconds, preserves all work)
+- **✅ Full Backward Compatibility** - All skills support both `.storyline/` (v0.21+) and `.workflow/` (v0.20 legacy)
 - **🔍 Smart Detection** - Skills automatically detect which directory structure you're using
 
-**Migrating from v2.0:**
+**Migrating from v0.20:**
 If you have an existing project with `.workflow/`, simply run `/sl-setup` and choose to migrate. Or keep using `.workflow/` - everything still works!
 
-## What's New in v2.0
+## What's New in v0.20
 
 **✨ Major enhancements for production projects:**
 
@@ -85,7 +83,7 @@ If you have an existing project with `.workflow/`, simply run `/sl-setup` and ch
 - **📊 Multi-Initiative Support** - Multiple PRDs with different identifiers can coexist in one project
 - **🧭 Guided PRD Creation** - Run `/sl-epic-creator` without arguments for interactive PRD creation
 
-**Directory structure (v2.1+):**
+**Directory structure (v0.21+):**
 ```
 .storyline/
 ├── PRD-{identifier}.md        # Multiple PRDs supported
@@ -114,13 +112,29 @@ If you have an existing project with `.workflow/`, simply run `/sl-setup` and ch
 
 ## Installation
 
-### Requirements
+### Plugin Installation (Recommended)
+
+The simplest way to install Storyline is through the Claude Code plugin marketplace:
+
+```
+/plugin marketplace add prillcode/storyline
+/plugin install storyline
+/sl-setup check
+```
+
+This installs Storyline with all bundled dependencies. No git cloning or manual setup required.
+
+### Alternative: Git-Based Installation
+
+If you prefer git-based installation or need to modify Storyline locally:
+
+#### Requirements
 
 **Linux, macOS, or WSL (Windows Subsystem for Linux)** are recommended.
 
 - **Windows native users:** While [WSL (Windows Subsystem for Linux)](https://learn.microsoft.com/en-us/windows/wsl/install) is recommended, a manual installation option is given below.
 
-### One-Line Install
+#### One-Line Install
 
 **Linux/macOS/WSL:**
 ```bash
@@ -128,7 +142,7 @@ curl -fsSL https://raw.githubusercontent.com/prillcode/storyline/main/remote-ins
 ```
 
 This will:
-1. Clone Storyline with all dependencies (using git submodules)
+1. Clone Storyline with bundled dependencies
 2. Install everything to `~/.local/share/storyline`
 3. Copy skills and commands to `~/.claude/`
 
@@ -136,11 +150,11 @@ This will:
 
 Windows users should use the manual 3-step installation below.
 
-### Manual Installation
+#### Manual Installation
 
 **Linux/macOS/WSL:**
 ```bash
-git clone --recurse-submodules https://github.com/prillcode/storyline.git
+git clone https://github.com/prillcode/storyline.git
 cd storyline
 chmod +x install.sh
 ./install.sh
@@ -148,20 +162,23 @@ chmod +x install.sh
 
 **Windows (PowerShell):**
 ```powershell
-git clone --recurse-submodules https://github.com/prillcode/storyline.git "$env:USERPROFILE\.local\share\storyline"
+git clone https://github.com/prillcode/storyline.git "$env:USERPROFILE\.local\share\storyline"
 cd "$env:USERPROFILE\.local\share\storyline"
 .\windows-install.cmd
 ```
 
 **Security Note:** You can clone to any directory first to inspect `windows-install.cmd` before running it. The script simply copies files from the cloned repository to your `~/.claude/` directories.
 
-The `--recurse-submodules` flag automatically includes the cc-resources dependency.
-
 ### Updating Storyline
 
-To update to the latest version, re-run the one-line installer:
+**Plugin Installation:**
+```
+/plugin update storyline
+```
 
-**Linux/macOS/WSL:**
+**Git-Based Installation:**
+
+Re-run the one-line installer:
 ```bash
 curl -fsSL https://raw.githubusercontent.com/prillcode/storyline/main/remote-install.sh | bash
 ```
@@ -172,7 +189,6 @@ Or if you cloned manually:
 ```bash
 cd ~/.local/share/storyline  # or your custom clone directory
 git pull origin main
-git submodule update --init --recursive
 ./install.sh
 ```
 
@@ -180,7 +196,6 @@ git submodule update --init --recursive
 ```powershell
 cd "$env:USERPROFILE\.local\share\storyline"  # or your custom clone directory
 git pull origin main
-git submodule update --init --recursive
 .\windows-install.cmd
 ```
 
@@ -243,7 +258,7 @@ Creates:
 
 ### 3b. Create Standalone Story (No Epic Required)
 
-**New in v2.1.2:** For bug fixes, small features, or quick tasks that don't need a full epic:
+**New in v0.21.2:** For bug fixes, small features, or quick tasks that don't need a full epic:
 
 ```bash
 /sl-story-creator --standalone
@@ -312,7 +327,7 @@ Shows what you've created and suggests next steps.
 
 ## Project Structure
 
-When using Storyline v2.0, your project follows this structure:
+When using Storyline v0.21+, your project follows this structure:
 
 ```
 my-project/
@@ -370,7 +385,7 @@ Initialize, manage, and check Storyline projects.
 
 Parse a PRD or technical spec into one or more epics.
 
-**New in v2.0:** Run without arguments for guided PRD creation with optional identifier.
+**New in v0.20:** Run without arguments for guided PRD creation with optional identifier.
 
 **Input:** PRD markdown file
 **Output:** Epic files in `.storyline/epics/`
@@ -442,7 +457,7 @@ Execute the technical spec and implement the code.
 
 Create a git commit with conventional commit message format.
 
-**New in v2.1.2:** Intelligent commit message generation following conventional commit standards.
+**New in v0.21.2:** Intelligent commit message generation following conventional commit standards.
 
 **Features:**
 - Analyzes git diff to understand changes
