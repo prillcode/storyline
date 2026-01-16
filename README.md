@@ -45,14 +45,13 @@ Each step produces structured markdown files that feed into the next stage, crea
 
 ## What's New in v0.21.5
 
-**🎉 Plugin Marketplace Release:**
+**🎉 Bundled Dependencies:**
 
-- **📦 Official Plugin** - Storyline is now available via Claude Code plugin marketplace
-- **⚡ One-Command Install** - Use `/plugin marketplace add prillcode/storyline` to install
-- **📚 Bundled Dependencies** - Ships with essential cc-resources skills (create-plans, create-agent-skills)
-- **🔄 Automatic Updates** - Plugin system handles updates seamlessly
-- **✅ Simpler Setup** - No more git submodules or manual cloning required
-- **🔧 Backward Compatible** - Git-based installation still available as fallback option
+- **📚 Self-Contained** - Ships with essential cc-resources skills bundled (create-plans, create-agent-skills)
+- **✅ Simpler Setup** - No more git submodules required
+- **⚡ Faster Installation** - Single clone, no recursive submodule fetching
+- **🔧 Lean Distribution** - Only includes the skills needed for Storyline workflows
+- **📦 Ready for Plugin System** - Structured for future Claude Code plugin marketplace integration
 
 **Previous Features (v0.21.2):**
 
@@ -112,47 +111,14 @@ If you have an existing project with `.workflow/`, simply run `/sl-setup` and ch
 
 ## Installation
 
-### Plugin Installation (Recommended)
-
-The simplest way to install Storyline is through the Claude Code plugin marketplace:
-
-```
-/plugin marketplace add prillcode/storyline
-/plugin install storyline
-/sl-setup check
-```
-
-This installs Storyline with all bundled dependencies. No git cloning or manual setup required.
-
-### Alternative: Git-Based Installation
-
-If you prefer git-based installation or need to modify Storyline locally:
-
-#### Requirements
+### Requirements
 
 **Linux, macOS, or WSL (Windows Subsystem for Linux)** are recommended.
 
-- **Windows native users:** While [WSL (Windows Subsystem for Linux)](https://learn.microsoft.com/en-us/windows/wsl/install) is recommended, a manual installation option is given below.
+- **Windows native users:** While [WSL (Windows Subsystem for Linux)](https://learn.microsoft.com/en-us/windows/wsl/install) is recommended, Windows installation instructions are provided below.
 
-#### One-Line Install
+### Linux/macOS/WSL Installation
 
-**Linux/macOS/WSL:**
-```bash
-curl -fsSL https://raw.githubusercontent.com/prillcode/storyline/main/remote-install.sh | bash
-```
-
-This will:
-1. Clone Storyline with bundled dependencies
-2. Install everything to `~/.local/share/storyline`
-3. Copy skills and commands to `~/.claude/`
-
-**Windows:**
-
-Windows users should use the manual 3-step installation below.
-
-#### Manual Installation
-
-**Linux/macOS/WSL:**
 ```bash
 git clone https://github.com/prillcode/storyline.git
 cd storyline
@@ -160,7 +126,13 @@ chmod +x install.sh
 ./install.sh
 ```
 
-**Windows (PowerShell):**
+This will:
+1. Install bundled cc-resources dependencies (create-plans, create-agent-skills)
+2. Copy Storyline skills to `~/.claude/skills/`
+3. Copy Storyline commands to `~/.claude/commands/`
+
+### Windows Installation
+
 ```powershell
 git clone https://github.com/prillcode/storyline.git "$env:USERPROFILE\.local\share\storyline"
 cd "$env:USERPROFILE\.local\share\storyline"
@@ -171,30 +143,18 @@ cd "$env:USERPROFILE\.local\share\storyline"
 
 ### Updating Storyline
 
-**Plugin Installation:**
-```
-/plugin update storyline
-```
-
-**Git-Based Installation:**
-
-Re-run the one-line installer:
-```bash
-curl -fsSL https://raw.githubusercontent.com/prillcode/storyline/main/remote-install.sh | bash
-```
-
-Or if you cloned manually:
+Navigate to your cloned repository and pull the latest changes:
 
 **Linux/macOS/WSL:**
 ```bash
-cd ~/.local/share/storyline  # or your custom clone directory
+cd /path/to/storyline  # wherever you cloned it
 git pull origin main
 ./install.sh
 ```
 
 **Windows (PowerShell):**
 ```powershell
-cd "$env:USERPROFILE\.local\share\storyline"  # or your custom clone directory
+cd "$env:USERPROFILE\.local\share\storyline"  # or wherever you cloned it
 git pull origin main
 .\windows-install.cmd
 ```
