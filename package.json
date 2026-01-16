@@ -1,6 +1,6 @@
 {
   "name": "@prillcode/storyline",
-  "version": "2.1.4",
+  "version": "0.21.5",
   "description": "Story-driven development workflow for Claude Code with multi-initiative support and flexible organization. Transform PRDs into working code through Epic → Story → Spec → Implementation pipeline.",
   "repository": {
     "type": "git",
@@ -22,13 +22,11 @@
     "ai-development",
     "autonomous-development"
   ],
-  "homepage": "https://github.com/prillcode/storyline#readme",
+  "homepage": "https://storyline.apcode.dev",
   "bugs": {
     "url": "https://github.com/prillcode/storyline/issues"
   },
-  "dependencies": {
-    "taches-cc-resources": "github:glittercowboy/taches-cc-resources"
-  },
+  "dependencies": {},
   "scripts": {
     "install-cli": "bash install.sh",
     "uninstall-cli": "bash uninstall.sh"
@@ -39,6 +37,7 @@
   "files": [
     "skills/",
     "commands/",
+    "cc-resources/",
     "examples/",
     "docs/",
     "install.sh",
