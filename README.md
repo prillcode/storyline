@@ -111,19 +111,31 @@ If you have an existing project with `.workflow/`, simply run `/sl-setup` and ch
 
 ## Installation
 
-### Plugin Installation (Coming Soon)
+### Plugin Installation (Recommended)
 
-Storyline will soon be available as a Claude Code plugin for one-command installation:
+Storyline is available as a Claude Code plugin for one-command installation.
 
+**Start a Claude Code session**, then run:
+
+**Option 1: Custom Marketplace (Available Now)**
 ```
-/plugin marketplace add prillcode/storyline
+/plugin marketplace add https://github.com/prillcode/storyline
 /plugin install storyline
 /sl-setup check
 ```
 
-Stay tuned for the official plugin marketplace release!
+**Option 2: Official Marketplace (Pending Approval)**
+```
+/plugin marketplace add anthropics/claude-plugins-official
+/plugin install storyline
+/sl-setup check
+```
 
-### Current Installation Method
+The custom marketplace provides immediate access while we await official marketplace approval.
+
+### Manual Installation (Alternative)
+
+If you prefer to install manually or want to contribute to development:
 
 **Requirements:** Linux, macOS, or WSL (Windows Subsystem for Linux) are recommended.
 

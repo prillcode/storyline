@@ -1,0 +1,23 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "storyline-marketplace",
+  "description": "Official marketplace for Storyline - Story-driven development toolkit for Claude Code",
+  "owner": {
+    "name": "Aaron Prill",
+    "email": "prillcode@gmail.com"
+  },
+  "plugins": [
+    {
+      "name": "storyline",
+      "description": "Story-driven development workflow - transform PRDs into code through Epic → Story → Spec → Implementation pipeline",
+      "version": "0.21.5",
+      "author": {
+        "name": "Aaron Prill",
+        "email": "prillcode@gmail.com"
+      },
+      "source": "./",
+      "category": "productivity",
+      "homepage": "https://storyline.apcode.dev"
+    }
+  ]
+}
